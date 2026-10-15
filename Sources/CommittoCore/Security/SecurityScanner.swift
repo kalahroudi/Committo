@@ -18,6 +18,11 @@ public struct Finding: Identifiable, Codable, Hashable, Sendable {
     public let line: Int
     public let snippet: String
     public let advice: String
+    /// Set by SecurityCage: "confirmed", "likely" or "worth-a-look".
+    public var certainty: String? = nil
+    /// A prompt the user can hand to an agent to fix the item.
+    public var fixPrompt: String? = nil
+    public var source: String = "builtin"
 }
 
 struct Rule {

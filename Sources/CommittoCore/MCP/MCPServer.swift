@@ -79,6 +79,25 @@ public final class MCPServer: @unchecked Sendable {
                 let items = await AgentLens.scan(try repo(a))
                 return items.isEmpty ? "No agent branches." : items.map { "\($0.isLive ? "● " : "")\($0.agent.displayName) \($0.branch) — \($0.commits.count) commits, \($0.filesChanged) files +\($0.additions)/-\($0.deletions)" + ($0.worktree.map { " @ \($0)" } ?? "") }.joined(separator: "\n")
             },
+            MCPTool(name: "securitycage_status", description: "SecurityCage install state: pinned version, Node/npm/container readiness, and whether an update is available.", schema: schema([:])) { _ in
+                let sc = SecurityCageManager(); let st = await sc.status()
+                var out = "node: \(st.node ?? "missing")\(st.nodeOK ? "" : " (need 22.18+)")  npm: \(st.npm)  container: \(st.container ?? "none")\n"
+                out += st.pin.map { "installed \($0.label) (\($0.repo))" } ?? "not installed"
+                if st.pin != nil, let u = try? await sc.checkForUpdate() { out += "\nupdate available: \(u.commitsBehind) commit(s) behind -> \(u.remote.sha.prefix(7)) \(u.remote.message)" }
+                return out
+            },
+            MCPTool(name: "securitycage_install", description: "Install SecurityCage pinned to the latest commit SHA (or `sha`). Runs npm ci --ignore-scripts and a self-test before activating. Also used to update.", schema: schema(["sha": ("string", "Specific commit SHA (default: latest)")])) { a in
+                let pin = try await SecurityCageManager().install(sha: a["sha"]?.string)
+                return "Installed \(pin.label) (sha256 \(pin.tarballSHA256.prefix(12))…)"
+            },
+            MCPTool(name: "securitycage_scan", description: "Run SecurityCage's free offline plan on a repo or PR checkout. Pass `changed_files` to scope to a pull request. PR code is treated as untrusted by default.",
+                    schema: schema(["repo": repoProp, "changed_files": ("array", "Paths changed by the PR"), "trust_repo_config": ("boolean", "Only for repos you own")])) { a in
+                let r = try repo(a)
+                let changed = a["changed_files"]?.array?.compactMap(\.string)
+                let res = try await SecurityCageManager().plan(repo: r.url, changed: changed, untrusted: a["trust_repo_config"]?.bool != true)
+                if res.findings.isEmpty { return "No items. \(res.surfaces) entry point(s) checked." }
+                return res.findings.prefix(5).map { "[\($0.severity.label) · \($0.certainty ?? "?")] \($0.title) — \($0.file)\n  fix: \($0.fixPrompt ?? $0.advice)" }.joined(separator: "\n") + "\n\(res.findings.count) item(s) total."
+            },
             MCPTool(name: "create_branch", description: "Create and switch to a new branch.", schema: schema(["repo": repoProp, "name": ("string", "Branch name")], required: ["name"])) { a in
                 guard let n = a["name"]?.string else { throw ProviderError(message: "name required") }
                 try await repo(a).createBranch(n); return "Switched to \(n)"

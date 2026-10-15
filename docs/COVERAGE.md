@@ -8,7 +8,7 @@ Every request made so far, mapped to where it appears. Legend: **M** = in the mo
 | 2 | Menu-bar popover with arrow, recent repos, quick actions | 1 | §3.1 | C (uncompiled) |
 | 3 | **PR and issue counters on most active repos (popover)** | 1 | §3.1 | – |
 | 4 | OAuth and tokens for popular providers, gh auth | 8, 12 | §10 | C |
-| 5 | MCP server for agents; **all features MCP-exposed** | 7 | §11 | C (9 tools; registry not built) |
+| 5 | MCP server for agents; **all features MCP-exposed** | 7 | §11 | C (12 tools; registry not built) |
 | 6 | Agent lens view (what every agent is doing, per branch) | 6, 9 | §8 | C |
 | 7 | PR deep dive: security scan, agent review | 4, 11 | §7 | C |
 | 8 | PR hooks into local CI, agent review, **agent test** | 4 | §7.2–7.3 | partial (CI, review: C; agent test: –) |
@@ -32,11 +32,13 @@ Every request made so far, mapped to where it appears. Legend: **M** = in the mo
 | 27 | **Tags, tag management, releases** | 15 | §7.8 | – |
 | 28 | **Light, fast, effective, a delight** | 14 (keyboard, instant preview) | §16 | – (budgets defined, not measured) |
 | 29 | **Better logo than a generic "C"** | 16 | §2 | logo.svg, menubar.svg, icon script (icon script uncompiled) |
+| 30 | **CI status highlighted: running, local, remote, self-hosted** | 1, 15 | §7.9 | partial (act + LAN runner exist, uncompiled UI; hosted-provider status: –) |
+| 31 | **SecurityCage integration: setup, install, auto-appearing scan, pinned latest, updates** | 4, 5, 13, 16 | §7.10 | **install/pin/update/rollback/scan/MCP implemented and tested live**; UI mock only |
 | 25 | main branch, protected; Apache 2.0; README with agent prompt, logo, screenshots | – | – | main + README + LICENSE done; protection **pending** (needs `Scripts/protect-main.sh`) |
 
-## Screens in the mockup (16)
+## Screens in the mockup (18)
 
-1 Menu bar · 2 Changes · 3 Diff & merge · 4 PRs & issues · 5 New repo · 6 Agent Lens · 7 MCP surface · 8 Updates & signing · 9 History & graph · 10 Branches & stacks · 11 Insights & security · 12 Accounts, agents & CI · 13 First run & ⌘K · 14 Merge preview · 15 Tags & releases · 16 Logo
+1 Menu bar · 2 Changes · 3 Diff & merge · 4 PRs & issues · 5 New repo · 6 Agent Lens · 7 MCP surface · 8 Updates & signing · 9 History & graph · 10 Branches & stacks · 11 Insights & security · 12 Accounts, agents & CI · 13 First run & ⌘K · 14 Merge preview · 15 CI live · 16 SecurityCage · 17 Tags & releases · 18 Logo
 
 ## Known gaps (not yet in the mock)
 

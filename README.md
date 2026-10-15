@@ -38,7 +38,7 @@ Ground rules
 - Shell out to the system `git`; do not reimplement git.
 - Work in small PRs against `main`. `main` is protected: open a PR, wait for CI (core-linux, app-macos), sign commits.
 
-Current state: CommittoCore, the CLI and the MCP server are compiled and tested (12 tests). The SwiftUI app, the
+Current state: CommittoCore, the CLI and the MCP server are compiled and tested (16 tests, incl. a live SecurityCage install/update/rollback). The SwiftUI app, the
 menu-bar item, the LAN CI server and the icon script were written but never compiled; start with milestone M0
 (SPEC section 14): build on a Mac, fix compile errors, launch the app, verify the popover and main window.
 
@@ -83,6 +83,10 @@ These are mockups of the intended UI (see [docs/mockup](docs/mockup/index.html))
     <td><img src="docs/screenshots/mergeviz.png" alt="Merge preview"><br><sub><b>Merge preview</b>: see how commits land on main before you merge</sub></td>
     <td><img src="docs/screenshots/releases.png" alt="Tags and releases"><br><sub><b>Releases</b>: tags, notes, artifacts, one-click publish</sub></td>
   </tr>
+  <tr>
+    <td><img src="docs/screenshots/ci.png" alt="CI live board"><br><sub><b>CI live</b>: every run on every runner, in one place</sub></td>
+    <td><img src="docs/screenshots/securitycage.png" alt="SecurityCage setup"><br><sub><b>SecurityCage</b>: one-click pinned install, updates, auto PR scans</sub></td>
+  </tr>
 </table>
 
 A native macOS (SwiftUI, macOS 14+) git companion that lives in your menu bar, built for people who code with agents.
@@ -102,7 +106,7 @@ A native macOS (SwiftUI, macOS 14+) git companion that lives in your menu bar, b
 
 ```sh
 swift build            # core + CLI on Linux or macOS; app target on macOS only
-swift test             # 12 tests, incl. real-git integration
+swift test             # 16 tests incl. real-git integration; COMMITTO_NETWORK_TESTS=1 adds the live SecurityCage test
 Scripts/bundle.sh      # macOS: universal Committo.app in ./dist (generates the icon)
 ```
 
@@ -112,7 +116,8 @@ Scripts/bundle.sh      # macOS: universal Committo.app in ./dist (generates the 
 
 | Area | State |
 |---|---|
-| CommittoCore, `committo` CLI, MCP server, tests | **Compiled and tested** (Swift 6.0.3, Linux): 12/12 pass |
+| CommittoCore, `committo` CLI, MCP server, tests | **Compiled and tested** (Swift 6.0.3, Linux): 16/16 pass |
+| SecurityCage installer (pin, verify, self-test, update, rollback), scan, MCP tools | **Compiled and tested live** against github.com/kalahroudi/securitycage; UI is mock only |
 | SwiftUI app, status item, icon script, `CIServer` (Network.framework) | **Written and syntax-checked only — never compiled or run.** Expect compile fixes and layout polish on first `swift build` on a Mac |
 | Bitbucket / Azure DevOps / Gitea | Auth + clone only; PR API not implemented |
 | Interactive rebase, conflict wizard, LFS, git-flow, SSH/GPG UI, submodule UI, file history/blame UI, branch comparison, patch export UI | Engine has some (blame, submodules, patch export, worktrees); UI not built |

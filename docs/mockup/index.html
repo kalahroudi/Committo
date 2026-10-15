@@ -117,7 +117,7 @@ section.screen.on{display:block}
 .kv{display:grid;grid-template-columns:auto 1fr;gap:4px 10px}
 .kv dt{color:var(--mut)}.kv dd{margin:0}
 .input{border:1px solid var(--line);background:var(--win);border-radius:6px;padding:6px 9px;color:var(--ink);display:flex;gap:8px;align-items:center}
-.sw{width:30px;height:18px;border-radius:99px;background:var(--panel2);position:relative;flex:none;border:1px solid var(--line)}
+.sw{display:inline-block;vertical-align:middle;width:30px;height:18px;border-radius:99px;background:var(--panel2);position:relative;flex:none;border:1px solid var(--line)}
 .sw::after{content:"";position:absolute;top:1px;left:1px;width:14px;height:14px;border-radius:50%;background:var(--mut)}
 .sw.on{background:var(--accent);border-color:var(--accent)}.sw.on::after{left:13px;background:var(--accent-ink)}
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
@@ -129,10 +129,10 @@ section.screen.on{display:block}
 @media(prefers-reduced-motion:reduce){.pulse{animation:none}}
 
 /* ---------- menu bar + popover ---------- */
-.desk{min-width:560px;height:740px;position:relative;border-radius:10px;overflow:hidden;background:linear-gradient(160deg,var(--stage),var(--panel2))}
+.desk{min-width:560px;height:790px;position:relative;border-radius:10px;overflow:hidden;background:linear-gradient(160deg,var(--stage),var(--panel2))}
 .mb{height:26px;background:var(--menubar);display:flex;align-items:center;justify-content:flex-end;gap:14px;padding:0 14px;font-size:12px;color:var(--ink)}
 .mb .me{background:var(--accent);color:var(--accent-ink);border-radius:5px;padding:1px 7px;display:flex;gap:5px;align-items:center;font-weight:600}
-.pop{position:absolute;right:92px;top:36px;width:400px;height:690px;background:var(--win);border:1px solid var(--line);border-radius:12px;box-shadow:0 22px 60px rgba(0,0,0,.4);display:flex;flex-direction:column;font-size:12.5px}
+.pop{position:absolute;right:92px;top:36px;width:400px;height:735px;background:var(--win);border:1px solid var(--line);border-radius:12px;box-shadow:0 22px 60px rgba(0,0,0,.4);display:flex;flex-direction:column;font-size:12.5px}
 .pop::before{content:"";position:absolute;top:-7px;right:36px;width:14px;height:14px;background:var(--win);border-left:1px solid var(--line);border-top:1px solid var(--line);transform:rotate(45deg)}
 .tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:7px}
 .tile{background:var(--panel);border-radius:9px;padding:9px 4px;text-align:center;font-weight:500;font-size:11.5px}
@@ -230,6 +230,30 @@ footer.sum p{margin:0;color:var(--mut);max-width:60ch;line-height:1.5}
 .sizes figure{margin:0;text-align:center;font:500 10px var(--mono);color:var(--mut);display:flex;flex-direction:column;gap:6px;align-items:center}
 .menus{display:flex;gap:10px;flex-wrap:wrap}
 .mbmock{display:flex;align-items:center;gap:12px;padding:6px 12px;border-radius:7px;font-size:12px}
+
+.prog{height:6px;border-radius:4px;background:var(--panel2);overflow:hidden;min-width:60px}
+.prog i{display:block;height:100%;border-radius:4px;background:var(--accent)}
+.prog.live i{background:linear-gradient(90deg,var(--accent),var(--teal),var(--accent));background-size:200% 100%;animation:sh 1.8s linear infinite}
+.prog.fail i{background:var(--bad)}.prog.ok i{background:var(--ok)}.prog.q i{background:repeating-linear-gradient(135deg,var(--mut) 0 6px,transparent 6px 12px);opacity:.5;width:100%!important}
+@keyframes sh{to{background-position:-200% 0}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@media(prefers-reduced-motion:reduce){.prog.live i{animation:none}.ring,.ring2{animation:none!important}}
+.ring{display:inline-block;width:9px;height:9px;border:2px solid rgba(255,255,255,.4);border-top-color:#fff;border-radius:50%;animation:spin .9s linear infinite}
+.ring2{display:inline-block;width:10px;height:10px;border:2px solid var(--line);border-top-color:var(--accent);border-radius:50%;animation:spin .9s linear infinite;flex:none}
+.side-ci{margin-top:auto;padding:8px 9px;border-radius:8px;background:var(--panel2);font-size:11.5px;display:flex;gap:7px;align-items:center;line-height:1.3}
+.rn{font:600 10px var(--mono);padding:2px 6px;border-radius:5px;white-space:nowrap}
+.rn.loc{background:var(--accent-soft);color:var(--accent)}.rn.lan{background:var(--ok-soft);color:var(--ok)}.rn.gh{background:var(--panel2);color:var(--ink)}.rn.gl{background:var(--warn-soft);color:var(--warn)}
+.runner{border:1px solid var(--line);border-radius:10px;padding:8px 10px;background:var(--panel);min-width:0;font-size:11.5px;display:flex;flex-direction:column;gap:5px}
+.runner b{display:flex;gap:6px;align-items:center;font-size:12px}
+.run{border:1px solid var(--line);border-radius:10px;padding:9px 11px;background:var(--win);display:flex;flex-direction:column;gap:6px;cursor:default}
+.run.sel{border-color:var(--accent);background:var(--accent-soft)}
+.run .top{display:flex;gap:8px;align-items:center;min-width:0}.run .top b{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.steps{display:flex;gap:6px;flex-wrap:wrap;font:500 10.5px var(--mono);color:var(--mut)}
+.steps .d{color:var(--ok)}.steps .r{color:var(--accent);font-weight:700}.steps .f{color:var(--bad);font-weight:700}
+.logt{font:400 11px/1.55 var(--mono);color:var(--ink);white-space:pre;overflow:hidden}.logt .t{color:var(--mut)}.logt .g{color:var(--ok)}.logt .e{color:var(--bad)}.logt .b{color:var(--teal)}
+.stp{display:flex;gap:9px;align-items:center;padding:5px 0;font-size:12px}.stp .c{width:18px;height:18px;border-radius:50%;display:grid;place-items:center;font-size:10px;background:var(--panel2);color:var(--mut);flex:none}
+.stp.done .c{background:var(--ok);color:#fff}.stp.cur .c{background:var(--accent);color:var(--accent-ink)}
+.vs{display:flex;gap:6px;align-items:center;font-size:12px;padding:4px 0}
 </style>
 
 
@@ -273,8 +297,8 @@ footer.sum p{margin:0;color:var(--mut);max-width:60ch;line-height:1.5}
 <div class="wrap">
 <header class="top">
   <div>
-    <h1 style="display:flex;gap:12px;align-items:center"><span style="width:38px;height:38px;display:inline-block"><svg viewBox="0 0 256 256" width="38" height="38" aria-hidden="true"><use href="#logoA"/></svg></span>Committo — mockup v2</h1>
-    <p class="sub">Sixteen screens for approval. Everything is static; nothing here talks to git. Use the buttons under each screen to approve it or request changes. The full spec lives in <span class="mono">docs/SPEC.md</span> on the branch.</p>
+    <h1 style="display:flex;gap:12px;align-items:center"><span style="width:38px;height:38px;display:inline-block"><svg viewBox="0 0 256 256" width="38" height="38" aria-hidden="true"><use href="#logoA"/></svg></span>Committo — mockup v3</h1>
+    <p class="sub">Eighteen screens for approval. Everything is static; nothing here talks to git. Use the buttons under each screen to approve it or request changes. The full spec lives in <span class="mono">docs/SPEC.md</span> on the branch.</p>
   </div>
   <div style="display:flex;gap:8px;align-items:center"><span class="pill">for approval</span><button class="theme" id="themeBtn" type="button">Toggle theme</button></div>
 </header>
@@ -286,7 +310,7 @@ footer.sum p{margin:0;color:var(--mut);max-width:60ch;line-height:1.5}
   <div class="shead"><div><h2>Menu-bar popover</h2><p>The always-there surface. The arrow ties it to the icon. It answers three questions at a glance: what repos am I in, what needs my review, and what are my agents doing.</p></div><div class="approve" data-k="popover"></div></div>
   <div class="cols">
     <div class="stage"><div class="desk">
-      <div class="mb"><span class="small">Wi-Fi</span><span class="small">86%</span><span class="me"><svg width="13" height="13"><use href="#markT"/></svg> 2</span><span>Thu 9:41</span></div>
+      <div class="mb"><span class="small">Wi-Fi</span><span class="small">86%</span><span class="me"><svg width="13" height="13"><use href="#markT"/></svg> 2 <i class="ring"></i></span><span>Thu 9:41</span></div>
       <div class="pop">
         <div style="padding:14px 14px 8px;display:flex;gap:9px;align-items:center">
           <div class="glyph"><svg viewBox="0 0 256 256" aria-hidden="true"><use href="#logoA"/></svg></div><div class="input" style="flex:1"><span>⌕</span><span style="color:var(--mut)">Jump to repo, branch, PR or issue</span><span class="chip" style="margin-left:auto">⌘K</span></div>
@@ -295,7 +319,7 @@ footer.sum p{margin:0;color:var(--mut);max-width:60ch;line-height:1.5}
           <div class="upd"><b style="font-size:13px">↻</b><div style="flex:1"><b>Committo 0.2.0 is ready</b><div style="opacity:.85;font-size:11px">Signed and verified. Installs on quit.</div></div><span class="btn sm" style="background:rgba(255,255,255,.2);border:0;color:inherit">Restart</span></div>
           <div class="tiles">
             <div class="tile"><b>＋</b>New repo</div><div class="tile"><b>⤓</b>Clone</div><div class="tile"><b>⇪</b>Import</div><div class="tile"><b>⟳</b>Fetch all</div>
-            <div class="tile"><b>⇄</b>All PRs</div><div class="tile"><b>◎</b>All issues</div><div class="tile"><b>◉</b>Lens</div><div class="tile"><b>⚙</b>CI</div>
+            
           </div>
           <div class="card" style="padding:10px"><h4>Needs you <span class="chip warn">2</span></h4>
             <div class="stack" style="gap:6px">
@@ -308,8 +332,14 @@ footer.sum p{margin:0;color:var(--mut);max-width:60ch;line-height:1.5}
             <div class="rr"><div class="av">W</div><div style="flex:1;min-width:0"><b>web-portfolio</b><div class="small">⑂ main · 3 days ago</div></div><span class="spark"><i style="height:20%"></i><i style="height:25%"></i><i style="height:15%"></i><i style="height:40%"></i><i style="height:20%"></i><i style="height:30%"></i></span><span class="cnt zero">⇄ 0</span><span class="cnt">◎ 3</span></div>
             <div class="rr"><div class="av">D</div><div style="flex:1;min-width:0"><b>dotfiles</b><div class="small">⑂ main · yesterday</div></div><span class="spark"><i style="height:10%"></i><i style="height:10%"></i><i style="height:35%"></i><i style="height:10%"></i><i style="height:10%"></i><i style="height:20%"></i></span><span class="cnt zero">⇄ 0</span><span class="cnt zero">◎ 1</span></div>
           </div>
-          <div class="card" style="padding:10px"><h4><span class="pulse"></span> Agent Lens <span class="small" style="margin-left:auto">committo</span></h4>
-            <div style="display:flex;gap:8px;align-items:center"><span class="chip acc">Claude</span><span class="mono" style="font-size:11px;flex:1">claude/fix-lanes</span><span class="mono" style="color:var(--ok)">+84</span><span class="mono" style="color:var(--bad)">−12</span></div></div>
+          <div class="card" style="padding:10px"><h4><span class="pulse"></span> Live now <span class="small" style="margin-left:auto">3 running · 1 queued · <span style="color:var(--bad)">1 failed</span></span></h4>
+            <div class="stack" style="gap:8px;font-size:12px">
+              <div><div style="display:flex;gap:7px;align-items:center"><span class="ring2"></span><b>committo</b><span class="small">ci / test</span><span class="rn loc" style="margin-left:auto">This Mac</span><span class="mono small">62%</span></div><div class="prog live" style="margin-top:4px"><i style="width:62%"></i></div></div>
+              <div><div style="display:flex;gap:7px;align-items:center"><span class="ring2"></span><b>committo</b><span class="small">PR #142 · build</span><span class="rn lan" style="margin-left:auto">mac-mini</span><span class="mono small">35%</span></div><div class="prog live" style="margin-top:4px"><i style="width:35%"></i></div></div>
+              <div style="display:flex;gap:7px;align-items:center"><span style="color:var(--mut)">◔</span><b>acme-api</b><span class="small">deploy · queued 38 s</span><span class="rn gh" style="margin-left:auto">GitHub</span></div>
+              <div style="display:flex;gap:7px;align-items:center"><span style="color:var(--bad)">✗</span><b>acme-api</b><span class="small">PR #139 · 2 tests failed</span><span class="btn ai sm" style="margin-left:auto">✦ Explain</span></div>
+              <div style="display:flex;gap:7px;align-items:center"><span class="chip acc">✦</span><b>claude/fix-lanes</b><span class="small">agent working</span><span class="mono small" style="margin-left:auto;color:var(--ok)">+84 −12</span></div>
+            </div></div>
         </div>
         <div style="padding:9px 14px;border-top:1px solid var(--line);display:flex;gap:12px;color:var(--mut);font-size:12px"><span>▣ Open Committo</span><span style="margin-left:auto">⚙</span><span>⏻</span></div>
       </div>
@@ -319,7 +349,8 @@ footer.sum p{margin:0;color:var(--mut);max-width:60ch;line-height:1.5}
       <div class="note"><span class="n">2</span><div><b>Self-update banner</b> appears only when a signed update is ready. Never interrupts while you type.<i>SPEC §12</i></div></div>
       <div class="note"><span class="n">3</span><div><b>New / Clone / Import</b> are first-class tiles. They open the repo wizard (screen 5).<i>SPEC §6</i></div></div>
       <div class="note"><span class="n">4</span><div><b>“Most active”</b> ranks repos by recent activity and shows live PR and issue counters on each row. Accent = a PR needs your review, red = CI failing, faint = nothing open. Counters open that repo’s list. “Needs you” above collects the individual items.<i>SPEC §3.1</i></div></div>
-      <div class="note"><span class="n">5</span><div><b>Every tile and row is an MCP tool</b> too, so an agent can do whatever you can click.<i>SPEC §11</i></div></div>
+      <div class="note"><span class="n">5</span><div><b>“Live now”</b> shows every running, queued and failed CI run across local, LAN, GitHub and GitLab runners, plus working agents. The menu-bar icon spins while anything runs and turns red on a failure. Tap a row to open the live CI board.<i>SPEC §7.9</i></div></div>
+      <div class="note"><span class="n">6</span><div><b>Every tile and row is an MCP tool</b> too, so an agent can do whatever you can click.<i>SPEC §11</i></div></div>
     </aside>
   </div>
 </section>
@@ -453,8 +484,9 @@ footer.sum p{margin:0;color:var(--mut);max-width:60ch;line-height:1.5}
                 <div style="display:flex;gap:6px;margin-top:8px"><span class="btn sm">Fix with agent</span><span class="btn sm">Post to PR</span></div></div>
               <div class="card"><h4>🧪 Agent test <span class="chip ok">6 / 6</span></h4>
                 <div style="font-size:12px;line-height:1.5">Agent wrote 6 tests for the new paths and ran them in a throwaway worktree. <span class="mono small">DeviceFlowTests.swift</span><br><span class="btn sm" style="margin-top:6px">Add tests to PR</span></div></div>
-              <div class="card"><h4>🛡 Security <span class="chip warn">1 medium</span></h4>
-                <div style="font-size:12px;line-height:1.5">Hard-coded client id string in <span class="mono">Settings.swift:12</span>. No secrets, no risky workflow changes.</div></div>
+              <div class="card"><h4>🛡 SecurityCage <span class="chip bad">1 high</span><span class="small" style="margin-left:auto">auto · 0.5 s · offline</span></h4>
+                <div style="font-size:12px;line-height:1.5"><b>Unguarded POST /api/feedback</b> <span class="mono small">route.ts</span><br><span class="small">worth a look · no login or permission check found</span></div>
+                <div style="display:flex;gap:6px;margin-top:8px"><span class="btn sm">Copy fix prompt</span><span class="btn ai sm">Fix with agent</span><span class="btn sm">Deep scan</span></div></div>
             </div>
             <div class="card" style="display:flex;gap:12px;align-items:center"><div style="flex:1"><b>Ready to merge?</b><div class="small">CI ✓ · review 2 notes · tests ✓ · 1 approval needed by ruleset</div></div>
               <span class="btn">Merge locally</span><span class="btn pri">Squash &amp; merge on GitHub</span></div>
@@ -503,6 +535,101 @@ footer.sum p{margin:0;color:var(--mut);max-width:60ch;line-height:1.5}
   </aside></div>
 </section>
 
+<!-- CI LIVE -->
+<section class="screen" id="s-ci" data-title="CI live">
+  <div class="shead"><div><h2>CI, live: everything running, wherever it runs</h2><p>One board for this Mac, machines on your network, and hosted runners. You see what is running, what is waiting and why, what failed, and the next action, without opening four dashboards.</p></div><div class="approve" data-k="ci"></div></div>
+  <div class="cols"><div class="stage"><div class="win xl" data-active="CI Runners"><div class="main">
+    <div class="bar"><b>CI</b><span class="chip ok"><span class="ring2"></span> 3 running</span><span class="chip">◔ 1 queued</span><span class="chip bad">✗ 1 failed</span><span class="chip">✓ 17 today</span><span class="sp"></span><span class="seg"><span class="on">All</span><span>Mine</span><span>Failed</span></span><span class="btn sm pri">▶ Run workflow</span></div>
+    <div style="padding:12px 14px;display:flex;flex-direction:column;gap:12px;flex:1;min-height:0;overflow:hidden">
+      <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:8px">
+        <div class="runner"><b><span class="rn loc">This Mac</span><span class="chip ok" style="margin-left:auto">busy</span></b><div class="prog"><i style="width:100%"></i></div><span class="small">act · 1 / 1 slot · Docker ok</span></div>
+        <div class="runner"><b><span class="rn lan">mac-mini</span><span class="chip ok" style="margin-left:auto">2 / 4</span></b><div class="prog"><i style="width:50%"></i></div><span class="small">LAN · 3 ms · load 0.6</span></div>
+        <div class="runner"><b><span class="rn lan">linux-box</span><span class="chip" style="margin-left:auto">idle</span></b><div class="prog"><i style="width:4%"></i></div><span class="small">LAN · 5 ms · 0 / 4</span></div>
+        <div class="runner"><b><span class="rn gh">GitHub</span><span class="chip warn" style="margin-left:auto">queue</span></b><div class="prog q"><i></i></div><span class="small">hosted · 1 waiting · ~40 s</span></div>
+        <div class="runner"><b><span class="rn gl">GitLab</span><span class="chip" style="margin-left:auto">idle</span></b><div class="prog"><i style="width:2%"></i></div><span class="small">shared · 0 waiting</span></div>
+      </div>
+      <div style="display:flex;gap:12px;flex:1;min-height:0">
+        <div style="flex:1.15;min-width:0;display:flex;flex-direction:column;gap:8px;overflow:hidden">
+          <div class="run sel"><div class="top"><span class="ring2"></span><b>committo · ci / test</b><span class="small">feat(auth): device flow</span><span class="rn loc" style="margin-left:auto">This Mac · act</span></div>
+            <div class="prog live"><i data-live="62" style="width:62%"></i></div>
+            <div class="steps"><span class="d">✓ checkout</span><span class="d">✓ build 41s</span><span class="r">● test</span><span>○ lint</span><span style="margin-left:auto"><span data-t>1:12</span> · ETA 45 s · <span data-pct>62</span>%</span></div></div>
+          <div class="run"><div class="top"><span class="ring2"></span><b>committo · PR #142 · ci / build</b><span class="rn lan" style="margin-left:auto">mac-mini.local</span></div>
+            <div class="prog live"><i data-live="35" style="width:35%"></i></div>
+            <div class="steps"><span class="d">✓ checkout</span><span class="r">● build</span><span>○ test</span><span>○ lint</span><span style="margin-left:auto">0:38 · ETA 1:10</span></div></div>
+          <div class="run"><div class="top"><span style="color:var(--mut)">◔</span><b>acme-api · deploy</b><span class="small">waiting for a runner · position 2</span><span class="rn gh" style="margin-left:auto">GitHub Actions</span></div>
+            <div class="prog q"><i></i></div><div class="steps"><span>Queued 38 s</span><span>Why: 20 hosted jobs ahead in your plan</span><span class="btn sm" style="margin-left:auto;font-family:var(--ui)">Run on mac-mini instead</span></div></div>
+          <div class="run"><div class="top"><span style="color:var(--bad)">✗</span><b>acme-api · PR #139 · ci / test</b><span class="small">2 tests failed · 2 m ago</span><span class="rn gh" style="margin-left:auto">GitHub Actions</span></div>
+            <div class="prog fail"><i style="width:100%"></i></div>
+            <div style="display:flex;gap:6px;flex-wrap:wrap"><span class="btn ai sm">✦ Explain failure</span><span class="btn sm">Fix with agent</span><span class="btn sm">Re-run failed jobs</span><span class="btn sm">Reproduce locally</span></div></div>
+          <div class="run"><div class="top"><span style="color:var(--ok)">✓</span><b>web-portfolio · lint</b><span class="small">passed 4 m ago · 12 s</span><span class="rn loc" style="margin-left:auto">This Mac</span></div></div>
+        </div>
+        <div style="flex:1;min-width:0;border:1px solid var(--line);border-radius:10px;background:var(--panel);padding:10px;display:flex;flex-direction:column;gap:8px;overflow:hidden">
+          <div style="display:flex;gap:8px;align-items:center"><b>committo · ci / test</b><span class="chip ok"><span class="ring2"></span> running</span><span class="sp" style="flex:1"></span><span class="btn sm">Follow</span><span class="btn sm" style="color:var(--bad)">Cancel</span></div>
+          <div style="display:flex;gap:14px"><div style="flex:1"><div class="stp done"><span class="c">✓</span>Set up job</div><div class="stp done"><span class="c">✓</span>Checkout</div><div class="stp done"><span class="c">✓</span>Build <span class="small" style="margin-left:auto">41 s</span></div><div class="stp cur"><span class="c">●</span>Test <span class="small" style="margin-left:auto">31 s</span></div><div class="stp"><span class="c">○</span>Lint</div></div></div>
+          <div class="logt" style="background:var(--win);border:1px solid var(--line);border-radius:8px;padding:8px;flex:1"><span class="t">20:21:04</span> <span class="b">▶ swift test</span>
+<span class="t">20:21:09</span> Test Case 'CoreTests.testDiffParsing' <span class="g">passed</span>
+<span class="t">20:21:09</span> Test Case 'CoreTests.testMergeOpensSecondLane' <span class="g">passed</span>
+<span class="t">20:21:10</span> Test Case 'GitIntegrationTests.testHunkStaging' <span class="g">passed</span>
+<span class="t">20:21:10</span> Test Case 'SecurityCageTests.testParsePlanJSON' <span class="g">passed</span>
+<span class="t">20:21:11</span> Test Case 'SecurityCageTests.testWorkflow…' <span class="b">running…</span></div>
+          <div class="small">Runs the same workflow file everywhere. Switch runner and re-run in one click.</div>
+        </div>
+      </div>
+    </div>
+  </div></div></div>
+  <aside class="notes"><h3>Notes</h3>
+    <div class="note"><span class="n">1</span><div><b>One board for every runner:</b> this Mac (act), LAN machines, GitHub Actions, GitLab, self-hosted. Each run shows where it runs, which step, progress and ETA.<i>SPEC §7.9</i></div></div>
+    <div class="note"><span class="n">2</span><div><b>Runner health strip</b> with slots in use, latency and queue, so “why is it slow?” answers itself.<i>SPEC §7.9</i></div></div>
+    <div class="note"><span class="n">3</span><div><b>Queued explains itself</b> and offers a faster runner. Failures offer ✦ Explain, Fix with agent, re-run failed jobs, or reproduce locally.<i>SPEC §7.9</i></div></div>
+    <div class="note"><span class="n">4</span><div><b>Status everywhere:</b> sidebar footer in every window, spinner on the menu-bar icon (red on failure), “Live now” in the popover, counters on PRs.<i>SPEC §3.1, §7.9</i></div></div>
+    <div class="note"><span class="n">5</span><div><b>MCP:</b> <span class="mono">ci_status</span>, <span class="mono">ci_logs</span>, <span class="mono">ci_run</span>, <span class="mono">ci_cancel</span>, <span class="mono">ci_rerun</span>.<i>SPEC §11</i></div></div>
+  </aside></div>
+</section>
+
+<!-- SECURITYCAGE -->
+<section class="screen" id="s-securitycage" data-title="SecurityCage">
+  <div class="shead"><div><h2>SecurityCage: install, pin and update</h2><p>Plain-English security scans for pull requests. Committo finds it, installs a pinned version in one click, shows the scan option on every PR automatically, and tells you when a newer pin exists.</p></div><div class="approve" data-k="securitycage"></div></div>
+  <div class="cols"><div class="stage"><div class="win xl" data-active="Security"><div class="main">
+    <div class="bar"><b>SecurityCage</b><span class="chip ok">installed</span><span class="chip mono">kalahroudi/securitycage @ 35ea2b3</span><span class="sp"></span><span class="chip warn">update available</span><span class="btn sm">Check now</span></div>
+    <div style="padding:12px 14px;display:grid;grid-template-columns:1fr 1fr;gap:12px;align-content:start;flex:1;min-height:0;overflow:hidden">
+      <div class="card"><h4>Install &amp; pin</h4>
+        <div class="vs"><span class="chip ok">✓</span>Node 22.22 <span class="small">(needs 22.18+)</span></div>
+        <div class="vs"><span class="chip ok">✓</span>npm 12</div>
+        <div class="vs"><span class="chip ok">✓</span>Docker <span class="small">only needed for “Prove”</span></div>
+        <div class="vs"><span class="chip">○</span>Opengrep rule pack <span class="small">50 MB, checksum-verified</span><span class="btn sm" style="margin-left:auto">Add</span></div>
+        <div class="kv" style="margin-top:8px;font-size:12px"><dt>Pinned</dt><dd class="mono">35ea2b3 · v0.1.0 · Oct 15</dd><dt>Source</dt><dd>GitHub main (no releases yet)</dd><dt>SHA-256</dt><dd class="mono">d575c1698c2e…</dd><dt>Self-test</dt><dd><span class="chip ok">✓ flagged a known-bad sample</span></dd></div></div>
+      <div class="card" style="border-color:var(--warn)"><h4>Update available <span class="chip warn">3 commits</span></h4>
+        <div style="font-size:12px;line-height:1.6">• fix(cli): report proven stage in scan reports<br>• fix(cli): restore likelyItems in report.html<br>• feat(cli): disable reasoning tokens by default</div>
+        <div class="vs" style="margin-top:6px"><span class="mono small">35ea2b3 → a1c9e04</span></div>
+        <div style="display:flex;gap:6px;margin-top:6px;flex-wrap:wrap"><span class="btn pri sm">Update (≈5 s)</span><span class="btn sm">View changes</span><span class="btn sm">Roll back to previous</span></div>
+        <div class="stack" style="margin-top:8px;gap:3px;font-size:11.5px"><div class="stp done" style="padding:2px 0"><span class="c">✓</span>Find latest · download · verify SHA-256</div><div class="stp done" style="padding:2px 0"><span class="c">✓</span>Install with scripts off</div><div class="stp cur" style="padding:2px 0"><span class="c">●</span>Self-test, then switch (old version kept)</div></div></div>
+      <div class="card"><h4>Runs automatically</h4>
+        <div class="vs">Pull requests <span class="small">scan changed files when a PR opens</span><span class="sw on" style="margin-left:auto"></span></div>
+        <div class="vs">Before commit <span class="small">staged files, warn only</span><span class="sw" style="margin-left:auto"></span></div>
+        <div class="vs">Check for updates daily<span class="sw on" style="margin-left:auto"></span></div>
+        <div class="vs">Ask before updating<span class="sw on" style="margin-left:auto"></span></div>
+        <div class="vs">Treat PR code as untrusted <span class="small">PRs cannot vouch for themselves</span><span class="sw on" style="margin-left:auto"></span></div></div>
+      <div class="card"><h4>Scan depth</h4>
+        <div class="seg" style="margin-bottom:8px"><span class="on">Plan</span><span>Deep scan</span><span>Prove</span></div>
+        <div style="font-size:12px;line-height:1.55"><b>Plan:</b> free, offline, about a second. Maps entry points and flags unguarded ones.<br><b>Deep scan:</b> AI checks with your key. Estimate $0.02 to $0.15, capped at $2.<br><b>Prove:</b> reproduces the exploit in a no-network container so only confirmed items stay.</div></div>
+      <div class="card" style="grid-column:1/-1"><h4>Repos</h4>
+        <table><tr><th>Repo</th><th>PR scan</th><th>GitHub Action</th><th>Deep scan</th><th>Prove</th></tr>
+          <tr><td><b>committo</b></td><td><span class="sw on"></span></td><td><span class="chip ok">@ 35ea2b3</span></td><td><span class="sw on"></span> <span class="small">key ok</span></td><td><span class="chip warn">recipe missing</span> <span class="btn sm">Set up</span></td></tr>
+          <tr><td><b>acme-api</b></td><td><span class="sw on"></span></td><td><span class="chip warn">@ 7115e61 (old)</span> <span class="btn sm">Open bump PR</span></td><td><span class="sw"></span></td><td><span class="chip ok">recipe ok</span></td></tr>
+          <tr><td><b>dotfiles</b></td><td><span class="sw"></span></td><td><span class="chip">none</span> <span class="btn sm">Add workflow</span></td><td><span class="sw"></span></td><td><span class="chip">n/a</span></td></tr></table></div>
+    </div>
+  </div></div></div></div>
+  <aside class="notes"><h3>Notes</h3>
+    <div class="note"><span class="n">1</span><div><b>Option appears by itself.</b> If SecurityCage is installed, every PR shows its scan card. If not, the card offers “Enable” (one click, one consent) as long as Node 22.18+ is present.<i>SPEC §7.10</i></div></div>
+    <div class="note"><span class="n">2</span><div><b>Pinned install, not npm.</b> Committo fetches the latest release (or main head) at a commit SHA, verifies it, installs with scripts off, self-tests it on a known-bad sample, then switches. The npm name “securitycage” is a different, empty package.<i>SPEC §7.10</i></div></div>
+    <div class="note"><span class="n">3</span><div><b>Update and rollback.</b> Daily check, a changelog of what changed, ask-before-update by default, and the previous version kept so rollback is instant.<i>SPEC §7.10</i></div></div>
+    <div class="note"><span class="n">4</span><div><b>Repos stay in sync.</b> The new-repo wizard adds the Action pinned to a SHA; existing repos with an older pin get a one-click bump PR.<i>SPEC §6.4</i></div></div>
+    <div class="note"><span class="n">5</span><div><b>Safe by default for PRs:</b> untrusted config, code read as data, results written outside the repo.<i>SPEC §7.10</i></div></div>
+    <div class="note"><span class="n">6</span><div><b>MCP:</b> <span class="mono">securitycage_status</span>, <span class="mono">_install</span>, <span class="mono">_scan</span> (built and tested).<i>SPEC §11</i></div></div>
+  </aside></div>
+</section>
+
+
 
 
 <!-- 5 NEW REPO -->
@@ -533,6 +660,7 @@ footer.sum p{margin:0;color:var(--mut);max-width:60ch;line-height:1.5}
                 <div style="display:flex;gap:8px;align-items:center"><span class="sw on"></span>Create on <b>GitHub</b> <span class="chip" style="margin-left:auto">private · @kal</span></div>
                 <div style="display:flex;gap:8px;align-items:center"><span class="sw on"></span>Starter CI workflow <span class="chip" style="margin-left:auto">Swift</span></div>
                 <div style="display:flex;gap:8px;align-items:center"><span class="sw on"></span>Verify locally with act</div>
+                <div style="display:flex;gap:8px;align-items:center"><span class="sw on"></span>SecurityCage on PRs <span class="chip acc" style="margin-left:auto">Action @ pinned SHA</span></div>
                 <div style="display:flex;gap:8px;align-items:center"><span class="sw on"></span>Sign commits <span class="chip ok" style="margin-left:auto">SSH key</span></div></div></div>
             </div>
             <div class="card" style="background:var(--accent-soft);border-color:transparent"><b>Create will:</b> <span class="small" style="color:inherit">git init → write 6 files → signed first commit → create GitHub repo → push main → apply ruleset → add CI → run it locally once.</span></div>
@@ -887,7 +1015,8 @@ footer.sum p{margin:0;color:var(--mut);max-width:60ch;line-height:1.5}
         <div class="step done"><span class="c">✓</span><div style="flex:1"><b>Find your repos</b><div class="small">Scanning ~/Developer, ~/Code · 14 found</div></div></div>
         <div class="step cur"><span class="c">3</span><div style="flex:1"><b>Pick your agent</b><div class="small">Claude Code detected · use it for reviews and merge help?</div></div><span class="btn pri sm">Use Claude</span></div>
         <div class="step"><span class="c">4</span><div style="flex:1"><b>Let agents use Committo</b><div class="small">Install the MCP server in Claude Code</div></div><span class="btn sm">Install</span></div>
-        <div class="step"><span class="c">5</span><div style="flex:1"><b>Sign your commits</b><div class="small">SSH key via 1Password agent</div></div><span class="btn sm">Set up</span></div>
+        <div class="step"><span class="c">5</span><div style="flex:1"><b>Add security scans</b><div class="small">SecurityCage · Node 22 found · pinned install</div></div><span class="btn sm">Install</span></div>
+        <div class="step"><span class="c">6</span><div style="flex:1"><b>Sign your commits</b><div class="small">SSH key via 1Password agent</div></div><span class="btn sm">Set up</span></div>
         <div class="small" style="margin-top:12px">Guided mode uses plain words (“save your work” for commit, “send” for push) and confirms anything risky. Turn it off any time for standard git names.</div></div>
       <div><div class="cmd">
         <div class="i"><span style="color:var(--accent)">✦</span><span>undo my last commit but keep the changes</span></div>
@@ -901,7 +1030,7 @@ footer.sum p{margin:0;color:var(--mut);max-width:60ch;line-height:1.5}
     </div></div>
   </div></div></div></div>
   <aside class="notes"><h3>Notes</h3>
-    <div class="note"><span class="n">1</span><div><b>Five-step setup</b> covers accounts, repo discovery, agent, MCP and signing.<i>SPEC §3.3</i></div></div>
+    <div class="note"><span class="n">1</span><div><b>Six-step setup</b> covers accounts, repo discovery, agent, MCP, security scans and signing.<i>SPEC §3.3</i></div></div>
     <div class="note"><span class="n">2</span><div><b>Guided mode</b> swaps git jargon for plain words and adds confirmations. Off for experts.<i>SPEC §3.3</i></div></div>
     <div class="note"><span class="n">3</span><div><b>⌘K understands plain language</b> and maps it to registry actions, showing the real git command first. The same registry is the MCP surface.<i>SPEC §11.1</i></div></div>
   </aside></div>
@@ -942,7 +1071,7 @@ footer.sum p{margin:0;color:var(--mut);max-width:60ch;line-height:1.5}
 
 <script>
 (function(){
-  var SCREENS=[["popover","Menu bar"],["changes","Changes"],["merge","Diff & merge"],["prs","PRs & issues"],["mergeviz","Merge preview"],["new","New repo"],["lens","Agent Lens"],["mcp","MCP surface"],["settings","Updates & signing"],["history","History & graph"],["branches","Branches & stacks"],["releases","Tags & releases"],["insights","Insights & security"],["integrations","Accounts, agents & CI"],["first","First run & ⌘K"],["logo","Logo"]];
+  var SCREENS=[["popover","Menu bar"],["changes","Changes"],["merge","Diff & merge"],["prs","PRs & issues"],["mergeviz","Merge preview"],["ci","CI live"],["securitycage","SecurityCage"],["new","New repo"],["lens","Agent Lens"],["mcp","MCP surface"],["settings","Updates & signing"],["history","History & graph"],["branches","Branches & stacks"],["releases","Tags & releases"],["insights","Insights & security"],["integrations","Accounts, agents & CI"],["first","First run & ⌘K"],["logo","Logo"]];
   var state={};
   try{state=JSON.parse(localStorage.getItem("committo-mock-approvals")||"{}")}catch(e){}
   function save(){try{localStorage.setItem("committo-mock-approvals",JSON.stringify(state))}catch(e){}}
@@ -955,7 +1084,7 @@ footer.sum p{margin:0;color:var(--mut);max-width:60ch;line-height:1.5}
     Object.keys(GROUPS).forEach(function(g){h+='<div class="grp">'+g+'</div>';GROUPS[g].forEach(function(n){
       var d=NAV.filter(function(x){return x[0]===n})[0];
       h+='<div class="item'+(n===act?' act':'')+'"><span class="ico">'+d[1]+'</span>'+n+(d[2]?'<span class="c">'+d[2]+'</span>':'')+'</div>';});});
-    h+='</aside>';w.insertAdjacentHTML("afterbegin",h);
+    h+='<div class="side-ci"><span class="ring2"></span><span>CI · <b>2 running</b> · <span style="color:var(--bad)">1 failed</span></span></div></aside>';w.insertAdjacentHTML("afterbegin",h);
   });
 
   (function(){var h=document.getElementById("hm");if(!h)return;var seed=7,x="";for(var i=0;i<371;i++){seed=(seed*9301+49297)%233280;var r=seed/233280,wk=Math.floor(i/7);var l=r<.38?"":r<.62?"l1":r<.85?"l2":"l3";if(wk>30&&wk<36&&r>.3)l="l3";x+='<i class="'+l+'"></i>';}h.innerHTML=x;})();
@@ -1023,6 +1152,10 @@ footer.sum p{margin:0;color:var(--mut);max-width:60ch;line-height:1.5}
   });
   set('squash',false);
 })();
+  (function(){if(matchMedia("(prefers-reduced-motion: reduce)").matches)return;var els=document.querySelectorAll("[data-live]");setInterval(function(){
+    if(!document.getElementById("s-ci").classList.contains("on"))return;
+    els.forEach(function(e){var v=parseFloat(e.getAttribute("data-live"));v=v>=96?20:v+0.6;e.setAttribute("data-live",v);e.style.width=v+"%";});
+    var pct=document.querySelector("[data-pct]");if(pct)pct.textContent=Math.round(parseFloat(els[0].getAttribute("data-live")));},700);})();
   var tabs=document.getElementById("tabs");
   SCREENS.forEach(function(s,i){
     var b=document.createElement("button");b.type="button";b.setAttribute("role","tab");b.id="t-"+s[0];
