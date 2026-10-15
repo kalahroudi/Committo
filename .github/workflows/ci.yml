@@ -1,0 +1,16 @@
+name: CI
+on: [push, pull_request]
+jobs:
+  core-linux:
+    runs-on: ubuntu-latest
+    container: swift:6.0
+    steps:
+      - uses: actions/checkout@v4
+      - run: swift build --target CommittoCore
+      - run: swift test
+  app-macos:
+    runs-on: macos-14
+    steps:
+      - uses: actions/checkout@v4
+      - run: swift build -c release
+      - run: swift test
