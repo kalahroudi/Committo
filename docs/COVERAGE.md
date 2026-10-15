@@ -28,11 +28,15 @@ Every request made so far, mapped to where it appears. Legend: **M** = in the mo
 | 22 | Create local repo, import, clone | 1, 5 | §6.1 | partial (init/clone: C) |
 | 23 | Signing and the usual git flows | 2, 8, 9, 10 | §4, §9 | – (signing); flows partial |
 | 24 | Canvas view of the mock | – | – | done |
+| 26 | **Merge options visualize how commits land on main; educational for students** | 14 | §7.6, §3.4 | – (preview component not built) |
+| 27 | **Tags, tag management, releases** | 15 | §7.8 | – |
+| 28 | **Light, fast, effective, a delight** | 14 (keyboard, instant preview) | §16 | – (budgets defined, not measured) |
+| 29 | **Better logo than a generic "C"** | 16 | §2 | logo.svg, menubar.svg, icon script (icon script uncompiled) |
 | 25 | main branch, protected; Apache 2.0; README with agent prompt, logo, screenshots | – | – | main + README + LICENSE done; protection **pending** (needs `Scripts/protect-main.sh`) |
 
-## Screens in the mockup (13)
+## Screens in the mockup (16)
 
-1 Menu bar · 2 Changes · 3 Diff & merge · 4 PRs & issues · 5 New repo · 6 Agent Lens · 7 MCP surface · 8 Updates & signing · 9 History & graph · 10 Branches & stacks · 11 Insights & security · 12 Accounts, agents & CI · 13 First run & ⌘K
+1 Menu bar · 2 Changes · 3 Diff & merge · 4 PRs & issues · 5 New repo · 6 Agent Lens · 7 MCP surface · 8 Updates & signing · 9 History & graph · 10 Branches & stacks · 11 Insights & security · 12 Accounts, agents & CI · 13 First run & ⌘K · 14 Merge preview · 15 Tags & releases · 16 Logo
 
 ## Known gaps (not yet in the mock)
 

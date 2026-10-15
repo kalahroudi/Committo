@@ -11,7 +11,7 @@
   --accent:#5b4bff; --accent-ink:#ffffff; --accent-soft:#e8e5ff; --teal:#0aa5b5;
   --ok:#1a9a5b; --ok-soft:#dff4e8; --warn:#b97400; --warn-soft:#fbefd2; --bad:#d23b3b; --bad-soft:#fbe0e0;
   --add:#e3f6e9; --del:#fce4e4; --add-ink:#17653d; --del-ink:#a32a2a; --conf:#fff1cc;
-  --stage:#d9d6ea; --menubar:#ece9f7;
+  --stage:#d9d6ea; --coral:#e8553a; --menubar:#ece9f7;
   --ui:-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",system-ui,sans-serif;
   --display:"Bricolage Grotesque",var(--ui); --mono:"JetBrains Mono",ui-monospace,"SF Mono",Menlo,monospace;
 }
@@ -21,14 +21,14 @@
   --accent:#8a7dff; --accent-ink:#12111a; --accent-soft:#2a2650; --teal:#38c9d8;
   --ok:#4cc88a; --ok-soft:#183a2b; --warn:#e5b04a; --warn-soft:#3b2f12; --bad:#ff7b7b; --bad-soft:#40191c;
   --add:#173625; --del:#3c1a1d; --add-ink:#7fe0a8; --del-ink:#ff9a9a; --conf:#3b3213;
-  --stage:#0c0b12; --menubar:#201e2e; color-scheme:dark}}
+  --stage:#0c0b12; --coral:#ff8a6b; --menubar:#201e2e; color-scheme:dark}}
 :root[data-theme="dark"]{
   --bg:#12111a; --ink:#ecebf5; --mut:#9a98ab; --line:#2c2a3b;
   --win:#1b1a26; --side:#16151f; --panel:#201f2d; --panel2:#282638;
   --accent:#8a7dff; --accent-ink:#12111a; --accent-soft:#2a2650; --teal:#38c9d8;
   --ok:#4cc88a; --ok-soft:#183a2b; --warn:#e5b04a; --warn-soft:#3b2f12; --bad:#ff7b7b; --bad-soft:#40191c;
   --add:#173625; --del:#3c1a1d; --add-ink:#7fe0a8; --del-ink:#ff9a9a; --conf:#3b3213;
-  --stage:#0c0b12; --menubar:#201e2e; color-scheme:dark}
+  --stage:#0c0b12; --coral:#ff8a6b; --menubar:#201e2e; color-scheme:dark}
 
 *{box-sizing:border-box}
 body{background:var(--bg);color:var(--ink);font-family:var(--ui);padding-block:0 64px;
@@ -188,13 +188,93 @@ footer.sum p{margin:0;color:var(--mut);max-width:60ch;line-height:1.5}
 .step.done .c{background:var(--ok);color:#fff}.step.cur .c{background:var(--accent);color:var(--accent-ink)}
 .code2{font:700 22px var(--mono);letter-spacing:.14em;padding:8px 14px;border-radius:8px;background:var(--accent-soft);color:var(--accent);display:inline-block}
 .seg{display:inline-flex;border:1px solid var(--line);border-radius:7px;overflow:hidden}.seg span{padding:3px 10px;font-size:11.5px;background:var(--win)}.seg span.on{background:var(--accent);color:var(--accent-ink)}
+
+.win.xl{height:790px}
+.glyph{background:none!important;padding:0}.glyph svg{width:100%;height:100%;display:block}
+.oc{flex:1;border:1.5px solid var(--line);border-radius:11px;background:var(--win);padding:10px 12px;cursor:pointer;text-align:left;color:var(--ink);font:inherit;min-width:0;position:relative}
+.oc:hover{border-color:var(--accent)}
+.oc[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft)}
+.oc[disabled]{opacity:.55;cursor:not-allowed}.oc[disabled]:hover{border-color:var(--line)}
+.oc b{display:flex;gap:6px;align-items:center;font-size:13px}.oc small{display:block;color:var(--mut);margin-top:3px;line-height:1.35}
+.oc kbd{margin-left:auto;font:500 10px var(--mono);border:1px solid var(--line);border-radius:4px;padding:0 5px;color:var(--mut);background:var(--panel)}
+.vzp{flex:1;min-width:0;border:1px solid var(--line);border-radius:11px;overflow:hidden;background:var(--win)}
+.vzh{display:flex;gap:8px;align-items:center;padding:7px 10px;background:var(--panel);border-bottom:1px solid var(--line);font-weight:600;font-size:12px}
+.vzb{display:flex;min-height:272px}
+.vzb svg{flex:none}
+.vzr{flex:1;min-width:0}
+.vr{height:34px;display:flex;align-items:center;gap:7px;padding-right:10px;border-bottom:1px dashed var(--line);font-size:12px}
+.vr .m{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.vr .hs{font:500 10.5px var(--mono);color:var(--mut)}
+.vr.new{background:color-mix(in srgb,var(--coral) 14%,transparent)}
+.vr.ghost{opacity:.42}.vr.ghost .m{text-decoration:line-through}
+@keyframes drop{from{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:none}}
+.vzb.go .vr.new{animation:drop .38s cubic-bezier(.2,.8,.2,1) both}
+.vzb.go .vr.new:nth-child(2){animation-delay:.08s}.vzb.go .vr.new:nth-child(3){animation-delay:.16s}.vzb.go .vr.new:nth-child(4){animation-delay:.24s}
+@media(prefers-reduced-motion:reduce){.vzb.go .vr.new{animation:none}}
+.prop{border:1px solid var(--line);border-radius:9px;padding:7px 10px;background:var(--panel);min-width:0}
+.prop small{display:block;color:var(--mut);font:700 9.5px var(--mono);letter-spacing:.08em;text-transform:uppercase}
+.prop span{font-size:12px;line-height:1.35}
+.prop.ok{border-color:color-mix(in srgb,var(--ok) 45%,var(--line))}.prop.warn{border-color:color-mix(in srgb,var(--warn) 55%,var(--line))}
+.learn{border:1px solid var(--line);border-left:3px solid var(--teal);border-radius:9px;padding:9px 12px;background:var(--panel);line-height:1.5;font-size:12.5px}
+.tl{position:relative;padding-left:18px}.tl::before{content:"";position:absolute;left:5px;top:6px;bottom:6px;border-left:2px solid var(--line)}
+.tl .t{position:relative;padding:8px 10px;border:1px solid var(--line);border-radius:9px;margin-bottom:8px;background:var(--win)}
+.tl .t::before{content:"";position:absolute;left:-18px;top:14px;width:10px;height:10px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 3px var(--win)}
+.tl .t.un::before{background:var(--coral)}.tl .t.sel{border-color:var(--accent);background:var(--accent-soft)}
+.mix{display:flex;height:10px;border-radius:6px;overflow:hidden;gap:2px}.mix i{display:block}
+.lt{border:1px solid var(--line);border-radius:14px;padding:14px;background:var(--panel);display:flex;flex-direction:column;gap:10px;min-width:0}
+.lt .sv{display:grid;place-items:center;height:132px;border-radius:10px;background:var(--stage)}
+.lt h4{margin:0;font:700 13px var(--ui);display:flex;gap:8px;align-items:center}.lt p{margin:0;font-size:12px;line-height:1.45;color:var(--mut)}
+.lt.pick{border:2px solid var(--accent)}
+.lgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:14px}
+.sizes{display:flex;gap:18px;align-items:flex-end;flex-wrap:wrap}
+.sizes figure{margin:0;text-align:center;font:500 10px var(--mono);color:var(--mut);display:flex;flex-direction:column;gap:6px;align-items:center}
+.menus{display:flex;gap:10px;flex-wrap:wrap}
+.mbmock{display:flex;align-items:center;gap:12px;padding:6px 12px;border-radius:7px;font-size:12px}
 </style>
 
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
+  <linearGradient id="bgA" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2d2766"/><stop offset="1" stop-color="#0e0d1c"/></linearGradient>
+  <linearGradient id="glA" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".2"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
+  <linearGradient id="laneA" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff"/><stop offset="1" stop-color="#b9b1ff"/></linearGradient>
+  <linearGradient id="bgB" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#6b5bff"/><stop offset="1" stop-color="#14c9d6"/></linearGradient>
+  <linearGradient id="bgC" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ff7a59"/><stop offset="1" stop-color="#7a4dff"/></linearGradient>
+  <linearGradient id="bgD" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#12b5c5"/><stop offset="1" stop-color="#3b2fb8"/></linearGradient>
+  <symbol id="logoA" viewBox="0 0 256 256">
+    <rect x="16" y="16" width="224" height="224" rx="54" fill="url(#bgA)"/><rect x="16" y="16" width="224" height="110" rx="54" fill="url(#glA)"/>
+    <path d="M156 214V64" stroke="url(#laneA)" stroke-width="16" stroke-linecap="round" fill="none"/>
+    <path d="M90 204C90 152 156 172 156 120" stroke="#19d3e3" stroke-width="16" stroke-linecap="round" fill="none"/>
+    <circle cx="90" cy="204" r="14" fill="#19d3e3"/>
+    <circle cx="156" cy="60" r="22" fill="#14122a" stroke="#fff" stroke-width="12"/>
+    <circle cx="156" cy="124" r="18" fill="#ff7a59" stroke="#14122a" stroke-width="6"/>
+  </symbol>
+  <symbol id="logoB" viewBox="0 0 256 256"><rect x="16" y="16" width="224" height="224" rx="54" fill="url(#bgB)"/>
+    <path d="M66 138L110 182L192 78" stroke="#fff" stroke-width="18" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+    <circle cx="66" cy="138" r="14" fill="#fff"/><circle cx="110" cy="182" r="14" fill="#fff"/><circle cx="192" cy="78" r="21" fill="#fff" stroke="#3b2fb8" stroke-width="6"/></symbol>
+  <symbol id="logoC" viewBox="0 0 256 256"><rect x="16" y="16" width="224" height="224" rx="54" fill="url(#bgC)"/>
+    <path d="M72 188L176 84" stroke="#fff" stroke-width="16" stroke-linecap="round" fill="none"/><path d="M122 76H180V134" stroke="#fff" stroke-width="16" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+    <circle cx="72" cy="188" r="15" fill="#fff"/><circle cx="122" cy="138" r="15" fill="#fff"/></symbol>
+  <symbol id="logoD" viewBox="0 0 256 256"><rect x="16" y="16" width="224" height="224" rx="54" fill="url(#bgD)"/>
+    <path d="M86 62C86 126 170 130 170 194" stroke="#fff" stroke-width="15" stroke-linecap="round" fill="none"/><path d="M170 62C170 126 86 130 86 194" stroke="#ffd166" stroke-width="15" stroke-linecap="round" fill="none"/>
+    <circle cx="86" cy="62" r="14" fill="#fff"/><circle cx="170" cy="62" r="14" fill="#ffd166"/><circle cx="86" cy="194" r="14" fill="#ffd166"/><circle cx="170" cy="194" r="14" fill="#fff"/></symbol>
+  <symbol id="logoE" viewBox="0 0 256 256"><rect x="16" y="16" width="224" height="224" rx="54" fill="#15132a"/>
+    <circle cx="128" cy="128" r="76" fill="none" stroke="#fff" stroke-width="12"/>
+    <path d="M128 84V128M128 128L100 166M128 128L156 166" stroke="#19d3e3" stroke-width="12" stroke-linecap="round" fill="none"/>
+    <circle cx="128" cy="84" r="11" fill="#fff"/><circle cx="100" cy="166" r="11" fill="#ff7a59"/><circle cx="156" cy="166" r="11" fill="#ff7a59"/></symbol>
+  <symbol id="logoF" viewBox="0 0 256 256"><rect x="16" y="16" width="224" height="224" rx="54" fill="#5b4bff"/>
+    <path d="M62 78a22 22 0 0 1 22-22h88a22 22 0 0 1 22 22v62a22 22 0 0 1-22 22h-52l-34 30v-30h-2a22 22 0 0 1-22-22z" fill="#fff"/>
+    <path d="M110 80V138" stroke="#2a2457" stroke-width="10" stroke-linecap="round"/><path d="M110 112C110 96 148 108 148 88" stroke="#0aa5b5" stroke-width="10" stroke-linecap="round" fill="none"/>
+    <circle cx="110" cy="80" r="9" fill="#2a2457"/><circle cx="110" cy="138" r="9" fill="#2a2457"/><circle cx="148" cy="86" r="9" fill="#ff7a59"/></symbol>
+  <symbol id="logoG" viewBox="0 0 256 256"><rect x="16" y="16" width="224" height="224" rx="54" fill="#15132a"/>
+    <rect x="52" y="150" width="144" height="34" rx="17" fill="#6b5bff"/><rect x="64" y="104" width="144" height="34" rx="17" fill="#19d3e3"/><rect x="76" y="58" width="144" height="34" rx="17" fill="#ff7a59"/>
+    <circle cx="94" cy="75" r="9" fill="#15132a"/><circle cx="82" cy="121" r="9" fill="#15132a"/><circle cx="70" cy="167" r="9" fill="#15132a"/></symbol>
+  <symbol id="markT" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round"><path d="M15.5 21V6.5"/><path d="M8.5 20.5C8.5 15.5 15.5 17 15.5 12.5"/><circle cx="15.5" cy="4.2" r="2.5"/></g><circle cx="15.5" cy="12.8" r="2.1" fill="currentColor"/><circle cx="8.5" cy="20.2" r="1.9" fill="currentColor"/></symbol>
+</defs></svg>
 <div class="wrap">
 <header class="top">
   <div>
-    <h1>Committo — mockup v0</h1>
-    <p class="sub">Thirteen screens for approval. Everything is static; nothing here talks to git. Use the buttons under each screen to approve it or request changes. The full spec lives in <span class="mono">docs/SPEC.md</span> on the branch.</p>
+    <h1 style="display:flex;gap:12px;align-items:center"><span style="width:38px;height:38px;display:inline-block"><svg viewBox="0 0 256 256" width="38" height="38" aria-hidden="true"><use href="#logoA"/></svg></span>Committo — mockup v2</h1>
+    <p class="sub">Sixteen screens for approval. Everything is static; nothing here talks to git. Use the buttons under each screen to approve it or request changes. The full spec lives in <span class="mono">docs/SPEC.md</span> on the branch.</p>
   </div>
   <div style="display:flex;gap:8px;align-items:center"><span class="pill">for approval</span><button class="theme" id="themeBtn" type="button">Toggle theme</button></div>
 </header>
@@ -206,10 +286,10 @@ footer.sum p{margin:0;color:var(--mut);max-width:60ch;line-height:1.5}
   <div class="shead"><div><h2>Menu-bar popover</h2><p>The always-there surface. The arrow ties it to the icon. It answers three questions at a glance: what repos am I in, what needs my review, and what are my agents doing.</p></div><div class="approve" data-k="popover"></div></div>
   <div class="cols">
     <div class="stage"><div class="desk">
-      <div class="mb"><span class="small">Wi-Fi</span><span class="small">86%</span><span class="me">⑂ 2</span><span>Thu 9:41</span></div>
+      <div class="mb"><span class="small">Wi-Fi</span><span class="small">86%</span><span class="me"><svg width="13" height="13"><use href="#markT"/></svg> 2</span><span>Thu 9:41</span></div>
       <div class="pop">
         <div style="padding:14px 14px 8px;display:flex;gap:9px;align-items:center">
-          <div class="glyph">C</div><div class="input" style="flex:1"><span>⌕</span><span style="color:var(--mut)">Jump to repo, branch, PR or issue</span><span class="chip" style="margin-left:auto">⌘K</span></div>
+          <div class="glyph"><svg viewBox="0 0 256 256" aria-hidden="true"><use href="#logoA"/></svg></div><div class="input" style="flex:1"><span>⌕</span><span style="color:var(--mut)">Jump to repo, branch, PR or issue</span><span class="chip" style="margin-left:auto">⌘K</span></div>
         </div>
         <div style="padding:0 14px;display:flex;flex-direction:column;gap:12px;overflow:hidden;flex:1">
           <div class="upd"><b style="font-size:13px">↻</b><div style="flex:1"><b>Committo 0.2.0 is ready</b><div style="opacity:.85;font-size:11px">Signed and verified. Installs on quit.</div></div><span class="btn sm" style="background:rgba(255,255,255,.2);border:0;color:inherit">Restart</span></div>
@@ -392,6 +472,38 @@ footer.sum p{margin:0;color:var(--mut);max-width:60ch;line-height:1.5}
     </aside>
   </div>
 </section>
+
+<!-- MERGE VIZ -->
+<section class="screen" id="s-mergeviz" data-title="Merge preview">
+  <div class="shead"><div><h2>Merge preview: see how commits land on main</h2><p>Pick Merge commit, Squash or Rebase and watch the graph change before anything happens. It is the fastest way to choose well, and it doubles as a lesson for anyone still learning what these words mean. Try the buttons below, or press 1, 2 and 3.</p></div><div class="approve" data-k="mergeviz"></div></div>
+  <div class="cols"><div class="stage"><div class="win xl" data-active="Pull requests"><div class="main">
+    <div class="bar"><b>Merge #142</b><span class="chip">claude/device-flow → main</span><span class="chip ok">CI ✓</span><span class="chip acc">review ✓</span><span class="sp"></span><span class="seg"><span class="on">Teach me</span><span>Just merge</span></span></div>
+    <div style="padding:12px 14px;display:flex;flex-direction:column;gap:12px;flex:1;min-height:0;overflow:hidden">
+      <div style="display:flex;gap:10px" id="oc">
+        <button class="oc" type="button" data-o="merge" aria-pressed="false" disabled><b>⑃ Merge commit <kbd>1</kbd></b><small>Keeps every commit and adds one that joins the two lines.</small><span class="chip warn" style="margin-top:6px">🔒 ruleset needs linear history</span></button>
+        <button class="oc" type="button" data-o="squash" aria-pressed="true"><b>▣ Squash <kbd>2</kbd></b><small>Folds the whole PR into one new commit on main.</small><span class="chip ok" style="margin-top:6px">★ your usual · 9 of last 10</span></button>
+        <button class="oc" type="button" data-o="rebase" aria-pressed="false"><b>⇉ Rebase <kbd>3</kbd></b><small>Replays each commit on top of main, in a straight line.</small><span class="chip" style="margin-top:6px">4 commits get new hashes</span></button>
+      </div>
+      <div style="display:flex;gap:12px;align-items:stretch">
+        <div class="vzp"><div class="vzh">Now <span class="chip">PR branch + main</span></div><div class="vzb" id="vzBefore"></div></div>
+        <div style="display:grid;place-items:center;font-size:22px;color:var(--accent)">→</div>
+        <div class="vzp"><div class="vzh"><span id="vzTitle">main after Squash</span><span class="chip" id="vzCount">+1 commit</span><span class="sp" style="flex:1"></span><button class="btn sm" type="button" id="replay">▶ Replay</button></div><div class="vzb go" id="vzAfter"></div></div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px" id="props"></div>
+      <div class="learn" id="learn"></div>
+      <div style="display:flex;gap:8px;align-items:center"><span class="small" id="undo" style="flex:1"></span><span class="btn">Merge locally</span><span class="btn pri" id="goBtn">Squash &amp; merge on GitHub</span></div>
+    </div>
+  </div></div></div>
+  <aside class="notes"><h3>Notes</h3>
+    <div class="note"><span class="n">1</span><div><b>Live before/after graph.</b> Switching option redraws what main will look like, with new commits highlighted and the ones that do not reach main shown faded.<i>SPEC §7.6</i></div></div>
+    <div class="note"><span class="n">2</span><div><b>Consequences, not jargon:</b> history shape, hashes, signatures, undo and bisect. Each option states what it does to them.<i>SPEC §7.6</i></div></div>
+    <div class="note"><span class="n">3</span><div><b>Respects the ruleset.</b> Options the repo forbids are locked with the reason. The default follows your repo’s habit.<i>SPEC §7.6</i></div></div>
+    <div class="note"><span class="n">4</span><div><b>Teach me</b> adds a plain-English explanation and glossary; Just merge hides it. The same preview powers rebase, cherry-pick, revert and reset.<i>SPEC §3.4</i></div></div>
+    <div class="note"><span class="n">5</span><div><b>Keyboard first:</b> 1 / 2 / 3 choose, ↩ merges. Nothing waits on the network; the preview is drawn locally.<i>SPEC §16</i></div></div>
+  </aside></div>
+</section>
+
+
 
 <!-- 5 NEW REPO -->
 <section class="screen" id="s-new" data-title="New repo">
@@ -657,6 +769,45 @@ footer.sum p{margin:0;color:var(--mut);max-width:60ch;line-height:1.5}
     <div class="note"><span class="n">4</span><div><b>Compare branches</b> opens the same diff engine and has the ✦ explain link.<i>SPEC §4.3</i></div></div>
   </aside></div>
 </section>
+<!-- RELEASES -->
+<section class="screen" id="s-releases" data-title="Tags &amp; releases">
+  <div class="shead"><div><h2>Tags and releases</h2><p>Everything from “tag this commit” to a published release with notes, artifacts and the update feed, in one flow. The version bump is suggested from the commits, and the notes write themselves.</p></div><div class="approve" data-k="releases"></div></div>
+  <div class="cols"><div class="stage"><div class="win tall" data-active="Releases"><div class="main">
+    <div class="bar"><b>Releases</b><span class="chip">committo</span><span class="sp"></span><span class="btn sm">＋ Tag</span><span class="btn sm pri">＋ Draft release</span></div>
+    <div class="body">
+      <div class="pane" style="width:290px;padding:14px;overflow:hidden">
+        <div class="tl">
+          <div class="t un sel"><b>Unreleased</b> <span class="chip warn">14 commits</span><div class="small" style="margin:4px 0 6px">since v0.1.0 · 3 feat · 2 fix · 1 docs</div>
+            <div class="mix"><i style="flex:3;background:var(--accent)"></i><i style="flex:2;background:var(--bad)"></i><i style="flex:1;background:var(--teal)"></i><i style="flex:8;background:var(--panel2)"></i></div></div>
+          <div class="t"><div style="display:flex;gap:6px;align-items:center"><b>v0.1.0</b><span class="chip ok">🔒 signed</span><span class="chip acc">release</span></div><div class="small">3 days ago · 42 commits · 128 downloads</div></div>
+          <div class="t"><div style="display:flex;gap:6px;align-items:center"><b>v0.0.9</b><span class="chip ok">🔒</span><span class="chip acc">release</span></div><div class="small">2 weeks ago · 31 commits</div></div>
+          <div class="t"><div style="display:flex;gap:6px;align-items:center"><b>v0.0.1</b><span class="chip">tag only</span><span class="chip warn">unsigned</span></div><div class="small">1 month ago · <span style="color:var(--accent)">Create release</span></div></div>
+        </div>
+        <div class="card" style="margin-top:6px"><h4>Tag actions</h4><div style="display:flex;gap:6px;flex-wrap:wrap"><span class="btn sm">Annotate</span><span class="btn sm">Sign</span><span class="btn sm">Push</span><span class="btn sm">Compare</span><span class="btn sm">Delete local</span><span class="btn sm" style="color:var(--bad)">Delete remote…</span><span class="btn sm" style="color:var(--bad)">Move…</span></div><div class="small" style="margin-top:6px">Moving or deleting a pushed tag shows who may have it and asks twice.</div></div>
+      </div>
+      <div class="pane divv" style="flex:1;padding:14px;display:flex;flex-direction:column;gap:10px;overflow:hidden">
+        <div style="display:flex;gap:10px;align-items:center"><div style="font:700 19px var(--display)">Draft: v0.2.0</div><span class="chip warn">not published</span><span class="sp" style="flex:1"></span><span class="seg"><span>patch</span><span class="on">minor</span><span>major</span></span></div>
+        <div class="small">Minor suggested: 3 features, 2 fixes, no breaking changes (from conventional commits and PR labels).</div>
+        <div class="card"><h4>Release notes <span class="chip acc">auto</span><span class="btn ai sm" style="margin-left:auto">✦ Polish</span></h4>
+          <div style="font-size:12.5px;line-height:1.6"><b>Features</b><br>• 3-way merge tool with AI help (#131)<br>• Merge preview that shows how commits land (#142)<br>• Releases and tag management (#148)<br><b>Fixes</b><br>• Graph lane overflow with many branches (#139)<br>• Poll loop ignores cancellation (#144)<br><b>Contributors</b> <span class="chip">kal</span> <span class="chip acc">✦ Claude</span> <span class="chip">⌘ Command Code</span></div></div>
+        <div class="grid2">
+          <div class="card"><h4>Checks</h4><div class="stack" style="gap:5px;font-size:12px"><div><span class="chip ok">✓</span> CI green on main</div><div><span class="chip ok">✓</span> No unsigned commits since v0.1.0</div><div><span class="chip ok">✓</span> Security scan clean</div><div><span class="chip warn">!</span> 1 open PR labelled <span class="mono">release-blocker</span></div></div></div>
+          <div class="card"><h4>Artifacts &amp; feed</h4><div class="stack" style="gap:5px;font-size:12px"><div><span class="chip ok">✓</span> <span class="mono">Committo-0.2.0.dmg</span> notarized</div><div><span class="chip ok">✓</span> <span class="mono">Committo-0.2.0.zip</span></div><div><span class="chip">○</span> Update the Sparkle appcast</div><div><span class="chip">○</span> Attach checksums</div></div></div>
+        </div>
+        <div style="display:flex;gap:8px;align-items:center"><span class="small" style="flex:1">Will: create signed tag v0.2.0 on main → push → publish GitHub release → update appcast.</span><span class="btn">Save draft</span><span class="btn pri">Tag &amp; publish</span></div>
+      </div>
+    </div>
+  </div></div></div>
+  <aside class="notes"><h3>Notes</h3>
+    <div class="note"><span class="n">1</span><div><b>Tags</b> listed as a timeline with signed state, commit counts and whether a release exists. Create, annotate, sign, push, compare, delete, move.<i>SPEC §7.8</i></div></div>
+    <div class="note"><span class="n">2</span><div><b>Suggested bump</b> from conventional commits and PR labels. You can override.<i>SPEC §7.8</i></div></div>
+    <div class="note"><span class="n">3</span><div><b>Notes write themselves,</b> grouped and credited, including agents. ✦ polishes the wording.<i>SPEC §7.8</i></div></div>
+    <div class="note"><span class="n">4</span><div><b>One button to ship:</b> signed tag, push, release, assets and the Sparkle appcast that powers self-update.<i>SPEC §12</i></div></div>
+    <div class="note"><span class="n">5</span><div><b>MCP:</b> <span class="mono">tag_*</span>, <span class="mono">release_draft</span>, <span class="mono">release_publish</span> (destructive tier).<i>SPEC §11</i></div></div>
+  </aside></div>
+</section>
+
+
 
 <!-- 11 INSIGHTS -->
 <section class="screen" id="s-insights" data-title="Insights &amp; security">
@@ -755,6 +906,33 @@ footer.sum p{margin:0;color:var(--mut);max-width:60ch;line-height:1.5}
     <div class="note"><span class="n">3</span><div><b>⌘K understands plain language</b> and maps it to registry actions, showing the real git command first. The same registry is the MCP surface.<i>SPEC §11.1</i></div></div>
   </aside></div>
 </section>
+<!-- LOGO -->
+<section class="screen" id="s-logo" data-title="Logo">
+  <div class="shead"><div><h2>Logo exploration</h2><p>The first mark was a gradient square with a generic graph. These are seven different ideas. None uses a letter. Recommendation: A, “Landing”. A branch swings in and lands on main as a coral commit, under a HEAD ring. It reads as git at a glance, it is simple enough for 16px, and it owns a colour pairing (ink, teal, coral) that no other git client uses.</p></div><div class="approve" data-k="logo"></div></div>
+  <div class="lgrid">
+    <div class="lt pick"><div class="sv"><svg viewBox="0 0 256 256" width="112" height="112"><use href="#logoA"/></svg></div><h4>A · Landing <span class="chip ok">recommended</span></h4><p>A branch merges into main; the coral node is the commit that just landed. Ring on top is HEAD.</p></div>
+    <div class="lt"><div class="sv"><svg viewBox="0 0 256 256" width="112" height="112"><use href="#logoB"/></svg></div><h4>B · Check-in</h4><p>A checkmark drawn as a branch with three nodes: committed, done. Friendly, but checkmarks are common.</p></div>
+    <div class="lt"><div class="sv"><svg viewBox="0 0 256 256" width="112" height="112"><use href="#logoC"/></svg></div><h4>C · Ship</h4><p>Commits climbing to an arrow. Energetic, a little generic.</p></div>
+    <div class="lt"><div class="sv"><svg viewBox="0 0 256 256" width="112" height="112"><use href="#logoD"/></svg></div><h4>D · Braid</h4><p>Two lanes crossing: merge as a weave. Distinctive, busy at small sizes.</p></div>
+    <div class="lt"><div class="sv"><svg viewBox="0 0 256 256" width="112" height="112"><use href="#logoE"/></svg></div><h4>E · Ring fork</h4><p>A fork held in a ring: “commit to” as a promise. Strong silhouette.</p></div>
+    <div class="lt"><div class="sv"><svg viewBox="0 0 256 256" width="112" height="112"><use href="#logoF"/></svg></div><h4>F · Chat branch</h4><p>Speech bubble with a branch: agents plus git. Clear idea, resembles a chat app.</p></div>
+    <div class="lt"><div class="sv"><svg viewBox="0 0 256 256" width="112" height="112"><use href="#logoG"/></svg></div><h4>G · Stack</h4><p>Three commits stacked like layers. Memorable, but reads more like a database.</p></div>
+  </div>
+  <div class="lt" style="margin-top:16px"><h4>A in use</h4>
+    <div class="sizes">
+      <figure><svg width="128" height="128"><use href="#logoA"/></svg>128</figure>
+      <figure><svg width="64" height="64"><use href="#logoA"/></svg>64</figure>
+      <figure><svg width="32" height="32"><use href="#logoA"/></svg>32</figure>
+      <figure><svg width="16" height="16"><use href="#logoA"/></svg>16</figure>
+      <div class="menus" style="flex-direction:column">
+        <div class="mbmock" style="background:#ece9f7;color:#1b1a24"><svg width="18" height="18"><use href="#markT"/></svg><span>Menu bar, light</span></div>
+        <div class="mbmock" style="background:#201e2e;color:#ecebf5"><svg width="18" height="18"><use href="#markT"/></svg><span>Menu bar, dark</span></div>
+        <div class="mbmock" style="background:#5b4bff;color:#fff"><svg width="18" height="18"><use href="#markT"/></svg><span>Menu bar, active, with badge 2</span></div>
+      </div>
+    </div>
+    <p>The menu-bar glyph is a one-colour template (macOS tints it). It drops the gradient and keeps the three things that carry the idea: main line, landing branch, HEAD ring. Wordmark is set in Bricolage Grotesque Bold.</p>
+  </div>
+</section>
 
 <footer class="sum">
   <p id="sumText">No screens marked yet.</p>
@@ -764,16 +942,16 @@ footer.sum p{margin:0;color:var(--mut);max-width:60ch;line-height:1.5}
 
 <script>
 (function(){
-  var SCREENS=[["popover","Menu bar"],["changes","Changes"],["merge","Diff & merge"],["prs","PRs & issues"],["new","New repo"],["lens","Agent Lens"],["mcp","MCP surface"],["settings","Updates & signing"],["history","History & graph"],["branches","Branches & stacks"],["insights","Insights & security"],["integrations","Accounts, agents & CI"],["first","First run & ⌘K"]];
+  var SCREENS=[["popover","Menu bar"],["changes","Changes"],["merge","Diff & merge"],["prs","PRs & issues"],["mergeviz","Merge preview"],["new","New repo"],["lens","Agent Lens"],["mcp","MCP surface"],["settings","Updates & signing"],["history","History & graph"],["branches","Branches & stacks"],["releases","Tags & releases"],["insights","Insights & security"],["integrations","Accounts, agents & CI"],["first","First run & ⌘K"],["logo","Logo"]];
   var state={};
   try{state=JSON.parse(localStorage.getItem("committo-mock-approvals")||"{}")}catch(e){}
   function save(){try{localStorage.setItem("committo-mock-approvals",JSON.stringify(state))}catch(e){}}
 
-  var NAV=[["Changes","✎"],["History","⑂"],["Branches","⎇"],["Pull requests","⇄",4],["Issues","◎",7],["Agent Lens","◉"],["Security","⛨"],["CI Runners","⚙"],["Insights","▤"],["Settings","⚙"]];
-  var GROUPS={"Work":["Changes","History","Branches"],"Collaborate":["Pull requests","Issues"],"Agents":["Agent Lens"],"Quality":["Security","CI Runners"],"Explore":["Insights"]};
+  var NAV=[["Changes","✎"],["History","⑂"],["Branches","⎇"],["Pull requests","⇄",4],["Issues","◎",7],["Agent Lens","◉"],["Security","⛨"],["CI Runners","⚙"],["Insights","▤"],["Releases","⚑"],["Settings","⚙"]];
+  var GROUPS={"Work":["Changes","History","Branches"],"Collaborate":["Pull requests","Issues"],"Agents":["Agent Lens"],"Quality":["Security","CI Runners"],"Ship":["Releases"],"Explore":["Insights"]};
   document.querySelectorAll(".win").forEach(function(w){
     if(w.style.gridTemplateColumns==="1fr")return;
-    var act=w.getAttribute("data-active"),h='<aside class="side"><div class="lights"><i></i><i></i><i></i></div><div class="repo"><div class="glyph">C</div><div><b>committo</b><small>⑂ main</small></div></div>';
+    var act=w.getAttribute("data-active"),h='<aside class="side"><div class="lights"><i></i><i></i><i></i></div><div class="repo"><div class="glyph"><svg viewBox="0 0 256 256" aria-hidden="true"><use href="#logoA"/></svg></div><div><b>committo</b><small>⑂ main</small></div></div>';
     Object.keys(GROUPS).forEach(function(g){h+='<div class="grp">'+g+'</div>';GROUPS[g].forEach(function(n){
       var d=NAV.filter(function(x){return x[0]===n})[0];
       h+='<div class="item'+(n===act?' act':'')+'"><span class="ico">'+d[1]+'</span>'+n+(d[2]?'<span class="c">'+d[2]+'</span>':'')+'</div>';});});
@@ -781,6 +959,70 @@ footer.sum p{margin:0;color:var(--mut);max-width:60ch;line-height:1.5}
   });
 
   (function(){var h=document.getElementById("hm");if(!h)return;var seed=7,x="";for(var i=0;i<371;i++){seed=(seed*9301+49297)%233280;var r=seed/233280,wk=Math.floor(i/7);var l=r<.38?"":r<.62?"l1":r<.85?"l2":"l3";if(wk>30&&wk<36&&r>.3)l="l3";x+='<i class="'+l+'"></i>';}h.innerHTML=x;})();
+
+(function(){
+  var NW=34,LX=[22,58];
+  var R=function(l,m,h,x){var o={l:l,m:m,h:h};for(var k in (x||{}))o[k]=x[k];return o;};
+  var AG={a:'✦ Claude'};
+  var BEFORE={rows:[R(0,'Merge #139 · fix lane overflow','e7a1'),R(1,'feat(auth): add scopes','7be0',{a:1}),R(1,'feat(auth): poll with backoff','3c9d',{a:1}),R(0,'chore: bump act','b20f'),R(1,'test: device flow','91aa',{a:1}),R(1,'feat(auth): start device flow','44fe',{a:1}),R(0,'docs: describe MCP setup','0d12')],
+    edges:[[0,3],[3,6],[1,2],[2,4],[4,5],[5,6]]};
+  var OPT={
+    merge:{name:'Merge commit',count:'+5 commits',
+      rows:[R(0,'Merge pull request #142','f00d',{s:'new'}),R(0,'Merge #139 · fix lane overflow','e7a1'),R(1,'feat(auth): add scopes','7be0',{a:1}),R(1,'feat(auth): poll with backoff','3c9d',{a:1}),R(0,'chore: bump act','b20f'),R(1,'test: device flow','91aa',{a:1}),R(1,'feat(auth): start device flow','44fe',{a:1}),R(0,'docs: describe MCP setup','0d12')],
+      edges:[[0,1],[0,2],[1,4],[2,3],[3,5],[5,6],[6,7],[4,7]],
+      props:[['History','Branches and joins (not a straight line)','warn'],['Added to main','4 of yours + 1 merge commit',''],['Hashes','All unchanged','ok'],['Signatures','Kept; merge commit signed by GitHub','ok'],['Undo','Revert the merge (-m 1)',''],['Bisect and blame','Fine-grained','ok']],
+      learn:'<b>In plain words:</b> a merge commit is a knot that ties your branch back into main. Nothing is rewritten, so it is the safest option, but history gets branchy. <b>Good for:</b> long-lived branches and when you want the full story.',
+      undo:'To undo: <span class="mono">git revert -m 1 f00d</span>',go:'Merge on GitHub'},
+    squash:{name:'Squash',count:'+1 commit',
+      rows:[R(0,'feat(auth): add OAuth device flow (#142)','5a1c',{s:'new',x:'+312 −24'}),R(0,'Merge #139 · fix lane overflow','e7a1'),R(0,'chore: bump act','b20f'),R(0,'docs: describe MCP setup','0d12'),R(1,'feat(auth): add scopes','7be0',{s:'ghost',a:1}),R(1,'feat(auth): poll with backoff','3c9d',{s:'ghost',a:1}),R(1,'test: device flow','91aa',{s:'ghost',a:1}),R(1,'feat(auth): start device flow','44fe',{s:'ghost',a:1})],
+      edges:[[0,1],[1,2],[2,3],[4,5,1],[5,6,1],[6,7,1],[7,3,1]],
+      props:[['History','Straight line, one commit','ok'],['Added to main','1 new commit (+312 −24)',''],['Hashes','New commit; branch commits stay on the PR','warn'],['Signatures','New commit signed by GitHub','ok'],['Undo','One revert undoes the whole PR','ok'],['Detail','Step-by-step commits not kept in main','warn']],
+      learn:'<b>In plain words:</b> squash takes all the little commits in the PR and folds them into one tidy commit on main. The originals (faded here) stay on the branch, but main only gets the summary. <b>Good for:</b> “wip” commits and agent noise, and when a PR is one idea.',
+      undo:'To undo: <span class="mono">git revert 5a1c</span>',go:'Squash &amp; merge on GitHub'},
+    rebase:{name:'Rebase',count:'+4 commits',
+      rows:[R(0,'feat(auth): add scopes','1e4b',{s:'new',a:1,x:'was 7be0'}),R(0,'feat(auth): poll with backoff','8d02',{s:'new',a:1,x:'was 3c9d'}),R(0,'test: device flow','c7a9',{s:'new',a:1,x:'was 91aa'}),R(0,'feat(auth): start device flow','2f61',{s:'new',a:1,x:'was 44fe'}),R(0,'Merge #139 · fix lane overflow','e7a1'),R(0,'chore: bump act','b20f'),R(0,'docs: describe MCP setup','0d12')],
+      edges:[[0,1],[1,2],[2,3],[3,4],[4,5],[5,6]],
+      props:[['History','Straight line, every step kept','ok'],['Added to main','4 commits replayed on top',''],['Hashes','All 4 rewritten (new IDs)','warn'],['Signatures','Dropped on GitHub; re-signed if merged locally','warn'],['Undo','Revert each, or the range',''],['Bisect and blame','Fine-grained','ok']],
+      learn:'<b>In plain words:</b> rebase picks up your commits and sets them down again on top of the latest main, one after another, as if you had started from there. They look the same but get new IDs. <b>Good for:</b> clean, meaningful commits you want to keep, with a straight history.',
+      undo:'To undo: <span class="mono">git revert 2f61..1e4b</span>',go:'Rebase &amp; merge on GitHub'}
+  };
+  function draw(d){
+    var H=d.rows.length*NW,svg='<svg width="84" height="'+H+'" viewBox="0 0 84 '+H+'" style="border-right:1px solid var(--line)">';
+    var P=function(r){return [LX[d.rows[r].l],r*NW+NW/2];};
+    (d.edges||[]).forEach(function(e){var a=P(e[0]),b=P(e[1]),dash=e[2]?' stroke-dasharray="4 4"':'';
+      var col=e[2]?'var(--mut)':((d.rows[e[0]].l===1||d.rows[e[1]].l===1)?'var(--teal)':'var(--accent)');
+      var ym=(a[1]+b[1])/2;
+      var path=a[0]===b[0]?'M'+a[0]+' '+a[1]+'V'+b[1]:'M'+a[0]+' '+a[1]+'C'+a[0]+' '+ym+' '+b[0]+' '+ym+' '+b[0]+' '+b[1];
+      svg+='<path d="'+path+'" fill="none" stroke="'+col+'" stroke-width="2.4" stroke-linecap="round"'+dash+'/>';});
+    d.rows.forEach(function(r,i){var p=P(i),c=r.l?'var(--teal)':'var(--accent)';
+      if(r.s==='new')svg+='<circle cx="'+p[0]+'" cy="'+p[1]+'" r="9" fill="none" stroke="var(--coral)" stroke-width="2" opacity=".5"/><circle cx="'+p[0]+'" cy="'+p[1]+'" r="6" fill="var(--coral)"/>';
+      else if(r.s==='ghost')svg+='<circle cx="'+p[0]+'" cy="'+p[1]+'" r="5.5" fill="var(--win)" stroke="var(--mut)" stroke-width="2" stroke-dasharray="3 2"/>';
+      else svg+='<circle cx="'+p[0]+'" cy="'+p[1]+'" r="5.5" fill="'+c+'" stroke="var(--win)" stroke-width="1.5"/>';});
+    svg+='</svg>';
+    var rows='<div class="vzr">'+d.rows.map(function(r){return '<div class="vr'+(r.s?' '+r.s:'')+'"><span class="m">'+r.m+'</span>'+(r.a?'<span class="chip acc">✦</span>':'')+(r.x?'<span class="chip '+(r.s==='new'?'warn':'')+'">'+r.x+'</span>':'')+'<span class="hs">'+r.h+'</span></div>';}).join('')+'</div>';
+    return svg+rows;
+  }
+  var cur='squash',beforeEl=document.getElementById('vzBefore');
+  if(!beforeEl)return;
+  beforeEl.innerHTML=draw(BEFORE);
+  function set(o,animate){
+    if(!OPT[o])return;cur=o;var d=OPT[o];
+    document.querySelectorAll('#oc .oc').forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.o===o));});
+    var after=document.getElementById('vzAfter');after.className='vzb';after.innerHTML=draw(d);
+    if(animate!==false){void after.offsetWidth;after.className='vzb go';}
+    document.getElementById('vzTitle').textContent='main after '+d.name;document.getElementById('vzCount').textContent=d.count;
+    document.getElementById('props').innerHTML=d.props.map(function(p){return '<div class="prop '+p[2]+'"><small>'+p[0]+'</small><span>'+p[1]+'</span></div>';}).join('');
+    document.getElementById('learn').innerHTML=d.learn;document.getElementById('undo').innerHTML=d.undo;document.getElementById('goBtn').innerHTML=d.go;
+  }
+  document.querySelectorAll('#oc .oc').forEach(function(b){b.addEventListener('click',function(){if(!b.disabled)set(b.dataset.o);});});
+  document.getElementById('replay').addEventListener('click',function(){set(cur);});
+  document.addEventListener('keydown',function(e){
+    if(!document.getElementById('s-mergeviz').classList.contains('on')||e.metaKey||e.ctrlKey||e.altKey)return;
+    var m={'2':'squash','3':'rebase'};if(m[e.key])set(m[e.key]);
+    if(e.key==='1'){var b=document.querySelector('#oc .oc[data-o="merge"]');b.classList.remove('shake');}
+  });
+  set('squash',false);
+})();
   var tabs=document.getElementById("tabs");
   SCREENS.forEach(function(s,i){
     var b=document.createElement("button");b.type="button";b.setAttribute("role","tab");b.id="t-"+s[0];

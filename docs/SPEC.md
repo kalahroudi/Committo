@@ -34,6 +34,9 @@ Sidebar groups: Work (Changes, History, Branches), Collaborate (Pull requests, I
 ### 3.3 First run, Guided mode and ⌘K (mock 13)
 First run: five steps (connect account, find repos, pick agent, install MCP, set up signing), each skippable and re-runnable from Settings. **Guided mode** (on by default for new users) uses plain labels ("save your work" for commit, "send" for push) and confirms risky actions; off shows standard git names. **⌘K** accepts plain language, maps it to registry actions, and always shows the exact git command before running. Anything it cannot map falls back to "Ask Claude" (read-only suggestion).
 
+### 3.4 Teach mode (mock 13, 14)
+A per-user toggle (on for new users, "Teach me / Just merge" on the merge screen). When on, every history-changing action (merge, squash, rebase, cherry-pick, revert, reset, force-push, amend) first shows a **before/after graph** drawn locally from the repo's real commits, with new commits highlighted, replaced commits faded, and a plain-language explanation plus the exact git command. A glossary (commit, parent, branch, main, merge, fast-forward, rebase, HEAD) is one hover away; ✦ "Explain like I'm new" answers follow-ups. For students: **Practice mode** creates a throwaway repo from scenarios (diverged branches, conflict, messy history to clean up) and checks the result. Teach mode never blocks: Just merge hides it.
+
 ## 4. Git feature set
 
 Target: a complete desktop git client on macOS. Advanced workflow items (stacked branches, automatic cleanup, PR-based merge detection, self-hosted providers) are tracked in §13.
@@ -73,7 +76,9 @@ Target: a complete desktop git client on macOS. Advanced workflow items (stacked
 7.3 **Agent test:** the agent reads the diff, writes tests in a throwaway worktree, runs them, and returns results; user can "Add tests to PR" (commit to the PR branch) or discard.
 7.4 **Issues:** list/filter, create, comment, **Issue → agent** (create branch `agent/<n>-<slug>`, worktree, start task with issue text), link PR to issue.
 7.5 **Providers:** GitHub and GitLab full; Gitea/Forgejo next; Bitbucket and Azure DevOps read + comment first, then merge. Capabilities are declared per provider and the UI hides unsupported actions.
-7.6 **Merge options:** merge locally and push, or merge on the provider (merge/squash/rebase, auto-merge when checks pass).
+7.6 **Merge options and preview (mock 14):** merge locally and push, or merge on the provider (merge commit, squash, rebase; auto-merge when checks pass). Choosing an option redraws **what main will look like**: a graph of "now" next to "after", commits that will exist highlighted, commits that stay on the branch faded and dashed, rebased commits annotated with old hash. Under it, six consequence tiles: history shape, what is added to main, hash changes, signature effect (GitHub signs squash/merge commits with its own key and drops signatures on rebase-merge; local merges re-sign with the user's key), how to undo (exact command), bisect/blame granularity. Options forbidden by the ruleset (e.g. "linear history" disables Merge commit) are locked with the reason; the default option is the repo's historical habit (most used in the last N merges), else the provider default. Keys 1/2/3 select, ↩ merges. The preview is computed locally from the PR's commit list and `git merge-tree`/`git cherry` dry-runs; it never waits on the network after the commit list is cached. The same preview component serves rebase, cherry-pick, revert, reset and stash apply.
+
+7.8 **Tags and releases (mock 15):** tag list as a timeline with signed state, commits since previous tag, whether a release exists, download counts. Create (lightweight/annotated/signed), annotate, push, compare tags, delete local/remote, move (with a warning listing who may have fetched it, double confirm). **Release draft:** version bump suggested from conventional commits and PR labels (patch/minor/major, overridable); notes generated and grouped (features, fixes, docs, breaking) with PR links and contributors including agents; ✦ polishes wording; checks (CI green on the commit, no unsigned commits since last tag, security scan, open release-blocker PRs); artifacts (upload, notarization status, checksums); one action to create the signed tag, push, publish the provider release and update the Sparkle appcast (§12). GitHub and GitLab releases first. MCP: `tag_list`, `tag_create`, `tag_push`, `tag_delete` (destructive), `release_draft`, `release_publish` (destructive).
 
 ## 8. Agents and Lens (mock 6)
 
@@ -125,3 +130,13 @@ Stacked branches and a stack-aware PR flow, automatic branch cleanup, PR-based m
 - **Agent CLI flags drift.** Keep adapters as editable templates; add a "test agent" button.
 - **act fidelity** (macOS/Windows runners, secrets). Document unsupported workflows; LAN runner is plain HTTP + token, add TLS/mTLS before recommending beyond a trusted network.
 - **Open:** pricing/licensing model; whether to bundle Tree-sitter grammars or load on demand; Sparkle vs. a custom updater if distributed via the Mac App Store (Sparkle is not allowed there, so v1 is Developer ID only).
+
+## 16. Performance and feel
+
+Light, fast and a delight is a requirement, not a polish pass.
+
+- **Budgets (Apple silicon, repo with 100k commits):** popover visible in <80 ms from cached state; cold launch to usable window <400 ms; repo switch <150 ms; status refresh <100 ms; graph scroll at 60 fps; merge preview redraw <16 ms; memory <150 MB idle.
+- **How:** never block the main thread; stream `git log` and parse incrementally; virtualized lists and a lane-layout cache keyed by commit ranges; rely on `core.fsmonitor`, `feature.manyFiles` and the commit-graph file; cache provider data (stale-while-revalidate) so counters render instantly and refresh behind; cancel superseded git processes; coalesce file-system events.
+- **Feel:** keyboard-first (⌘K, 1/2/3, ↩ to confirm), optimistic UI for local actions, skeletons instead of spinners after 200 ms, every long operation cancellable and resumable, animations under 250 ms and disabled by Reduce Motion, native controls and system fonts, no web views.
+- **Footprint:** single signed app, no background daemon unless MCP/CI server is switched on, idle CPU ~0.
+- **Measure:** a benchmark target in CI (synthetic 100k-commit repo) fails the build on regression beyond 15%.

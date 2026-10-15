@@ -1,43 +1,46 @@
 #!/usr/bin/env swift
-// Draws the Committo app icon (gradient squircle + commit graph glyph) and writes AppIcon.icns.
+// Draws the Committo app icon ("Landing": a branch merging onto main under a HEAD ring) and writes AppIcon.icns.
+// Geometry mirrors docs/assets/logo.svg (256-unit grid, y down).
 // Usage: swift Scripts/make-icon.swift Resources/AppIcon.icns
 import AppKit
 
 func render(_ px: Int) -> Data {
-    let s = CGFloat(px)
+    let s = CGFloat(px), u = s / 256
+    func P(_ x: CGFloat, _ y: CGFloat) -> CGPoint { CGPoint(x: x * u, y: s - y * u) }
+    func R(_ x: CGFloat, _ y: CGFloat, _ w: CGFloat, _ h: CGFloat) -> CGRect { CGRect(x: x * u, y: s - (y + h) * u, width: w * u, height: h * u) }
     let img = NSImage(size: NSSize(width: s, height: s))
     img.lockFocus()
     let ctx = NSGraphicsContext.current!.cgContext
-    let rect = CGRect(x: s * 0.06, y: s * 0.06, width: s * 0.88, height: s * 0.88)
-    let squircle = NSBezierPath(roundedRect: rect, xRadius: s * 0.2, yRadius: s * 0.2)
+    let body = NSBezierPath(roundedRect: R(16, 16, 224, 224), xRadius: 54 * u, yRadius: 54 * u)
     ctx.saveGState()
-    ctx.setShadow(offset: CGSize(width: 0, height: -s * 0.012), blur: s * 0.03, color: NSColor.black.withAlphaComponent(0.35).cgColor)
-    NSColor.black.setFill(); squircle.fill()
+    ctx.setShadow(offset: CGSize(width: 0, height: -3 * u), blur: 8 * u, color: NSColor.black.withAlphaComponent(0.35).cgColor)
+    NSColor.black.setFill(); body.fill()
     ctx.restoreGState()
-    squircle.addClip()
-    NSGradient(colors: [NSColor(red: 0.42, green: 0.36, blue: 1, alpha: 1), NSColor(red: 0.0, green: 0.78, blue: 0.85, alpha: 1)])!.draw(in: rect, angle: -50)
-    // glossy highlight
-    NSGradient(colors: [NSColor.white.withAlphaComponent(0.28), .clear])!.draw(in: CGRect(x: rect.minX, y: rect.midY, width: rect.width, height: rect.height / 2), angle: -90)
-    // commit graph glyph: main line with a branch that merges back
-    let white = NSColor.white
-    white.setStroke(); white.setFill()
-    let lw = s * 0.045
-    let top = CGPoint(x: s * 0.36, y: s * 0.78), mid = CGPoint(x: s * 0.36, y: s * 0.5), bot = CGPoint(x: s * 0.36, y: s * 0.22)
-    let br = CGPoint(x: s * 0.66, y: s * 0.5)
-    let line = NSBezierPath(); line.lineWidth = lw; line.lineCapStyle = .round
-    line.move(to: top); line.line(to: bot); line.stroke()
-    let curve = NSBezierPath(); curve.lineWidth = lw; curve.lineCapStyle = .round
-    curve.move(to: top); curve.curve(to: br, controlPoint1: CGPoint(x: s * 0.66, y: s * 0.78), controlPoint2: CGPoint(x: s * 0.66, y: s * 0.66))
-    curve.curve(to: bot, controlPoint1: CGPoint(x: s * 0.66, y: s * 0.34), controlPoint2: CGPoint(x: s * 0.66, y: s * 0.22)); curve.stroke()
-    for p in [top, mid, bot, br] {
-        let r = s * 0.065
-        let dot = NSBezierPath(ovalIn: CGRect(x: p.x - r, y: p.y - r, width: r * 2, height: r * 2))
-        white.setFill(); dot.fill()
-        NSColor(red: 0.3, green: 0.3, blue: 0.9, alpha: 1).setStroke(); dot.lineWidth = s * 0.012; dot.stroke(); white.setStroke()
+    ctx.saveGState(); body.addClip()
+    NSGradient(colors: [NSColor(red: 0.176, green: 0.153, blue: 0.4, alpha: 1), NSColor(red: 0.055, green: 0.051, blue: 0.11, alpha: 1)])!.draw(in: R(16, 16, 224, 224), angle: -90)
+    NSGradient(colors: [NSColor.white.withAlphaComponent(0.2), .clear])!.draw(in: R(16, 16, 224, 110), angle: -90)
+    ctx.restoreGState()
+
+    func stroke(_ path: NSBezierPath, _ color: NSColor, _ w: CGFloat) { color.setStroke(); path.lineWidth = w * u; path.lineCapStyle = .round; path.stroke() }
+    func dot(_ c: CGPoint, _ r: CGFloat, fill: NSColor, ring: NSColor? = nil, ringW: CGFloat = 0) {
+        let rect = CGRect(x: c.x - r * u, y: c.y - r * u, width: 2 * r * u, height: 2 * r * u)
+        let o = NSBezierPath(ovalIn: rect); fill.setFill(); o.fill()
+        if let ring { ring.setStroke(); o.lineWidth = ringW * u; o.stroke() }
     }
+    let ink = NSColor(red: 0.078, green: 0.071, blue: 0.165, alpha: 1)
+    let teal = NSColor(red: 0.098, green: 0.827, blue: 0.89, alpha: 1)
+    let coral = NSColor(red: 1, green: 0.478, blue: 0.349, alpha: 1)
+
+    let lane = NSBezierPath(); lane.move(to: P(156, 214)); lane.line(to: P(156, 64))
+    stroke(lane, NSColor(red: 0.85, green: 0.83, blue: 1, alpha: 1), 16)
+    let branch = NSBezierPath(); branch.move(to: P(90, 204))
+    branch.curve(to: P(156, 120), controlPoint1: P(90, 152), controlPoint2: P(156, 172))
+    stroke(branch, teal, 16)
+    dot(P(90, 204), 14, fill: teal)
+    dot(P(156, 60), 22 - 0, fill: ink, ring: .white, ringW: 12)
+    dot(P(156, 124), 18, fill: coral, ring: ink, ringW: 6)
     img.unlockFocus()
-    let rep = NSBitmapImageRep(data: img.tiffRepresentation!)!
-    return rep.representation(using: .png, properties: [:])!
+    return NSBitmapImageRep(data: img.tiffRepresentation!)!.representation(using: .png, properties: [:])!
 }
 
 let out = URL(fileURLWithPath: CommandLine.arguments.count > 1 ? CommandLine.arguments[1] : "AppIcon.icns")

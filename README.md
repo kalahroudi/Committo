@@ -79,6 +79,10 @@ These are mockups of the intended UI (see [docs/mockup](docs/mockup/index.html))
     <td><img src="docs/screenshots/first.png" alt="First run and command bar"><br><sub><b>First run</b> and the plain-language ⌘K bar</sub></td>
     <td></td>
   </tr>
+  <tr>
+    <td><img src="docs/screenshots/mergeviz.png" alt="Merge preview"><br><sub><b>Merge preview</b>: see how commits land on main before you merge</sub></td>
+    <td><img src="docs/screenshots/releases.png" alt="Tags and releases"><br><sub><b>Releases</b>: tags, notes, artifacts, one-click publish</sub></td>
+  </tr>
 </table>
 
 A native macOS (SwiftUI, macOS 14+) git companion that lives in your menu bar, built for people who code with agents.
