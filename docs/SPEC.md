@@ -40,7 +40,7 @@ A per-user toggle (on for new users, "Teach me / Just merge" on the merge screen
 
 ## 4. Git feature set
 
-Target: a complete desktop git client on macOS. Advanced workflow items (stacked branches, automatic cleanup, PR-based merge detection, self-hosted providers) are tracked in §13.
+Target: a complete desktop git client on macOS (clone, status and staging, history, branches, stash, tags, submodules, worktrees, reflog, rebase, signing, LFS, git-flow, conflict resolution). Advanced workflow items (stacked branches, automatic cleanup, PR-based merge detection, self-hosted providers) are tracked in §13.
 
 4.1 **Repos:** create, import (add existing), clone (with background progress), groups/tags, search, worktrees, submodules (init/update/open).
 4.2 **Working copy:** flat/tree file list, unified/split diff, hunk and **line-level staging**, discard, ignore, amend, commit templates, gitmoji, signoff, patches (apply/export).

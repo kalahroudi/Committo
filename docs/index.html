@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Committo</title>
+<meta name="description" content="Committo is a native Mac git client for people who build with AI agents. Design preview: interactive mockup, screenshots and spec.">
+<meta property="og:title" content="Committo">
+<meta property="og:description" content="A native Mac git client for people who build with AI agents. Interactive mockup and screenshots.">
+<meta property="og:image" content="https://kalahroudi.github.io/Committo/screenshots/popover.png">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="assets/logo.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&display=swap">
+<style>
+:root{--bg:#f6f5fa;--ink:#17161f;--mut:#65637a;--line:#dcdae8;--card:#fff;--accent:#5b4bff;--accent-ink:#fff;--soft:#e9e6ff;--hero:#14122a;--hero-ink:#f1f0fa;--teal:#19d3e3;--coral:#ff7a59;
+  --display:"Bricolage Grotesque",system-ui,sans-serif;--ui:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif}
+@media (prefers-color-scheme:dark){:root{--bg:#0f0e17;--ink:#ecebf5;--mut:#9a98ae;--line:#2a2839;--card:#1a1926;--accent:#8a7dff;--accent-ink:#0f0e17;--soft:#27234d;color-scheme:dark}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 var(--ui)}
+a{color:inherit}
+.wrap{max-width:1180px;margin:0 auto;padding-inline:max(20px,env(safe-area-inset-left,0px)) max(20px,env(safe-area-inset-right,0px))}
+.hero{background:var(--hero);color:var(--hero-ink);padding-block:56px 48px}
+.hero .wrap{display:grid;grid-template-columns:auto 1fr;gap:28px;align-items:center}
+.hero img.logo{width:132px;height:132px;display:block}
+h1{font:700 clamp(34px,6vw,58px)/1.02 var(--display);margin:0;letter-spacing:-.02em}
+.tag{margin:10px 0 0;font-size:clamp(17px,2.4vw,21px);color:#cfcde4;max-width:46ch}
+.pill{display:inline-block;margin-top:16px;font:600 12px/1 ui-monospace,Menlo,monospace;padding:7px 11px;border-radius:99px;background:rgba(255,255,255,.1);color:var(--teal);letter-spacing:.02em}
+.cta{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+.btn{display:inline-block;padding:11px 18px;border-radius:10px;font-weight:600;text-decoration:none;border:1px solid rgba(255,255,255,.25);color:var(--hero-ink)}
+.btn.pri{background:var(--coral);border-color:var(--coral);color:#1a0d08}
+.btn:hover{filter:brightness(1.08)}
+.btn:focus-visible,a:focus-visible{outline:3px solid var(--teal);outline-offset:3px}
+section{padding-block:44px}
+h2{font:700 28px/1.15 var(--display);margin:0 0 6px}
+.lede{color:var(--mut);margin:0 0 22px;max-width:62ch}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:20px}
+figure{margin:0;background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden;display:flex;flex-direction:column}
+figure a{display:block;background:var(--soft)}
+figure img{display:block;width:100%;height:auto}
+figcaption{padding:12px 14px 14px}
+figcaption b{display:block;font-weight:600}
+figcaption span{color:var(--mut);font-size:14px}
+.points{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-top:6px}
+.point{padding:16px;border:1px solid var(--line);border-radius:14px;background:var(--card)}
+.point b{font:700 17px var(--display);display:block;margin-bottom:4px}
+.point span{color:var(--mut);font-size:15px}
+footer{border-top:1px solid var(--line);padding-block:28px;color:var(--mut);font-size:14px}
+footer .wrap{display:flex;flex-wrap:wrap;gap:8px 20px;justify-content:space-between}
+@media(max-width:620px){.hero .wrap{grid-template-columns:1fr}.hero img.logo{width:92px;height:92px}}
+</style>
+</head>
+<body>
+<header class="hero"><div class="wrap">
+  <img class="logo" src="assets/logo.svg" alt="Committo logo: a branch landing on main">
+  <div>
+    <h1>Committo</h1>
+    <p class="tag">A native Mac git client for people who build with AI agents.</p>
+    <span class="pill">DESIGN PREVIEW · MOCKUPS AND SPEC, NOT A SHIPPED APP</span>
+    <div class="cta">
+      <a class="btn pri" href="demo/">Open the interactive mockup</a>
+      <a class="btn" href="https://github.com/kalahroudi/Committo/blob/main/docs/SPEC.md">Read the spec</a>
+      <a class="btn" href="https://github.com/kalahroudi/Committo">Source on GitHub</a>
+    </div>
+  </div>
+</div></header>
+
+<main>
+<section class="wrap">
+  <h2>The idea</h2>
+  <p class="lede">Git, PRs, CI and your agents in one fast menu-bar app. Every action is also an MCP tool, so the agents you work with can do whatever you can click.</p>
+  <div class="points">
+    <div class="point"><b>See before you merge</b><span>Pick merge, squash or rebase and watch how the commits will land on main. Doubles as a lesson for newcomers.</span></div>
+    <div class="point"><b>Agents in plain sight</b><span>Every branch and worktree attributed to the agent that wrote it, live, with review and test gates on each PR.</span></div>
+    <div class="point"><b>CI anywhere</b><span>One live board for this Mac, your own machines over Tailscale, and hosted runners. SecurityCage scans every PR.</span></div>
+    <div class="point"><b>Set up for you</b><span>New repos get a main branch, protection rules, license, README, ignore file and CI in one screen.</span></div>
+  </div>
+</section>
+
+<section class="wrap" id="screens">
+  <h2>Screens</h2>
+  <p class="lede">Click any image for full size, or <a href="demo/">open the clickable mockup</a>. Press 1, 2 and 3 on the merge preview tab.</p>
+  <div class="grid">
+    <figure><a href="screenshots/popover.png"><img src="screenshots/popover.png" alt="Menu-bar popover" loading="lazy"></a><figcaption><b>Menu-bar popover</b><span>PR and issue counters for your most active repos, and a Live now card for CI and agents.</span></figcaption></figure>
+    <figure><a href="screenshots/mergeviz.png"><img src="screenshots/mergeviz.png" alt="Merge preview" loading="lazy"></a><figcaption><b>Merge preview</b><span>How each merge option changes main, with a plain-English explanation.</span></figcaption></figure>
+    <figure><a href="screenshots/merge.png"><img src="screenshots/merge.png" alt="Three-way merge with AI help" loading="lazy"></a><figcaption><b>Diff and merge</b><span>Built-in three-way merge with an AI link that explains and suggests.</span></figcaption></figure>
+    <figure><a href="screenshots/prs.png"><img src="screenshots/prs.png" alt="Pull request gates" loading="lazy"></a><figcaption><b>Pull requests</b><span>Local CI, agent review, agent tests and security in one view.</span></figcaption></figure>
+    <figure><a href="screenshots/ci.png"><img src="screenshots/ci.png" alt="CI live board" loading="lazy"></a><figcaption><b>CI live</b><span>Everything running, on every runner, with progress and ETA.</span></figcaption></figure>
+    <figure><a href="screenshots/tailscale.png"><img src="screenshots/tailscale.png" alt="Tailscale runners" loading="lazy"></a><figcaption><b>Tailscale runners</b><span>Turn your other machines into CI runners, set up by the app.</span></figcaption></figure>
+    <figure><a href="screenshots/securitycage.png"><img src="screenshots/securitycage.png" alt="SecurityCage setup" loading="lazy"></a><figcaption><b>SecurityCage</b><span>Pinned install, updates and automatic PR security scans.</span></figcaption></figure>
+    <figure><a href="screenshots/new.png"><img src="screenshots/new.png" alt="New repository wizard" loading="lazy"></a><figcaption><b>New repo</b><span>Main branch, rules, license, README and CI in one go.</span></figcaption></figure>
+    <figure><a href="screenshots/changes.png"><img src="screenshots/changes.png" alt="Changes and commit" loading="lazy"></a><figcaption><b>Changes</b><span>Line-level staging, AI commit messages, signing status.</span></figcaption></figure>
+    <figure><a href="screenshots/history.png"><img src="screenshots/history.png" alt="History graph" loading="lazy"></a><figcaption><b>History</b><span>Lane graph with agent and signature badges.</span></figcaption></figure>
+    <figure><a href="screenshots/branches.png"><img src="screenshots/branches.png" alt="Branches and cleanup" loading="lazy"></a><figcaption><b>Branches</b><span>Stacks, worktrees, stash, and safe cleanup of merged branches.</span></figcaption></figure>
+    <figure><a href="screenshots/releases.png"><img src="screenshots/releases.png" alt="Tags and releases" loading="lazy"></a><figcaption><b>Releases</b><span>Tags, generated notes, artifacts and one-click publish.</span></figcaption></figure>
+    <figure><a href="screenshots/lens.png"><img src="screenshots/lens.png" alt="Agent Lens" loading="lazy"></a><figcaption><b>Agent Lens</b><span>What every agent is doing, live.</span></figcaption></figure>
+    <figure><a href="screenshots/insights.png"><img src="screenshots/insights.png" alt="Insights" loading="lazy"></a><figcaption><b>Insights</b><span>Activity, authorship, hotspots and security.</span></figcaption></figure>
+    <figure><a href="screenshots/integrations.png"><img src="screenshots/integrations.png" alt="Accounts, agents and CI" loading="lazy"></a><figcaption><b>Integrations</b><span>Accounts, agents and CI runners.</span></figcaption></figure>
+    <figure><a href="screenshots/mcp.png"><img src="screenshots/mcp.png" alt="MCP tools" loading="lazy"></a><figcaption><b>MCP</b><span>Every feature as a tool, with risk tiers.</span></figcaption></figure>
+    <figure><a href="screenshots/settings.png"><img src="screenshots/settings.png" alt="Updates and signing" loading="lazy"></a><figcaption><b>Updates and signing</b><span>Self-update, commit signing, accounts.</span></figcaption></figure>
+    <figure><a href="screenshots/first.png"><img src="screenshots/first.png" alt="First run and command bar" loading="lazy"></a><figcaption><b>First run and ⌘K</b><span>Guided setup and a plain-language command bar.</span></figcaption></figure>
+    <figure><a href="screenshots/logo.png"><img src="screenshots/logo.png" alt="Logo options" loading="lazy"></a><figcaption><b>Logo</b><span>Option A, “Landing”, was chosen.</span></figcaption></figure>
+  </div>
+</section>
+</main>
+
+<footer><div class="wrap"><span>Committo · Apache License 2.0</span><span><a href="https://github.com/kalahroudi/Committo">GitHub</a> · <a href="https://github.com/kalahroudi/Committo/blob/main/docs/COVERAGE.md">Coverage</a> · <a href="https://github.com/kalahroudi/Committo/blob/main/docs/SPEC.md">Spec</a></span></div></footer>
+</body>
+</html>

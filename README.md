@@ -10,6 +10,7 @@
 </p>
 
 <p align="center">
+  <a href="https://kalahroudi.github.io/Committo/">Live preview</a> ·
   <a href="docs/SPEC.md">Spec</a> ·
   <a href="docs/mockup/index.html">Mockup</a> ·
   <a href="docs/COVERAGE.md">Coverage</a> ·
@@ -97,7 +98,7 @@ A native macOS (SwiftUI, macOS 14+) git companion that lives in your menu bar, b
 
 - **Menu-bar popover** (NSPopover, so it has the native arrow pointing at the icon): recent repos with branch / dirty / ahead-behind, hover actions (Terminal, editor, Finder), quick tiles (Open, Clone, Fetch all, Lens, Scan, CI), live agent strip.
 - **Main window**: Changes (line/hunk staging, AI commit messages), History (lane-routed commit graph), Branches / stashes / worktrees / tags, Reflog "Time Machine", ⌘K command palette, ⌘Z undo of the last history change.
-- **Agent Lens** (agent-focused, for agents): every branch/worktree attributed to Claude, Codex, Cursor, Copilot, Gemini, Aider, Command Code, Devin…, with live "working" pulse, commit timeline, churn bars. Dispatch an agent into its own worktree and watch tool calls stream in.
+- **Agent Lens** (built for agents): every branch/worktree attributed to Claude, Codex, Cursor, Copilot, Gemini, Aider, Command Code, Devin…, with live "working" pulse, commit timeline, churn bars. Dispatch an agent into its own worktree and watch tool calls stream in.
 - **PR deep dive**: risk score, offline security scan of added lines, check runs, agent review, post as comment (GitHub + GitLab).
 - **Security scan**: secrets, risky code patterns, CI/workflow red flags, sensitive files; OSV.dev client for dependency CVEs.
 - **Agents**: Claude Code headless (`claude -p --output-format stream-json`), direct APIs (Anthropic, OpenAI-compatible), CLI adapters (Codex, Gemini CLI, Aider, Command Code, dsh — editable templates), and an **MCP bridge** that wraps any MCP server tool as an agent.
@@ -134,6 +135,15 @@ Scripts/bundle.sh      # macOS: universal Committo.app in ./dist (generates the 
 
 Done/partial: clone & accounts, status w/ diffs, hunk staging, commit/amend, AI commit messages, discard, ignore, stash, branches/tags/remotes, merge/rebase/cherry-pick/revert, force-with-lease, history search, undo, reflog, worktrees, submodules (engine), dark mode, command-line tool, PRs (GitHub/GitLab).
 Missing: line-level staging, conflict wizard, interactive rebase, git-flow, LFS, profiles, external diff, signing UI, 1Password SSH agent, groups/tags for repos, multiple windows, git-svn.
+
+## Share the mockup (GitHub Pages)
+
+The site lives in `docs/`: a landing page with all screenshots (`docs/index.html`) and the clickable mockup as a standalone page (`docs/demo/`). To publish it once:
+
+1. GitHub: **Settings → Pages → Build and deployment → Source: Deploy from a branch**, branch `main`, folder `/docs`.
+2. After a minute it is live at **https://kalahroudi.github.io/Committo/** (mockup at `/demo/`).
+
+After editing `docs/mockup/index.html`, run `python3 Scripts/build-pages.py` to refresh `docs/demo/index.html` before committing.
 
 ## License
 
