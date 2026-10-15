@@ -17,7 +17,7 @@
 :root{--bg:#f6f5fa;--ink:#17161f;--mut:#65637a;--line:#dcdae8;--card:#fff;--accent:#5b4bff;--accent-ink:#fff;--soft:#e9e6ff;--hero:#14122a;--hero-ink:#f1f0fa;--teal:#19d3e3;--coral:#ff7a59;
   --display:"Bricolage Grotesque",system-ui,sans-serif;--ui:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif}
 @media (prefers-color-scheme:dark){:root{--bg:#0f0e17;--ink:#ecebf5;--mut:#9a98ae;--line:#2a2839;--card:#1a1926;--accent:#8a7dff;--accent-ink:#0f0e17;--soft:#27234d;color-scheme:dark}}
-*{box-sizing:border-box}
+*{box-sizing:border-box;scrollbar-width:none}*::-webkit-scrollbar{display:none}html{scroll-behavior:smooth}
 body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 var(--ui)}
 a{color:inherit}
 .wrap{max-width:1180px;margin:0 auto;padding-inline:max(20px,env(safe-area-inset-left,0px)) max(20px,env(safe-area-inset-right,0px))}
@@ -57,7 +57,7 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:8px 20px;justify-content:space-betw
   <div>
     <h1>Committo</h1>
     <p class="tag">A native Mac git client for people who build with AI agents.</p>
-    <span class="pill">DESIGN PREVIEW · MOCKUPS AND SPEC, NOT A SHIPPED APP</span>
+    <span class="pill">DESIGN PREVIEW · NOT YET SHIPPED</span>
     <div class="cta">
       <a class="btn pri" href="demo/">Open the interactive mockup</a>
       <a class="btn" href="https://github.com/kalahroudi/Committo/blob/main/docs/SPEC.md">Read the spec</a>
@@ -69,38 +69,38 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:8px 20px;justify-content:space-betw
 <main>
 <section class="wrap">
   <h2>The idea</h2>
-  <p class="lede">Git, PRs, CI and your agents in one fast menu-bar app. Every action is also an MCP tool, so the agents you work with can do whatever you can click.</p>
+  <p class="lede">Git, PRs, CI and your agents in one fast menu-bar app. Every action is also an MCP tool.</p>
   <div class="points">
-    <div class="point"><b>See before you merge</b><span>Pick merge, squash or rebase and watch how the commits will land on main. Doubles as a lesson for newcomers.</span></div>
-    <div class="point"><b>Agents in plain sight</b><span>Every branch and worktree attributed to the agent that wrote it, live, with review and test gates on each PR.</span></div>
-    <div class="point"><b>CI anywhere</b><span>One live board for this Mac, your own machines over Tailscale, and hosted runners. SecurityCage scans every PR.</span></div>
-    <div class="point"><b>Set up for you</b><span>New repos get a main branch, protection rules, license, README, ignore file and CI in one screen.</span></div>
+    <div class="point"><b>See before you merge</b><span>Watch how each merge option lands on main.</span></div>
+    <div class="point"><b>Agents in plain sight</b><span>Every branch attributed, live, with review and test gates.</span></div>
+    <div class="point"><b>CI anywhere</b><span>This Mac, your machines over Tailscale, and hosted runners on one board.</span></div>
+    <div class="point"><b>Set up for you</b><span>New repos get rules, license, README and CI in one step.</span></div>
   </div>
 </section>
 
 <section class="wrap" id="screens">
   <h2>Screens</h2>
-  <p class="lede">Click any image for full size, or <a href="demo/">open the clickable mockup</a>. Press 1, 2 and 3 on the merge preview tab.</p>
+  <p class="lede">Tap an image for full size, or <a href="demo/">open the clickable mockup</a>.</p>
   <div class="grid">
-    <figure><a href="screenshots/popover.png"><img src="screenshots/popover.png" alt="Menu-bar popover" loading="lazy"></a><figcaption><b>Menu-bar popover</b><span>PR and issue counters for your most active repos, and a Live now card for CI and agents.</span></figcaption></figure>
-    <figure><a href="screenshots/mergeviz.png"><img src="screenshots/mergeviz.png" alt="Merge preview" loading="lazy"></a><figcaption><b>Merge preview</b><span>How each merge option changes main, with a plain-English explanation.</span></figcaption></figure>
-    <figure><a href="screenshots/merge.png"><img src="screenshots/merge.png" alt="Three-way merge with AI help" loading="lazy"></a><figcaption><b>Diff and merge</b><span>Built-in three-way merge with an AI link that explains and suggests.</span></figcaption></figure>
-    <figure><a href="screenshots/prs.png"><img src="screenshots/prs.png" alt="Pull request gates" loading="lazy"></a><figcaption><b>Pull requests</b><span>Local CI, agent review, agent tests and security in one view.</span></figcaption></figure>
-    <figure><a href="screenshots/ci.png"><img src="screenshots/ci.png" alt="CI live board" loading="lazy"></a><figcaption><b>CI live</b><span>Everything running, on every runner, with progress and ETA.</span></figcaption></figure>
-    <figure><a href="screenshots/tailscale.png"><img src="screenshots/tailscale.png" alt="Tailscale runners" loading="lazy"></a><figcaption><b>Tailscale runners</b><span>Turn your other machines into CI runners, set up by the app.</span></figcaption></figure>
-    <figure><a href="screenshots/securitycage.png"><img src="screenshots/securitycage.png" alt="SecurityCage setup" loading="lazy"></a><figcaption><b>SecurityCage</b><span>Pinned install, updates and automatic PR security scans.</span></figcaption></figure>
-    <figure><a href="screenshots/new.png"><img src="screenshots/new.png" alt="New repository wizard" loading="lazy"></a><figcaption><b>New repo</b><span>Main branch, rules, license, README and CI in one go.</span></figcaption></figure>
-    <figure><a href="screenshots/changes.png"><img src="screenshots/changes.png" alt="Changes and commit" loading="lazy"></a><figcaption><b>Changes</b><span>Line-level staging, AI commit messages, signing status.</span></figcaption></figure>
-    <figure><a href="screenshots/history.png"><img src="screenshots/history.png" alt="History graph" loading="lazy"></a><figcaption><b>History</b><span>Lane graph with agent and signature badges.</span></figcaption></figure>
-    <figure><a href="screenshots/branches.png"><img src="screenshots/branches.png" alt="Branches and cleanup" loading="lazy"></a><figcaption><b>Branches</b><span>Stacks, worktrees, stash, and safe cleanup of merged branches.</span></figcaption></figure>
-    <figure><a href="screenshots/releases.png"><img src="screenshots/releases.png" alt="Tags and releases" loading="lazy"></a><figcaption><b>Releases</b><span>Tags, generated notes, artifacts and one-click publish.</span></figcaption></figure>
-    <figure><a href="screenshots/lens.png"><img src="screenshots/lens.png" alt="Agent Lens" loading="lazy"></a><figcaption><b>Agent Lens</b><span>What every agent is doing, live.</span></figcaption></figure>
-    <figure><a href="screenshots/insights.png"><img src="screenshots/insights.png" alt="Insights" loading="lazy"></a><figcaption><b>Insights</b><span>Activity, authorship, hotspots and security.</span></figcaption></figure>
-    <figure><a href="screenshots/integrations.png"><img src="screenshots/integrations.png" alt="Accounts, agents and CI" loading="lazy"></a><figcaption><b>Integrations</b><span>Accounts, agents and CI runners.</span></figcaption></figure>
-    <figure><a href="screenshots/mcp.png"><img src="screenshots/mcp.png" alt="MCP tools" loading="lazy"></a><figcaption><b>MCP</b><span>Every feature as a tool, with risk tiers.</span></figcaption></figure>
-    <figure><a href="screenshots/settings.png"><img src="screenshots/settings.png" alt="Updates and signing" loading="lazy"></a><figcaption><b>Updates and signing</b><span>Self-update, commit signing, accounts.</span></figcaption></figure>
-    <figure><a href="screenshots/first.png"><img src="screenshots/first.png" alt="First run and command bar" loading="lazy"></a><figcaption><b>First run and ⌘K</b><span>Guided setup and a plain-language command bar.</span></figcaption></figure>
-    <figure><a href="screenshots/logo.png"><img src="screenshots/logo.png" alt="Logo options" loading="lazy"></a><figcaption><b>Logo</b><span>Option A, “Landing”, was chosen.</span></figcaption></figure>
+    <figure><a href="screenshots/popover.png"><img src="screenshots/popover.png" alt="Menu-bar popover" loading="lazy"></a><figcaption><b>Menu-bar popover</b><span>Counters per repo, CI and agents live.</span></figcaption></figure>
+    <figure><a href="screenshots/mergeviz.png"><img src="screenshots/mergeviz.png" alt="Merge preview" loading="lazy"></a><figcaption><b>Merge preview</b><span>How each option lands on main.</span></figcaption></figure>
+    <figure><a href="screenshots/merge.png"><img src="screenshots/merge.png" alt="Three-way merge with AI help" loading="lazy"></a><figcaption><b>Diff and merge</b><span>Three-way merge with AI help.</span></figcaption></figure>
+    <figure><a href="screenshots/prs.png"><img src="screenshots/prs.png" alt="Pull request gates" loading="lazy"></a><figcaption><b>Pull requests</b><span>CI, agent review, tests, security.</span></figcaption></figure>
+    <figure><a href="screenshots/ci.png"><img src="screenshots/ci.png" alt="CI live board" loading="lazy"></a><figcaption><b>CI live</b><span>Every run, every runner.</span></figcaption></figure>
+    <figure><a href="screenshots/tailscale.png"><img src="screenshots/tailscale.png" alt="Tailscale runners" loading="lazy"></a><figcaption><b>Tailscale runners</b><span>Your machines as runners.</span></figcaption></figure>
+    <figure><a href="screenshots/securitycage.png"><img src="screenshots/securitycage.png" alt="SecurityCage setup" loading="lazy"></a><figcaption><b>SecurityCage</b><span>Auto PR scans, kept current.</span></figcaption></figure>
+    <figure><a href="screenshots/new.png"><img src="screenshots/new.png" alt="New repository wizard" loading="lazy"></a><figcaption><b>New repo</b><span>Rules, license, README, CI.</span></figcaption></figure>
+    <figure><a href="screenshots/changes.png"><img src="screenshots/changes.png" alt="Changes and commit" loading="lazy"></a><figcaption><b>Changes</b><span>Line staging, AI messages.</span></figcaption></figure>
+    <figure><a href="screenshots/history.png"><img src="screenshots/history.png" alt="History graph" loading="lazy"></a><figcaption><b>History</b><span>Lane graph, agent badges.</span></figcaption></figure>
+    <figure><a href="screenshots/branches.png"><img src="screenshots/branches.png" alt="Branches and cleanup" loading="lazy"></a><figcaption><b>Branches</b><span>Stacks and safe cleanup.</span></figcaption></figure>
+    <figure><a href="screenshots/releases.png"><img src="screenshots/releases.png" alt="Tags and releases" loading="lazy"></a><figcaption><b>Releases</b><span>Tags, notes, one-click publish.</span></figcaption></figure>
+    <figure><a href="screenshots/lens.png"><img src="screenshots/lens.png" alt="Agent Lens" loading="lazy"></a><figcaption><b>Agent Lens</b><span>Every agent, live.</span></figcaption></figure>
+    <figure><a href="screenshots/insights.png"><img src="screenshots/insights.png" alt="Insights" loading="lazy"></a><figcaption><b>Insights</b><span>Activity and security.</span></figcaption></figure>
+    <figure><a href="screenshots/integrations.png"><img src="screenshots/integrations.png" alt="Accounts, agents and CI" loading="lazy"></a><figcaption><b>Integrations</b><span>Accounts, agents, runners.</span></figcaption></figure>
+    <figure><a href="screenshots/mcp.png"><img src="screenshots/mcp.png" alt="MCP tools" loading="lazy"></a><figcaption><b>MCP</b><span>Every feature as a tool.</span></figcaption></figure>
+    <figure><a href="screenshots/settings.png"><img src="screenshots/settings.png" alt="Updates and signing" loading="lazy"></a><figcaption><b>Updates and signing</b><span>Self-update and signing.</span></figcaption></figure>
+    <figure><a href="screenshots/first.png"><img src="screenshots/first.png" alt="First run and command bar" loading="lazy"></a><figcaption><b>First run and ⌘K</b><span>Guided setup, plain-word ⌘K.</span></figcaption></figure>
+    <figure><a href="screenshots/logo.png"><img src="screenshots/logo.png" alt="Logo options" loading="lazy"></a><figcaption><b>Logo</b><span>Option A chosen.</span></figcaption></figure>
   </div>
 </section>
 </main>

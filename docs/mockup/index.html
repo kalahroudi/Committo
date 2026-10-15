@@ -259,6 +259,24 @@ footer.sum p{margin:0;color:var(--mut);max-width:60ch;line-height:1.5}
 .acl{font:400 11px/1.55 var(--mono);background:var(--win);border:1px solid var(--line);border-radius:8px;padding:8px 10px;white-space:pre;overflow:hidden;color:var(--ink)}
 .acl .k{color:var(--accent)}.acl .s{color:var(--ok)}.acl .c{color:var(--mut)}
 .lock{display:inline-flex;gap:5px;align-items:center;font:600 10.5px var(--mono);padding:2px 7px;border-radius:99px;background:var(--ok-soft);color:var(--ok)}
+
+html{scroll-behavior:smooth}
+*{scrollbar-width:none;-ms-overflow-style:none}*::-webkit-scrollbar{display:none;width:0;height:0}
+.fx{-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 calc(var(--l,0)*32px),#000 calc(100% - var(--r,0)*32px),transparent 100%);mask-image:linear-gradient(90deg,transparent 0,#000 calc(var(--l,0)*32px),#000 calc(100% - var(--r,0)*32px),transparent 100%)}
+.i{width:1em;height:1em;flex:none;display:inline-block;vertical-align:-.14em;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.chip .i{width:11px;height:11px;vertical-align:-1.5px;stroke-width:2}
+.btn .i{width:13px;height:13px;vertical-align:-2px}
+.cnt .i{width:11px;height:11px;stroke-width:2}
+.tile b .i{width:20px;height:20px;stroke-width:1.5}
+.item .ico .i{width:15px;height:15px;stroke-width:1.6}
+.stp .c .i,.step .c .i{width:11px;height:11px;stroke-width:2.2}
+.vs .chip .i{width:11px;height:11px}
+.row .chip .i,.gr .chip .i{width:11px;height:11px}
+.run .top>.i,.rr .i{width:14px;height:14px}
+.seg span .i,.mb .i{width:12px;height:12px}
+.n .i{width:12px;height:12px}
+.upd .i,.pop .small .i{width:14px;height:14px}
+.shead h2 .i{display:none}
 </style>
 
 
@@ -299,11 +317,12 @@ footer.sum p{margin:0;color:var(--mut);max-width:60ch;line-height:1.5}
     <circle cx="94" cy="75" r="9" fill="#15132a"/><circle cx="82" cy="121" r="9" fill="#15132a"/><circle cx="70" cy="167" r="9" fill="#15132a"/></symbol>
   <symbol id="markT" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round"><path d="M15.5 21V6.5"/><path d="M8.5 20.5C8.5 15.5 15.5 17 15.5 12.5"/><circle cx="15.5" cy="4.2" r="2.5"/></g><circle cx="15.5" cy="12.8" r="2.1" fill="currentColor"/><circle cx="8.5" cy="20.2" r="1.9" fill="currentColor"/></symbol>
 </defs></svg>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs><symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></symbol><symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol><symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol><symbol id="i-spark" viewBox="0 0 24 24"><path d="M11 3.5l1.9 5.1 5.1 1.9-5.1 1.9L11 17.5l-1.9-5.1L4 10.5l5.1-1.9z"/><path d="M18.5 15.5v4M16.5 17.5h4"/></symbol><symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></symbol><symbol id="i-circle" viewBox="0 0 24 24"><circle cx="12" cy="12" r="7.5"/></symbol><symbol id="i-dot" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5" fill="currentColor" stroke="none"/></symbol><symbol id="i-half" viewBox="0 0 24 24"><circle cx="12" cy="12" r="7.5"/><path d="M12 4.5a7.5 7.5 0 0 1 0 15z" fill="currentColor" stroke="none"/></symbol><symbol id="i-branch" viewBox="0 0 24 24"><circle cx="6.5" cy="5.5" r="2.2"/><circle cx="6.5" cy="18.5" r="2.2"/><circle cx="17.5" cy="8.5" r="2.2"/><path d="M6.5 7.7v8.6M17.5 10.7c0 4.2-6.5 3.2-11 6"/></symbol><symbol id="i-pr" viewBox="0 0 24 24"><circle cx="6.5" cy="5.5" r="2.2"/><circle cx="6.5" cy="18.5" r="2.2"/><circle cx="17.5" cy="18.5" r="2.2"/><path d="M6.5 7.7v8.6M17.5 16.3V10a3 3 0 0 0-3-3H11M13.5 4.5L11 7l2.5 2.5"/></symbol><symbol id="i-merge" viewBox="0 0 24 24"><circle cx="6.5" cy="5.5" r="2.2"/><circle cx="6.5" cy="18.5" r="2.2"/><circle cx="17.5" cy="13.5" r="2.2"/><path d="M6.5 7.7v8.6M6.5 8.5c0 3.2 3.2 5 9 5"/></symbol><symbol id="i-commit" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3.6"/><path d="M3 12h5.4M15.6 12H21"/></symbol><symbol id="i-issue" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="1.7" fill="currentColor" stroke="none"/></symbol><symbol id="i-eye" viewBox="0 0 24 24"><path d="M2.5 12s3.6-6.5 9.5-6.5S21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12z"/><circle cx="12" cy="12" r="2.8"/></symbol><symbol id="i-cog" viewBox="0 0 24 24"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></symbol><symbol id="i-server" viewBox="0 0 24 24"><rect x="3.5" y="4" width="17" height="6.5" rx="2"/><rect x="3.5" y="13.5" width="17" height="6.5" rx="2"/><path d="M7.5 7.2h.01M7.5 16.8h.01"/></symbol><symbol id="i-pencil" viewBox="0 0 24 24"><path d="M4 20l1-4L16.5 4.5a2.1 2.1 0 0 1 3 3L8 19z"/><path d="M14.5 6.5l3 3"/></symbol><symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3l7.5 3v5.5c0 4.5-3.2 8-7.5 9.5-4.3-1.5-7.5-5-7.5-9.5V6z"/><path d="M9 12l2.2 2.2L15.5 10"/></symbol><symbol id="i-chart" viewBox="0 0 24 24"><path d="M5 20V11M12 20V4M19 20v-6"/></symbol><symbol id="i-tag" viewBox="0 0 24 24"><path d="M3.5 12.2V5A1.5 1.5 0 0 1 5 3.5h7.2l8.3 8.3a1.5 1.5 0 0 1 0 2.1l-6.8 6.8a1.5 1.5 0 0 1-2.1 0z"/><circle cx="8" cy="8" r="1.2" fill="currentColor" stroke="none"/></symbol><symbol id="i-refresh" viewBox="0 0 24 24"><path d="M20 11a8 8 0 0 0-14.3-4.6L4 8M4 4v4h4M4 13a8 8 0 0 0 14.3 4.6L20 16M20 20v-4h-4"/></symbol><symbol id="i-download" viewBox="0 0 24 24"><path d="M12 4v11M7.5 11l4.5 4.5 4.5-4.5M5 20h14"/></symbol><symbol id="i-upload" viewBox="0 0 24 24"><path d="M12 16V5M7.5 9L12 4.5 16.5 9M5 20h14"/></symbol><symbol id="i-play" viewBox="0 0 24 24"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></symbol><symbol id="i-stack" viewBox="0 0 24 24"><path d="M12 4l8.5 4.5L12 13 3.5 8.5z"/><path d="M3.5 12.5L12 17l8.5-4.5M3.5 16.5L12 21l8.5-4.5"/></symbol><symbol id="i-rebase" viewBox="0 0 24 24"><path d="M5 6l6 6-6 6M13 6l6 6-6 6"/></symbol><symbol id="i-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol><symbol id="i-arrow-left" viewBox="0 0 24 24"><path d="M19 12H5M11 6l-6 6 6 6"/></symbol><symbol id="i-arrow-up" viewBox="0 0 24 24"><path d="M12 19V5M6 11l6-6 6 6"/></symbol><symbol id="i-arrow-down" viewBox="0 0 24 24"><path d="M12 5v14M6 13l6 6 6-6"/></symbol><symbol id="i-chevron-down" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></symbol><symbol id="i-chevron-right" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></symbol><symbol id="i-chevron-left" viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></symbol><symbol id="i-return" viewBox="0 0 24 24"><path d="M20 5v6a3 3 0 0 1-3 3H5M9 10l-4 4 4 4"/></symbol><symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></symbol><symbol id="i-power" viewBox="0 0 24 24"><path d="M12 3v8M7 6.5a7.5 7.5 0 1 0 10 0"/></symbol><symbol id="i-window" viewBox="0 0 24 24"><rect x="3.5" y="4.5" width="17" height="15" rx="2.5"/><path d="M3.5 9h17"/></symbol><symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="10.5" width="14" height="9.5" rx="2.2"/><path d="M8 10.5V8a4 4 0 0 1 8 0v2.5"/></symbol><symbol id="i-flask" viewBox="0 0 24 24"><path d="M9.5 3.5h5M10.5 3.5v6L5 19a1.6 1.6 0 0 0 1.4 2.5h11.2A1.6 1.6 0 0 0 19 19l-5.5-9.5v-6"/><path d="M8 15h8"/></symbol><symbol id="i-trash" viewBox="0 0 24 24"><path d="M5 7h14M10 7V4.5h4V7M7 7l.8 12.5h8.4L17 7M10 11v5M14 11v5"/></symbol><symbol id="i-terminal" viewBox="0 0 24 24"><path d="M5 6.5l5 5-5 5M12 18h7"/></symbol><symbol id="i-star" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8-5.2-2.8-5.2 2.8 1-5.8L3.5 9.7l5.9-.9z"/></symbol><symbol id="i-diamond" viewBox="0 0 24 24"><path d="M12 3.5l8.5 8.5-8.5 8.5L3.5 12z"/></symbol><symbol id="i-square" viewBox="0 0 24 24"><rect x="5" y="5" width="14" height="14" rx="3"/></symbol></defs></svg>
 <div class="wrap">
 <header class="top">
   <div>
     <h1 style="display:flex;gap:12px;align-items:center"><span style="width:38px;height:38px;display:inline-block"><svg viewBox="0 0 256 256" width="38" height="38" aria-hidden="true"><use href="#logoA"/></svg></span>Committo — mockup v4</h1>
-    <p class="sub">Nineteen screens for approval. Everything is static; nothing here talks to git. Use the buttons under each screen to approve it or request changes. The full spec lives in <span class="mono">docs/SPEC.md</span> on the branch.</p>
+    <p class="sub">19 clickable screens. A static mockup, nothing here runs git. Mark each Approve or Request changes.</p>
   </div>
   <div style="display:flex;gap:8px;align-items:center"><span class="pill">for approval</span><button class="theme" id="themeBtn" type="button">Toggle theme</button></div>
 </header>
@@ -312,77 +331,70 @@ footer.sum p{margin:0;color:var(--mut);max-width:60ch;line-height:1.5}
 
 <!-- 1 POPOVER -->
 <section class="screen" id="s-popover" data-title="Menu bar">
-  <div class="shead"><div><h2>Menu-bar popover</h2><p>The always-there surface. The arrow ties it to the icon. It answers three questions at a glance: what repos am I in, what needs my review, and what are my agents doing.</p></div><div class="approve" data-k="popover"></div></div>
+  <div class="shead"><div><h2>Menu bar</h2><p>Repos, reviews and CI at a glance.</p></div><div class="approve" data-k="popover"></div></div>
   <div class="cols">
     <div class="stage"><div class="desk">
       <div class="mb"><span class="small">Wi-Fi</span><span class="small">86%</span><span class="me"><svg width="13" height="13"><use href="#markT"/></svg> 2 <i class="ring"></i></span><span>Thu 9:41</span></div>
       <div class="pop">
         <div style="padding:14px 14px 8px;display:flex;gap:9px;align-items:center">
-          <div class="glyph"><svg viewBox="0 0 256 256" aria-hidden="true"><use href="#logoA"/></svg></div><div class="input" style="flex:1"><span>⌕</span><span style="color:var(--mut)">Jump to repo, branch, PR or issue</span><span class="chip" style="margin-left:auto">⌘K</span></div>
+          <div class="glyph"><svg viewBox="0 0 256 256" aria-hidden="true"><use href="#logoA"/></svg></div><div class="input" style="flex:1"><span><svg class="i" aria-hidden="true"><use href="#i-search"/></svg></span><span style="color:var(--mut)">Jump to repo, branch, PR or issue</span><span class="chip" style="margin-left:auto">⌘K</span></div>
         </div>
         <div style="padding:0 14px;display:flex;flex-direction:column;gap:12px;overflow:hidden;flex:1">
-          <div class="upd"><b style="font-size:13px">↻</b><div style="flex:1"><b>Committo 0.2.0 is ready</b><div style="opacity:.85;font-size:11px">Signed and verified. Installs on quit.</div></div><span class="btn sm" style="background:rgba(255,255,255,.2);border:0;color:inherit">Restart</span></div>
+          <div class="upd"><b style="font-size:13px"><svg class="i" aria-hidden="true"><use href="#i-refresh"/></svg></b><div style="flex:1"><b>Committo 0.2.0 is ready</b><div style="opacity:.85;font-size:11px">Installs on quit.</div></div><span class="btn sm" style="background:rgba(255,255,255,.2);border:0;color:inherit">Restart</span></div>
           <div class="tiles">
-            <div class="tile"><b>＋</b>New repo</div><div class="tile"><b>⤓</b>Clone</div><div class="tile"><b>⇪</b>Import</div><div class="tile"><b>⟳</b>Fetch all</div>
+            <div class="tile"><b><svg class="i" aria-hidden="true"><use href="#i-plus"/></svg></b>New repo</div><div class="tile"><b><svg class="i" aria-hidden="true"><use href="#i-download"/></svg></b>Clone</div><div class="tile"><b><svg class="i" aria-hidden="true"><use href="#i-upload"/></svg></b>Import</div><div class="tile"><b><svg class="i" aria-hidden="true"><use href="#i-refresh"/></svg></b>Fetch all</div>
             
           </div>
           <div class="card" style="padding:10px"><h4>Needs you <span class="chip warn">2</span></h4>
             <div class="stack" style="gap:6px">
-              <div style="display:flex;gap:8px"><span class="chip ok">CI ✓</span><span style="flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">#142 Add OAuth device flow</span><span class="chip acc">agent ✓</span></div>
-              <div style="display:flex;gap:8px"><span class="chip bad">CI ✗</span><span style="flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">#139 Fix graph lane overflow</span><span class="chip warn">1 conflict</span></div>
+              <div style="display:flex;gap:8px"><span class="chip ok">CI <svg class="i" aria-hidden="true"><use href="#i-check"/></svg></span><span style="flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">#142 Add OAuth device flow</span><span class="chip acc">agent <svg class="i" aria-hidden="true"><use href="#i-check"/></svg></span></div>
+              <div style="display:flex;gap:8px"><span class="chip bad">CI <svg class="i" aria-hidden="true"><use href="#i-x"/></svg></span><span style="flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">#139 Fix graph lane overflow</span><span class="chip warn">1 conflict</span></div>
             </div></div>
           <div><div style="display:flex;align-items:baseline;gap:8px"><div class="grp" style="padding-left:0">Most active</div><span class="small">14 PRs · 23 issues across 4 repos</span></div>
-            <div class="rr hov"><div class="av">C</div><div style="flex:1;min-width:0"><b>committo</b><div class="small">⑂ main · 2 min ago</div></div><span class="spark"><i style="height:30%"></i><i style="height:55%"></i><i style="height:40%"></i><i style="height:90%"></i><i style="height:70%"></i><i style="height:100%"></i></span><span class="cnt hot" title="4 open PRs, 1 needs your review">⇄ 4</span><span class="cnt" title="7 open issues">◎ 7</span></div>
-            <div class="rr"><div class="av">A</div><div style="flex:1;min-width:0"><b>acme-api</b><div class="small">⑂ feat/billing · 1 h ago</div></div><span class="spark"><i style="height:50%"></i><i style="height:35%"></i><i style="height:60%"></i><i style="height:45%"></i><i style="height:80%"></i><i style="height:55%"></i></span><span class="cnt fail" title="2 PRs, CI failing on 1">⇄ 2</span><span class="cnt">◎ 12</span></div>
-            <div class="rr"><div class="av">W</div><div style="flex:1;min-width:0"><b>web-portfolio</b><div class="small">⑂ main · 3 days ago</div></div><span class="spark"><i style="height:20%"></i><i style="height:25%"></i><i style="height:15%"></i><i style="height:40%"></i><i style="height:20%"></i><i style="height:30%"></i></span><span class="cnt zero">⇄ 0</span><span class="cnt">◎ 3</span></div>
-            <div class="rr"><div class="av">D</div><div style="flex:1;min-width:0"><b>dotfiles</b><div class="small">⑂ main · yesterday</div></div><span class="spark"><i style="height:10%"></i><i style="height:10%"></i><i style="height:35%"></i><i style="height:10%"></i><i style="height:10%"></i><i style="height:20%"></i></span><span class="cnt zero">⇄ 0</span><span class="cnt zero">◎ 1</span></div>
+            <div class="rr hov"><div class="av">C</div><div style="flex:1;min-width:0"><b>committo</b><div class="small"><svg class="i" aria-hidden="true"><use href="#i-branch"/></svg> main · 2 min ago</div></div><span class="spark"><i style="height:30%"></i><i style="height:55%"></i><i style="height:40%"></i><i style="height:90%"></i><i style="height:70%"></i><i style="height:100%"></i></span><span class="cnt hot" title="4 open PRs, 1 needs your review"><svg class="i" aria-hidden="true"><use href="#i-pr"/></svg> 4</span><span class="cnt" title="7 open issues"><svg class="i" aria-hidden="true"><use href="#i-issue"/></svg> 7</span></div>
+            <div class="rr"><div class="av">A</div><div style="flex:1;min-width:0"><b>acme-api</b><div class="small"><svg class="i" aria-hidden="true"><use href="#i-branch"/></svg> feat/billing · 1 h ago</div></div><span class="spark"><i style="height:50%"></i><i style="height:35%"></i><i style="height:60%"></i><i style="height:45%"></i><i style="height:80%"></i><i style="height:55%"></i></span><span class="cnt fail" title="2 PRs, CI failing on 1"><svg class="i" aria-hidden="true"><use href="#i-pr"/></svg> 2</span><span class="cnt"><svg class="i" aria-hidden="true"><use href="#i-issue"/></svg> 12</span></div>
+            <div class="rr"><div class="av">W</div><div style="flex:1;min-width:0"><b>web-portfolio</b><div class="small"><svg class="i" aria-hidden="true"><use href="#i-branch"/></svg> main · 3 days ago</div></div><span class="spark"><i style="height:20%"></i><i style="height:25%"></i><i style="height:15%"></i><i style="height:40%"></i><i style="height:20%"></i><i style="height:30%"></i></span><span class="cnt zero"><svg class="i" aria-hidden="true"><use href="#i-pr"/></svg> 0</span><span class="cnt"><svg class="i" aria-hidden="true"><use href="#i-issue"/></svg> 3</span></div>
+            <div class="rr"><div class="av">D</div><div style="flex:1;min-width:0"><b>dotfiles</b><div class="small"><svg class="i" aria-hidden="true"><use href="#i-branch"/></svg> main · yesterday</div></div><span class="spark"><i style="height:10%"></i><i style="height:10%"></i><i style="height:35%"></i><i style="height:10%"></i><i style="height:10%"></i><i style="height:20%"></i></span><span class="cnt zero"><svg class="i" aria-hidden="true"><use href="#i-pr"/></svg> 0</span><span class="cnt zero"><svg class="i" aria-hidden="true"><use href="#i-issue"/></svg> 1</span></div>
           </div>
           <div class="card" style="padding:10px"><h4><span class="pulse"></span> Live now <span class="small" style="margin-left:auto">3 running · 1 queued · <span style="color:var(--bad)">1 failed</span></span></h4>
             <div class="stack" style="gap:8px;font-size:12px">
               <div><div style="display:flex;gap:7px;align-items:center"><span class="ring2"></span><b>committo</b><span class="small">ci / test</span><span class="rn loc" style="margin-left:auto">This Mac</span><span class="mono small">62%</span></div><div class="prog live" style="margin-top:4px"><i style="width:62%"></i></div></div>
               <div><div style="display:flex;gap:7px;align-items:center"><span class="ring2"></span><b>committo</b><span class="small">PR #142 · build</span><span class="rn lan" style="margin-left:auto">mac-mini</span><span class="mono small">35%</span></div><div class="prog live" style="margin-top:4px"><i style="width:35%"></i></div></div>
-              <div style="display:flex;gap:7px;align-items:center"><span style="color:var(--mut)">◔</span><b>acme-api</b><span class="small">deploy · queued 38 s</span><span class="rn gh" style="margin-left:auto">GitHub</span></div>
-              <div style="display:flex;gap:7px;align-items:center"><span style="color:var(--bad)">✗</span><b>acme-api</b><span class="small">PR #139 · 2 tests failed</span><span class="btn ai sm" style="margin-left:auto">✦ Explain</span></div>
-              <div style="display:flex;gap:7px;align-items:center"><span class="chip acc">✦</span><b>claude/fix-lanes</b><span class="small">agent working</span><span class="mono small" style="margin-left:auto;color:var(--ok)">+84 −12</span></div>
+              <div style="display:flex;gap:7px;align-items:center"><span style="color:var(--mut)"><svg class="i" aria-hidden="true"><use href="#i-clock"/></svg></span><b>acme-api</b><span class="small">deploy · queued 38 s</span><span class="rn gh" style="margin-left:auto">GitHub</span></div>
+              <div style="display:flex;gap:7px;align-items:center"><span style="color:var(--bad)"><svg class="i" aria-hidden="true"><use href="#i-x"/></svg></span><b>acme-api</b><span class="small">PR #139 · 2 tests failed</span><span class="btn ai sm" style="margin-left:auto"><svg class="i" aria-hidden="true"><use href="#i-spark"/></svg> Explain</span></div>
+              <div style="display:flex;gap:7px;align-items:center"><span class="chip acc"><svg class="i" aria-hidden="true"><use href="#i-spark"/></svg></span><b>claude/fix-lanes</b><span class="small">agent working</span><span class="mono small" style="margin-left:auto;color:var(--ok)">+84 −12</span></div>
             </div></div>
         </div>
-        <div style="padding:9px 14px;border-top:1px solid var(--line);display:flex;gap:12px;color:var(--mut);font-size:12px"><span>▣ Open Committo</span><span style="margin-left:auto">⚙</span><span>⏻</span></div>
+        <div style="padding:9px 14px;border-top:1px solid var(--line);display:flex;gap:12px;color:var(--mut);font-size:12px"><span><svg class="i" aria-hidden="true"><use href="#i-stack"/></svg> Open Committo</span><span style="margin-left:auto"><svg class="i" aria-hidden="true"><use href="#i-cog"/></svg></span><span><svg class="i" aria-hidden="true"><use href="#i-power"/></svg></span></div>
       </div>
     </div></div>
-    <aside class="notes"><h3>Notes</h3>
-      <div class="note"><span class="n">1</span><div><b>Native popover arrow</b> anchored to the status icon. Icon shows a badge count for things that need you.<i>SPEC §3.1</i></div></div>
-      <div class="note"><span class="n">2</span><div><b>Self-update banner</b> appears only when a signed update is ready. Never interrupts while you type.<i>SPEC §12</i></div></div>
-      <div class="note"><span class="n">3</span><div><b>New / Clone / Import</b> are first-class tiles. They open the repo wizard (screen 5).<i>SPEC §6</i></div></div>
-      <div class="note"><span class="n">4</span><div><b>“Most active”</b> ranks repos by recent activity and shows live PR and issue counters on each row. Accent = a PR needs your review, red = CI failing, faint = nothing open. Counters open that repo’s list. “Needs you” above collects the individual items.<i>SPEC §3.1</i></div></div>
-      <div class="note"><span class="n">5</span><div><b>“Live now”</b> shows every running, queued and failed CI run across local, LAN, GitHub and GitLab runners, plus working agents. The menu-bar icon spins while anything runs and turns red on a failure. Tap a row to open the live CI board.<i>SPEC §7.9</i></div></div>
-      <div class="note"><span class="n">6</span><div><b>Every tile and row is an MCP tool</b> too, so an agent can do whatever you can click.<i>SPEC §11</i></div></div>
-    </aside>
+    <aside class="notes"><h3>Notes</h3><div class="note"><span class="n">1</span><div>Counters per repo. Accent: needs your review. Red: CI failing.</div></div><div class="note"><span class="n">2</span><div>Live now covers CI on every runner and your agents. The icon spins while anything runs.</div></div><div class="note"><span class="n">3</span><div>The update banner appears only when a signed update is ready.</div></div></aside>
   </div>
 </section>
 
 <!-- 2 CHANGES -->
 <section class="screen" id="s-changes" data-title="Changes">
-  <div class="shead"><div><h2>Changes and commit</h2><p>Line-level staging with checkboxes in the gutter. The sparkle writes the commit message from the staged diff. Signing status is visible before you commit.</p></div><div class="approve" data-k="changes"></div></div>
+  <div class="shead"><div><h2>Changes</h2><p>Stage by line. AI writes the message. Signing shows up front.</p></div><div class="approve" data-k="changes"></div></div>
   <div class="cols">
     <div class="stage"><div class="win" data-active="Changes">
       <div class="main">
-        <div class="bar"><b>committo</b><span class="chip">⑂ main</span><span class="chip ok">↑2</span><span class="sp"></span><span class="btn">⌘K</span><span class="btn">↩ Undo</span><span class="btn">Fetch</span><span class="btn">Pull</span><span class="btn pri">Push</span></div>
+        <div class="bar"><b>committo</b><span class="chip"><svg class="i" aria-hidden="true"><use href="#i-branch"/></svg> main</span><span class="chip ok"><svg class="i" aria-hidden="true"><use href="#i-arrow-up"/></svg>2</span><span class="sp"></span><span class="btn">⌘K</span><span class="btn"><svg class="i" aria-hidden="true"><use href="#i-return"/></svg> Undo</span><span class="btn">Fetch</span><span class="btn">Pull</span><span class="btn pri">Push</span></div>
         <div class="body">
           <div class="pane" style="width:250px;display:flex;flex-direction:column">
             <div class="sec">Staged · 1</div>
-            <div class="row"><span class="chip ok">M</span><span class="t">CommitGraph.swift</span><span class="small">✓</span></div>
+            <div class="row"><span class="chip ok">M</span><span class="t">CommitGraph.swift</span><span class="small"><svg class="i" aria-hidden="true"><use href="#i-check"/></svg></span></div>
             <div class="sec">Changes · 3</div>
             <div class="row sel"><span class="chip warn">M</span><span class="t">GitRepository.swift</span></div>
             <div class="row"><span class="chip warn">M</span><span class="t">HistoryView.swift</span></div>
             <div class="row"><span class="chip ok">A</span><span class="t">MergeTool.swift</span></div>
             <div style="flex:1"></div>
             <div style="padding:10px;border-top:1px solid var(--line);display:flex;flex-direction:column;gap:8px;background:var(--panel)">
-              <div class="input" style="min-height:64px;align-items:flex-start"><span style="flex:1;line-height:1.45">fix(graph): keep merge edges inside lane bounds<br><span style="color:var(--mut)">Clamp lane index when more than 12 parallel branches…</span></span><span class="btn ai sm">✦</span></div>
-              <div style="display:flex;gap:8px;align-items:center"><span class="chip ok">🔒 SSH signed</span><span class="small">Amend</span><span class="chip" style="margin-left:auto">⌘↩</span><span class="btn pri">Commit</span></div>
+              <div class="input" style="min-height:64px;align-items:flex-start"><span style="flex:1;line-height:1.45">fix(graph): keep merge edges inside lane bounds<br><span style="color:var(--mut)">Clamp lane index when more than 12 parallel branches…</span></span><span class="btn ai sm"><svg class="i" aria-hidden="true"><use href="#i-spark"/></svg></span></div>
+              <div style="display:flex;gap:8px;align-items:center"><span class="chip ok"><svg class="i" aria-hidden="true"><use href="#i-lock"/></svg> SSH signed</span><span class="small">Amend</span><span class="chip" style="margin-left:auto">⌘<svg class="i" aria-hidden="true"><use href="#i-return"/></svg></span><span class="btn pri">Commit</span></div>
             </div>
           </div>
           <div class="pane divv" style="flex:1">
-            <div class="bar" style="background:var(--win)"><b class="mono" style="font-size:12px">Sources/…/GitRepository.swift</b><span class="sp"></span><span class="chip ok">+14</span><span class="chip bad">−3</span><span class="btn sm">Unified</span><span class="btn sm">Split</span><span class="btn ai sm">✦ Explain change</span></div>
+            <div class="bar" style="background:var(--win)"><b class="mono" style="font-size:12px">Sources/…/GitRepository.swift</b><span class="sp"></span><span class="chip ok">+14</span><span class="chip bad">−3</span><span class="btn sm">Unified</span><span class="btn sm">Split</span><span class="btn ai sm"><svg class="i" aria-hidden="true"><use href="#i-spark"/></svg> Explain change</span></div>
             <div class="code">
               <div class="ln h"><span></span><span></span><span></span><span>@@ -118,9 +118,16 @@ public func log(…) async throws</span></div>
               <div class="ln"><span>118</span><span>118</span><span> </span><span>        var a = ["log", "--topo-order"]</span></div>
@@ -400,23 +412,18 @@ footer.sum p{margin:0;color:var(--mut);max-width:60ch;line-height:1.5}
         </div>
       </div>
     </div></div>
-    <aside class="notes"><h3>Notes</h3>
-      <div class="note"><span class="n">1</span><div><b>Line-level staging.</b> Tick lines in the gutter, or stage a whole hunk with one click.<i>SPEC §4.2</i></div></div>
-      <div class="note"><span class="n">2</span><div><b>✦ is the AI link everywhere.</b> Here it writes the commit message and explains a diff. Same button in the merge tool.<i>SPEC §5.4</i></div></div>
-      <div class="note"><span class="n">3</span><div><b>Signing shown up front.</b> SSH, GPG or 1Password agent. A warning appears if the key is missing.<i>SPEC §9</i></div></div>
-      <div class="note"><span class="n">4</span><div><b>↩ Undo</b> rewinds the last history change using the reflog, with a plain-language confirmation.<i>SPEC §4.6</i></div></div>
-    </aside>
+    <aside class="notes"><h3>Notes</h3><div class="note"><span class="n">1</span><div>Stage lines or whole hunks.</div></div><div class="note"><span class="n">2</span><div><svg class="i" aria-hidden="true"><use href="#i-spark"/></svg> appears wherever you might want help.</div></div><div class="note"><span class="n">3</span><div>Undo rewinds the last history change.</div></div></aside>
   </div>
 </section>
 
 <!-- 3 DIFF + MERGE -->
 <section class="screen" id="s-merge" data-title="Diff &amp; merge">
-  <div class="shead"><div><h2>Built-in diff and merge tool</h2><p>Three-way merge with your branch, theirs and an editable result. Every conflict has an AI link for explanation or a proposed resolution. You always see what changes before accepting.</p></div><div class="approve" data-k="merge"></div></div>
+  <div class="shead"><div><h2>Diff and merge</h2><p>Three-way merge with an editable result and AI help on every conflict.</p></div><div class="approve" data-k="merge"></div></div>
   <div class="cols">
     <div class="stage"><div class="win tall" data-active="Branches">
       <div class="main">
         <div class="bar"><b>Merge feature/oauth into main</b><span class="chip warn">3 conflicts</span><span class="sp"></span><span class="btn sm">Unified</span><span class="btn sm">Split</span><span class="btn sm pri">3-way</span><span class="btn">Abort merge</span><span class="btn ok">Mark resolved</span></div>
-        <div class="bar" style="background:var(--win)"><span class="chip">Files</span><span class="mono" style="font-size:11.5px">Auth/DeviceFlow.swift</span><span class="chip warn">conflict 2 of 3</span><span class="btn sm">‹ Prev</span><span class="btn sm">Next ›</span><span class="sp"></span><span class="btn sm">Take mine all</span><span class="btn sm">Take theirs all</span><span class="btn ai">✦ Resolve file with AI</span></div>
+        <div class="bar" style="background:var(--win)"><span class="chip">Files</span><span class="mono" style="font-size:11.5px">Auth/DeviceFlow.swift</span><span class="chip warn">conflict 2 of 3</span><span class="btn sm"><svg class="i" aria-hidden="true"><use href="#i-chevron-left"/></svg> Prev</span><span class="btn sm">Next <svg class="i" aria-hidden="true"><use href="#i-chevron-right"/></svg></span><span class="sp"></span><span class="btn sm">Take mine all</span><span class="btn sm">Take theirs all</span><span class="btn ai"><svg class="i" aria-hidden="true"><use href="#i-spark"/></svg> Resolve file with AI</span></div>
         <div class="body" style="flex-direction:column;position:relative">
           <div class="m3 code" style="flex:1">
             <div><div class="mh"><span class="chip ok">mine</span> main · a41f9c2</div>
@@ -434,7 +441,7 @@ footer.sum p{margin:0;color:var(--mut);max-width:60ch;line-height:1.5}
               <div class="cl"><span>45</span><span>    let token = try await flow.poll(code)</span></div>
             </div>
           </div>
-          <div style="display:flex;gap:8px;align-items:center;padding:6px 10px;background:var(--panel);border-block:1px solid var(--line)"><b>Result</b><span class="small">editable · saved to working tree on Mark resolved</span><span class="sp" style="flex:1"></span><span class="btn sm">« Take mine</span><span class="btn sm">Take theirs »</span><span class="btn sm">Both</span><span class="btn ai sm">✦ Explain</span></div>
+          <div style="display:flex;gap:8px;align-items:center;padding:6px 10px;background:var(--panel);border-block:1px solid var(--line)"><b>Result</b><span class="small">editable · saved to working tree on Mark resolved</span><span class="sp" style="flex:1"></span><span class="btn sm"><svg class="i" aria-hidden="true"><use href="#i-arrow-left"/></svg> Take mine</span><span class="btn sm">Take theirs <svg class="i" aria-hidden="true"><use href="#i-arrow-right"/></svg></span><span class="btn sm">Both</span><span class="btn ai sm"><svg class="i" aria-hidden="true"><use href="#i-spark"/></svg> Explain</span></div>
           <div class="code" style="flex:1">
             <div class="cl"><span>41</span><span>    let flow = DeviceFlow(provider: p,</span></div>
             <div class="cl"><span>42</span><span>                          clientID: id)</span></div>
@@ -444,107 +451,89 @@ footer.sum p{margin:0;color:var(--mut);max-width:60ch;line-height:1.5}
             <div class="cl"><span>45</span><span>    let token = try await flow.poll(code)</span></div>
           </div>
           <div class="aipanel">
-            <div style="display:flex;gap:8px;align-items:center"><b style="color:var(--accent)">✦ Merge help</b><span class="chip">Claude Code</span><span class="small" style="margin-left:auto">read-only</span></div>
-            <div style="line-height:1.5">Both sides changed how the code is shown. <b>Mine</b> keeps the UI call; <b>theirs</b> adds the <span class="mono">scopes</span> argument and a telemetry line. They do not overlap in behaviour.</div>
-            <div class="card" style="padding:8px"><b>Suggested:</b> take theirs’ <span class="mono">start(scopes:)</span>, keep your <span class="mono">UI.show</span>, drop telemetry (you removed it on main in 3ab2e11).</div>
+            <div style="display:flex;gap:8px;align-items:center"><b style="color:var(--accent)"><svg class="i" aria-hidden="true"><use href="#i-spark"/></svg> Merge help</b><span class="chip">Claude Code</span><span class="small" style="margin-left:auto">read-only</span></div>
+            <div style="line-height:1.5">Both edit the same lines but do not clash: <b>theirs</b> adds <span class="mono">scopes</span>, <b>mine</b> keeps the UI call.</div>
+            <div class="card" style="padding:8px"><b>Suggested:</b> take <span class="mono">start(scopes:)</span>, keep <span class="mono">UI.show</span>, drop telemetry.</div>
             <div style="display:flex;gap:8px"><span class="btn pri">Apply to result</span><span class="btn">Explain more</span><span class="btn">Ask a question…</span></div>
           </div>
         </div>
       </div>
     </div></div>
-    <aside class="notes"><h3>Notes</h3>
-      <div class="note"><span class="n">1</span><div><b>3-way layout</b> with an editable result pane. Take mine, theirs or both per hunk; arrows in the gutter on every chunk.<i>SPEC §5.2</i></div></div>
-      <div class="note"><span class="n">2</span><div><b>✦ AI link on every conflict and file.</b> The panel explains in plain English, proposes a resolution, and never writes until you press Apply.<i>SPEC §5.4</i></div></div>
-      <div class="note"><span class="n">3</span><div><b>Same engine for diffs.</b> Unified, split and word-level highlight, plus images and moved-line detection.<i>SPEC §5.1</i></div></div>
-      <div class="note"><span class="n">4</span><div><b>Optional external tools</b> (Kaleidoscope, Beyond Compare, VS Code) can still be set as the default.<i>SPEC §5.5</i></div></div>
-      <div class="note"><span class="n">5</span><div><b>MCP:</b> <span class="mono">merge_conflicts</span>, <span class="mono">merge_resolve_hunk</span>, <span class="mono">merge_explain</span>.<i>SPEC §11</i></div></div>
-    </aside>
+    <aside class="notes"><h3>Notes</h3><div class="note"><span class="n">1</span><div>Take mine, theirs or both, per chunk.</div></div><div class="note"><span class="n">2</span><div>AI never writes until you press Apply.</div></div><div class="note"><span class="n">3</span><div>Prefer another tool? Kaleidoscope, VS Code and Beyond Compare plug in.</div></div></aside>
   </div>
 </section>
 
 <!-- 4 PRs + ISSUES -->
 <section class="screen" id="s-prs" data-title="PRs &amp; issues">
-  <div class="shead"><div><h2>Pull requests and issues, local first</h2><p>Pull both down, work on them locally, and run CI, an agent review and an agent test pass before anything touches the remote. An issue can become a branch and an agent task in one click.</p></div><div class="approve" data-k="prs"></div></div>
+  <div class="shead"><div><h2>Pull requests and issues</h2><p>Work on any PR locally. Four gates before merge.</p></div><div class="approve" data-k="prs"></div></div>
   <div class="cols">
     <div class="stage"><div class="win tall" data-active="Pull requests">
       <div class="main">
-        <div class="bar"><span class="btn pri sm">Pull requests · 4</span><span class="btn sm">Issues · 7</span><span class="sp"></span><span class="chip">kalahroudi/committo</span><span class="btn sm">⟳ Sync</span><span class="btn sm">＋ New</span></div>
+        <div class="bar"><span class="btn pri sm">Pull requests · 4</span><span class="btn sm">Issues · 7</span><span class="sp"></span><span class="chip">kalahroudi/committo</span><span class="btn sm"><svg class="i" aria-hidden="true"><use href="#i-refresh"/></svg> Sync</span><span class="btn sm"><svg class="i" aria-hidden="true"><use href="#i-plus"/></svg> New</span></div>
         <div class="body">
           <div class="pane" style="width:270px">
-            <div class="row sel"><span class="chip ok">✓</span><div class="t"><b>#142</b> Add OAuth device flow<br><small>@claude · 2h · local copy</small></div></div>
-            <div class="row"><span class="chip bad">✗</span><div class="t"><b>#139</b> Fix graph lane overflow<br><small>@sam · 1d · conflict</small></div></div>
+            <div class="row sel"><span class="chip ok"><svg class="i" aria-hidden="true"><use href="#i-check"/></svg></span><div class="t"><b>#142</b> Add OAuth device flow<br><small>@claude · 2h · local copy</small></div></div>
+            <div class="row"><span class="chip bad"><svg class="i" aria-hidden="true"><use href="#i-x"/></svg></span><div class="t"><b>#139</b> Fix graph lane overflow<br><small>@sam · 1d · conflict</small></div></div>
             <div class="row"><span class="chip warn">…</span><div class="t"><b>#137</b> Bump act to 0.2.70<br><small>@dependabot · 2d</small></div></div>
-            <div class="row"><span class="chip">◌</span><div class="t"><b>#133</b> Draft: stacked branches<br><small>@kal · 4d · draft</small></div></div>
-            <div class="sec">Issues → agent</div>
-            <div class="row"><span class="chip acc">◎</span><div class="t"><b>#37</b> Docs: MCP setup<br><small>good first issue</small></div><span class="btn ai sm">✦ Start</span></div>
+            <div class="row"><span class="chip"><svg class="i" aria-hidden="true"><use href="#i-circle"/></svg></span><div class="t"><b>#133</b> Draft: stacked branches<br><small>@kal · 4d · draft</small></div></div>
+            <div class="sec">Issues <svg class="i" aria-hidden="true"><use href="#i-arrow-right"/></svg> agent</div>
+            <div class="row"><span class="chip acc"><svg class="i" aria-hidden="true"><use href="#i-issue"/></svg></span><div class="t"><b>#37</b> Docs: MCP setup<br><small>good first issue</small></div><span class="btn ai sm"><svg class="i" aria-hidden="true"><use href="#i-spark"/></svg> Start</span></div>
           </div>
           <div class="pane divv" style="flex:1;padding:14px;display:flex;flex-direction:column;gap:10px">
-            <div style="display:flex;gap:10px;align-items:flex-start"><div style="flex:1"><div style="font:700 17px var(--display)">Add OAuth device flow</div><div class="small">#142 · claude/device-flow → main · +312 −24 · 9 files</div></div>
+            <div style="display:flex;gap:10px;align-items:flex-start"><div style="flex:1"><div style="font:700 17px var(--display)">Add OAuth device flow</div><div class="small">#142 · claude/device-flow <svg class="i" aria-hidden="true"><use href="#i-arrow-right"/></svg> main · +312 −24 · 9 files</div></div>
               <span class="btn">Check out locally</span><span class="btn">Open worktree</span></div>
             <div class="grid2">
-              <div class="card"><h4>⚙ Local CI <span class="chip ok">passed</span><span class="btn sm" style="margin-left:auto">▶ Re-run</span></h4>
-                <div class="kv mono" style="font-size:11px"><dt>build</dt><dd style="color:var(--ok)">✓ 41s · act · This Mac</dd><dt>test</dt><dd style="color:var(--ok)">✓ 1m 12s · 12 tests</dd><dt>lint</dt><dd style="color:var(--ok)">✓ 9s · lan-runner-2</dd></div></div>
-              <div class="card"><h4>✦ Agent review <span class="chip warn">2 notes</span><span class="small" style="margin-left:auto">Claude Code</span></h4>
+              <div class="card"><h4><svg class="i" aria-hidden="true"><use href="#i-cog"/></svg> Local CI <span class="chip ok">passed</span><span class="btn sm" style="margin-left:auto"><svg class="i" aria-hidden="true"><use href="#i-play"/></svg> Re-run</span></h4>
+                <div class="kv mono" style="font-size:11px"><dt>build</dt><dd style="color:var(--ok)"><svg class="i" aria-hidden="true"><use href="#i-check"/></svg> 41s · act · This Mac</dd><dt>test</dt><dd style="color:var(--ok)"><svg class="i" aria-hidden="true"><use href="#i-check"/></svg> 1m 12s · 12 tests</dd><dt>lint</dt><dd style="color:var(--ok)"><svg class="i" aria-hidden="true"><use href="#i-check"/></svg> 9s · lan-runner-2</dd></div></div>
+              <div class="card"><h4><svg class="i" aria-hidden="true"><use href="#i-spark"/></svg> Agent review <span class="chip warn">2 notes</span><span class="small" style="margin-left:auto">Claude Code</span></h4>
                 <div style="line-height:1.45;font-size:12px"><b>Poll loop ignores cancellation</b> <span class="mono small">DeviceFlow.swift:88</span><br><b>Token logged at debug level</b> <span class="mono small">Auth.swift:41</span></div>
                 <div style="display:flex;gap:6px;margin-top:8px"><span class="btn sm">Fix with agent</span><span class="btn sm">Post to PR</span></div></div>
-              <div class="card"><h4>🧪 Agent test <span class="chip ok">6 / 6</span></h4>
+              <div class="card"><h4><svg class="i" aria-hidden="true"><use href="#i-flask"/></svg> Agent test <span class="chip ok">6 / 6</span></h4>
                 <div style="font-size:12px;line-height:1.5">Agent wrote 6 tests for the new paths and ran them in a throwaway worktree. <span class="mono small">DeviceFlowTests.swift</span><br><span class="btn sm" style="margin-top:6px">Add tests to PR</span></div></div>
-              <div class="card"><h4>🛡 SecurityCage <span class="chip bad">1 high</span><span class="small" style="margin-left:auto">auto · 0.5 s · offline</span></h4>
+              <div class="card"><h4><svg class="i" aria-hidden="true"><use href="#i-shield"/></svg> SecurityCage <span class="chip bad">1 high</span><span class="small" style="margin-left:auto">auto · 0.5 s · offline</span></h4>
                 <div style="font-size:12px;line-height:1.5"><b>Unguarded POST /api/feedback</b> <span class="mono small">route.ts</span><br><span class="small">worth a look · no login or permission check found</span></div>
                 <div style="display:flex;gap:6px;margin-top:8px"><span class="btn sm">Copy fix prompt</span><span class="btn ai sm">Fix with agent</span><span class="btn sm">Deep scan</span></div></div>
             </div>
-            <div class="card" style="display:flex;gap:12px;align-items:center"><div style="flex:1"><b>Ready to merge?</b><div class="small">CI ✓ · review 2 notes · tests ✓ · 1 approval needed by ruleset</div></div>
+            <div class="card" style="display:flex;gap:12px;align-items:center"><div style="flex:1"><b>Ready to merge?</b><div class="small">CI <svg class="i" aria-hidden="true"><use href="#i-check"/></svg> · review 2 notes · tests <svg class="i" aria-hidden="true"><use href="#i-check"/></svg> · 1 approval needed by ruleset</div></div>
               <span class="btn">Merge locally</span><span class="btn pri">Squash &amp; merge on GitHub</span></div>
             <div class="card" style="padding:10px"><b>Files</b> <span class="small">9</span> <span class="small" style="margin-left:8px">DeviceFlow.swift · Auth.swift · Accounts.swift · Settings.swift · …</span></div>
           </div>
         </div>
       </div>
     </div></div>
-    <aside class="notes"><h3>Notes</h3>
-      <div class="note"><span class="n">1</span><div><b>Local copy</b> for every PR and issue: fetch refs, check out into a worktree, comment and review from the app.<i>SPEC §7.1</i></div></div>
-      <div class="note"><span class="n">2</span><div><b>Four gates</b> in one view: local CI, agent review, agent test, security. Each runs on this Mac or a LAN runner.<i>SPEC §7.2</i></div></div>
-      <div class="note"><span class="n">3</span><div><b>Agent test</b> writes and runs tests in a throwaway worktree; you choose whether to add them.<i>SPEC §7.3</i></div></div>
-      <div class="note"><span class="n">4</span><div><b>Issue → agent</b> creates a branch and starts the task with the issue text as context.<i>SPEC §7.4</i></div></div>
-      <div class="note"><span class="n">5</span><div><b>Where supported:</b> GitHub and GitLab first; others show only what their API allows.<i>SPEC §7.5</i></div></div>
-    </aside>
+    <aside class="notes"><h3>Notes</h3><div class="note"><span class="n">1</span><div>Check out any PR or issue into a worktree.</div></div><div class="note"><span class="n">2</span><div>Gates: CI, agent review, agent tests, security.</div></div><div class="note"><span class="n">3</span><div>An issue becomes a branch and an agent task.</div></div></aside>
   </div>
 </section>
 
 <!-- MERGE VIZ -->
 <section class="screen" id="s-mergeviz" data-title="Merge preview">
-  <div class="shead"><div><h2>Merge preview: see how commits land on main</h2><p>Pick Merge commit, Squash or Rebase and watch the graph change before anything happens. It is the fastest way to choose well, and it doubles as a lesson for anyone still learning what these words mean. Try the buttons below, or press 1, 2 and 3.</p></div><div class="approve" data-k="mergeviz"></div></div>
+  <div class="shead"><div><h2>Merge preview</h2><p>See how commits land on main before you merge. Keys 1, 2, 3.</p></div><div class="approve" data-k="mergeviz"></div></div>
   <div class="cols"><div class="stage"><div class="win xl" data-active="Pull requests"><div class="main">
-    <div class="bar"><b>Merge #142</b><span class="chip">claude/device-flow → main</span><span class="chip ok">CI ✓</span><span class="chip acc">review ✓</span><span class="sp"></span><span class="seg"><span class="on">Teach me</span><span>Just merge</span></span></div>
+    <div class="bar"><b>Merge #142</b><span class="chip">claude/device-flow <svg class="i" aria-hidden="true"><use href="#i-arrow-right"/></svg> main</span><span class="chip ok">CI <svg class="i" aria-hidden="true"><use href="#i-check"/></svg></span><span class="chip acc">review <svg class="i" aria-hidden="true"><use href="#i-check"/></svg></span><span class="sp"></span><span class="seg"><span class="on">Teach me</span><span>Just merge</span></span></div>
     <div style="padding:12px 14px;display:flex;flex-direction:column;gap:12px;flex:1;min-height:0;overflow:hidden">
       <div style="display:flex;gap:10px" id="oc">
-        <button class="oc" type="button" data-o="merge" aria-pressed="false" disabled><b>⑃ Merge commit <kbd>1</kbd></b><small>Keeps every commit and adds one that joins the two lines.</small><span class="chip warn" style="margin-top:6px">🔒 ruleset needs linear history</span></button>
-        <button class="oc" type="button" data-o="squash" aria-pressed="true"><b>▣ Squash <kbd>2</kbd></b><small>Folds the whole PR into one new commit on main.</small><span class="chip ok" style="margin-top:6px">★ your usual · 9 of last 10</span></button>
-        <button class="oc" type="button" data-o="rebase" aria-pressed="false"><b>⇉ Rebase <kbd>3</kbd></b><small>Replays each commit on top of main, in a straight line.</small><span class="chip" style="margin-top:6px">4 commits get new hashes</span></button>
+        <button class="oc" type="button" data-o="merge" aria-pressed="false" disabled><b><svg class="i" aria-hidden="true"><use href="#i-merge"/></svg> Merge commit <kbd>1</kbd></b><small>Keeps every commit, adds a join.</small><span class="chip warn" style="margin-top:6px"><svg class="i" aria-hidden="true"><use href="#i-lock"/></svg> ruleset needs linear history</span></button>
+        <button class="oc" type="button" data-o="squash" aria-pressed="true"><b><svg class="i" aria-hidden="true"><use href="#i-stack"/></svg> Squash <kbd>2</kbd></b><small>One new commit for the whole PR.</small><span class="chip ok" style="margin-top:6px"><svg class="i" aria-hidden="true"><use href="#i-star"/></svg> your usual</span></button>
+        <button class="oc" type="button" data-o="rebase" aria-pressed="false"><b><svg class="i" aria-hidden="true"><use href="#i-rebase"/></svg> Rebase <kbd>3</kbd></b><small>Replays each commit on top of main.</small><span class="chip" style="margin-top:6px">new hashes</span></button>
       </div>
       <div style="display:flex;gap:12px;align-items:stretch">
         <div class="vzp"><div class="vzh">Now <span class="chip">PR branch + main</span></div><div class="vzb" id="vzBefore"></div></div>
-        <div style="display:grid;place-items:center;font-size:22px;color:var(--accent)">→</div>
-        <div class="vzp"><div class="vzh"><span id="vzTitle">main after Squash</span><span class="chip" id="vzCount">+1 commit</span><span class="sp" style="flex:1"></span><button class="btn sm" type="button" id="replay">▶ Replay</button></div><div class="vzb go" id="vzAfter"></div></div>
+        <div style="display:grid;place-items:center;font-size:22px;color:var(--accent)"><svg class="i" aria-hidden="true"><use href="#i-arrow-right"/></svg></div>
+        <div class="vzp"><div class="vzh"><span id="vzTitle">main after Squash</span><span class="chip" id="vzCount">+1 commit</span><span class="sp" style="flex:1"></span><button class="btn sm" type="button" id="replay"><svg class="i" aria-hidden="true"><use href="#i-play"/></svg> Replay</button></div><div class="vzb go" id="vzAfter"></div></div>
       </div>
       <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px" id="props"></div>
       <div class="learn" id="learn"></div>
       <div style="display:flex;gap:8px;align-items:center"><span class="small" id="undo" style="flex:1"></span><span class="btn">Merge locally</span><span class="btn pri" id="goBtn">Squash &amp; merge on GitHub</span></div>
     </div>
   </div></div></div>
-  <aside class="notes"><h3>Notes</h3>
-    <div class="note"><span class="n">1</span><div><b>Live before/after graph.</b> Switching option redraws what main will look like, with new commits highlighted and the ones that do not reach main shown faded.<i>SPEC §7.6</i></div></div>
-    <div class="note"><span class="n">2</span><div><b>Consequences, not jargon:</b> history shape, hashes, signatures, undo and bisect. Each option states what it does to them.<i>SPEC §7.6</i></div></div>
-    <div class="note"><span class="n">3</span><div><b>Respects the ruleset.</b> Options the repo forbids are locked with the reason. The default follows your repo’s habit.<i>SPEC §7.6</i></div></div>
-    <div class="note"><span class="n">4</span><div><b>Teach me</b> adds a plain-English explanation and glossary; Just merge hides it. The same preview powers rebase, cherry-pick, revert and reset.<i>SPEC §3.4</i></div></div>
-    <div class="note"><span class="n">5</span><div><b>Keyboard first:</b> 1 / 2 / 3 choose, ↩ merges. Nothing waits on the network; the preview is drawn locally.<i>SPEC §16</i></div></div>
-  </aside></div>
+  <aside class="notes"><h3>Notes</h3><div class="note"><span class="n">1</span><div>Highlighted commits are new. Faded ones stay on the branch.</div></div><div class="note"><span class="n">2</span><div>Options your ruleset forbids are locked.</div></div><div class="note"><span class="n">3</span><div>“Teach me” explains each option in plain words.</div></div></aside></div>
 </section>
 
 <!-- CI LIVE -->
 <section class="screen" id="s-ci" data-title="CI live">
-  <div class="shead"><div><h2>CI, live: everything running, wherever it runs</h2><p>One board for this Mac, machines on your network, and hosted runners. You see what is running, what is waiting and why, what failed, and the next action, without opening four dashboards.</p></div><div class="approve" data-k="ci"></div></div>
+  <div class="shead"><div><h2>CI live</h2><p>Every run, on every runner.</p></div><div class="approve" data-k="ci"></div></div>
   <div class="cols"><div class="stage"><div class="win xl" data-active="CI Runners"><div class="main">
-    <div class="bar"><b>CI</b><span class="chip ok"><span class="ring2"></span> 3 running</span><span class="chip">◔ 1 queued</span><span class="chip bad">✗ 1 failed</span><span class="chip">✓ 17 today</span><span class="sp"></span><span class="seg"><span class="on">All</span><span>Mine</span><span>Failed</span></span><span class="btn sm pri">▶ Run workflow</span></div>
+    <div class="bar"><b>CI</b><span class="chip ok"><span class="ring2"></span> 3 running</span><span class="chip"><svg class="i" aria-hidden="true"><use href="#i-clock"/></svg> 1 queued</span><span class="chip bad"><svg class="i" aria-hidden="true"><use href="#i-x"/></svg> 1 failed</span><span class="chip"><svg class="i" aria-hidden="true"><use href="#i-check"/></svg> 17 today</span><span class="sp"></span><span class="seg"><span class="on">All</span><span>Mine</span><span>Failed</span></span><span class="btn sm pri"><svg class="i" aria-hidden="true"><use href="#i-play"/></svg> Run workflow</span></div>
     <div style="padding:12px 14px;display:flex;flex-direction:column;gap:12px;flex:1;min-height:0;overflow:hidden">
       <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:8px">
         <div class="runner"><b><span class="rn loc">This Mac</span><span class="chip ok" style="margin-left:auto">busy</span></b><div class="prog"><i style="width:100%"></i></div><span class="small">act · 1 / 1 slot · Docker ok</span></div>
@@ -557,56 +546,50 @@ footer.sum p{margin:0;color:var(--mut);max-width:60ch;line-height:1.5}
         <div style="flex:1.15;min-width:0;display:flex;flex-direction:column;gap:8px;overflow:hidden">
           <div class="run sel"><div class="top"><span class="ring2"></span><b>committo · ci / test</b><span class="small">feat(auth): device flow</span><span class="rn loc" style="margin-left:auto">This Mac · act</span></div>
             <div class="prog live"><i data-live="62" style="width:62%"></i></div>
-            <div class="steps"><span class="d">✓ checkout</span><span class="d">✓ build 41s</span><span class="r">● test</span><span>○ lint</span><span style="margin-left:auto"><span data-t>1:12</span> · ETA 45 s · <span data-pct>62</span>%</span></div></div>
+            <div class="steps"><span class="d"><svg class="i" aria-hidden="true"><use href="#i-check"/></svg> checkout</span><span class="d"><svg class="i" aria-hidden="true"><use href="#i-check"/></svg> build 41s</span><span class="r"><svg class="i" aria-hidden="true"><use href="#i-dot"/></svg> test</span><span><svg class="i" aria-hidden="true"><use href="#i-circle"/></svg> lint</span><span style="margin-left:auto"><span data-t>1:12</span> · ETA 45 s · <span data-pct>62</span>%</span></div></div>
           <div class="run"><div class="top"><span class="ring2"></span><b>committo · PR #142 · ci / build</b><span class="rn ts" style="margin-left:auto">mac-mini · tailnet</span></div>
             <div class="prog live"><i data-live="35" style="width:35%"></i></div>
-            <div class="steps"><span class="d">✓ checkout</span><span class="r">● build</span><span>○ test</span><span>○ lint</span><span style="margin-left:auto">0:38 · ETA 1:10</span></div></div>
-          <div class="run"><div class="top"><span style="color:var(--mut)">◔</span><b>acme-api · deploy</b><span class="small">waiting for a runner · position 2</span><span class="rn gh" style="margin-left:auto">GitHub Actions</span></div>
+            <div class="steps"><span class="d"><svg class="i" aria-hidden="true"><use href="#i-check"/></svg> checkout</span><span class="r"><svg class="i" aria-hidden="true"><use href="#i-dot"/></svg> build</span><span><svg class="i" aria-hidden="true"><use href="#i-circle"/></svg> test</span><span><svg class="i" aria-hidden="true"><use href="#i-circle"/></svg> lint</span><span style="margin-left:auto">0:38 · ETA 1:10</span></div></div>
+          <div class="run"><div class="top"><span style="color:var(--mut)"><svg class="i" aria-hidden="true"><use href="#i-clock"/></svg></span><b>acme-api · deploy</b><span class="small">waiting for a runner · position 2</span><span class="rn gh" style="margin-left:auto">GitHub Actions</span></div>
             <div class="prog q"><i></i></div><div class="steps"><span>Queued 38 s</span><span>Why: 20 hosted jobs ahead in your plan</span><span class="btn sm" style="margin-left:auto;font-family:var(--ui)">Run on mac-mini instead</span></div></div>
-          <div class="run"><div class="top"><span style="color:var(--bad)">✗</span><b>acme-api · PR #139 · ci / test</b><span class="small">2 tests failed · 2 m ago</span><span class="rn gh" style="margin-left:auto">GitHub Actions</span></div>
+          <div class="run"><div class="top"><span style="color:var(--bad)"><svg class="i" aria-hidden="true"><use href="#i-x"/></svg></span><b>acme-api · PR #139 · ci / test</b><span class="small">2 tests failed · 2 m ago</span><span class="rn gh" style="margin-left:auto">GitHub Actions</span></div>
             <div class="prog fail"><i style="width:100%"></i></div>
-            <div style="display:flex;gap:6px;flex-wrap:wrap"><span class="btn ai sm">✦ Explain failure</span><span class="btn sm">Fix with agent</span><span class="btn sm">Re-run failed jobs</span><span class="btn sm">Reproduce locally</span></div></div>
-          <div class="run"><div class="top"><span style="color:var(--ok)">✓</span><b>web-portfolio · lint</b><span class="small">passed 4 m ago · 12 s</span><span class="rn loc" style="margin-left:auto">This Mac</span></div></div>
+            <div style="display:flex;gap:6px;flex-wrap:wrap"><span class="btn ai sm"><svg class="i" aria-hidden="true"><use href="#i-spark"/></svg> Explain failure</span><span class="btn sm">Fix with agent</span><span class="btn sm">Re-run failed jobs</span><span class="btn sm">Reproduce locally</span></div></div>
+          <div class="run"><div class="top"><span style="color:var(--ok)"><svg class="i" aria-hidden="true"><use href="#i-check"/></svg></span><b>web-portfolio · lint</b><span class="small">passed 4 m ago · 12 s</span><span class="rn loc" style="margin-left:auto">This Mac</span></div></div>
         </div>
         <div style="flex:1;min-width:0;border:1px solid var(--line);border-radius:10px;background:var(--panel);padding:10px;display:flex;flex-direction:column;gap:8px;overflow:hidden">
           <div style="display:flex;gap:8px;align-items:center"><b>committo · ci / test</b><span class="chip ok"><span class="ring2"></span> running</span><span class="sp" style="flex:1"></span><span class="btn sm">Follow</span><span class="btn sm" style="color:var(--bad)">Cancel</span></div>
-          <div style="display:flex;gap:14px"><div style="flex:1"><div class="stp done"><span class="c">✓</span>Set up job</div><div class="stp done"><span class="c">✓</span>Checkout</div><div class="stp done"><span class="c">✓</span>Build <span class="small" style="margin-left:auto">41 s</span></div><div class="stp cur"><span class="c">●</span>Test <span class="small" style="margin-left:auto">31 s</span></div><div class="stp"><span class="c">○</span>Lint</div></div></div>
-          <div class="logt" style="background:var(--win);border:1px solid var(--line);border-radius:8px;padding:8px;flex:1"><span class="t">20:21:04</span> <span class="b">▶ swift test</span>
+          <div style="display:flex;gap:14px"><div style="flex:1"><div class="stp done"><span class="c"><svg class="i" aria-hidden="true"><use href="#i-check"/></svg></span>Set up job</div><div class="stp done"><span class="c"><svg class="i" aria-hidden="true"><use href="#i-check"/></svg></span>Checkout</div><div class="stp done"><span class="c"><svg class="i" aria-hidden="true"><use href="#i-check"/></svg></span>Build <span class="small" style="margin-left:auto">41 s</span></div><div class="stp cur"><span class="c"><svg class="i" aria-hidden="true"><use href="#i-dot"/></svg></span>Test <span class="small" style="margin-left:auto">31 s</span></div><div class="stp"><span class="c"><svg class="i" aria-hidden="true"><use href="#i-circle"/></svg></span>Lint</div></div></div>
+          <div class="logt" style="background:var(--win);border:1px solid var(--line);border-radius:8px;padding:8px;flex:1"><span class="t">20:21:04</span> <span class="b"><svg class="i" aria-hidden="true"><use href="#i-play"/></svg> swift test</span>
 <span class="t">20:21:09</span> Test Case 'CoreTests.testDiffParsing' <span class="g">passed</span>
 <span class="t">20:21:09</span> Test Case 'CoreTests.testMergeOpensSecondLane' <span class="g">passed</span>
 <span class="t">20:21:10</span> Test Case 'GitIntegrationTests.testHunkStaging' <span class="g">passed</span>
 <span class="t">20:21:10</span> Test Case 'SecurityCageTests.testParsePlanJSON' <span class="g">passed</span>
 <span class="t">20:21:11</span> Test Case 'SecurityCageTests.testWorkflow…' <span class="b">running…</span></div>
-          <div class="small">Runs the same workflow file everywhere. Switch runner and re-run in one click.</div>
+          
         </div>
       </div>
     </div>
   </div></div></div>
-  <aside class="notes"><h3>Notes</h3>
-    <div class="note"><span class="n">1</span><div><b>One board for every runner:</b> this Mac (act), LAN machines, GitHub Actions, GitLab, self-hosted. Each run shows where it runs, which step, progress and ETA.<i>SPEC §7.9</i></div></div>
-    <div class="note"><span class="n">2</span><div><b>Runner health strip</b> with slots in use, latency (direct or relayed over Tailscale) and queue, so “why is it slow?” answers itself.<i>SPEC §7.9, §7.11</i></div></div>
-    <div class="note"><span class="n">3</span><div><b>Queued explains itself</b> and offers a faster runner. Failures offer ✦ Explain, Fix with agent, re-run failed jobs, or reproduce locally.<i>SPEC §7.9</i></div></div>
-    <div class="note"><span class="n">4</span><div><b>Status everywhere:</b> sidebar footer in every window, spinner on the menu-bar icon (red on failure), “Live now” in the popover, counters on PRs.<i>SPEC §3.1, §7.9</i></div></div>
-    <div class="note"><span class="n">5</span><div><b>MCP:</b> <span class="mono">ci_status</span>, <span class="mono">ci_logs</span>, <span class="mono">ci_run</span>, <span class="mono">ci_cancel</span>, <span class="mono">ci_rerun</span>.<i>SPEC §11</i></div></div>
-  </aside></div>
+  <aside class="notes"><h3>Notes</h3><div class="note"><span class="n">1</span><div>This Mac, tailnet machines and hosted runners on one board.</div></div><div class="note"><span class="n">2</span><div>Queued runs say why. Failed runs offer explain and fix.</div></div><div class="note"><span class="n">3</span><div>Status also shows in the sidebar, popover and menu-bar icon.</div></div></aside></div>
 </section>
 
 <!-- TAILSCALE -->
 <section class="screen" id="s-tailscale" data-title="Tailscale runners">
-  <div class="shead"><div><h2>Tailscale: any machine of yours becomes a CI runner</h2><p>Committo finds Tailscale, signs you in, publishes your Mac privately on your tailnet, and adds your other machines as runners in a click. Works across networks and NAT, with private HTTPS and no open ports. Everything below is set up by the app; steps that need your Tailscale admin are guided or fully automatic if you connect an OAuth client.</p></div><div class="approve" data-k="tailscale"></div></div>
+  <div class="shead"><div><h2>Tailscale runners</h2><p>Turn your other machines into CI runners.</p></div><div class="approve" data-k="tailscale"></div></div>
   <div class="cols"><div class="stage"><div class="win xl" data-active="Settings" style="grid-template-columns:1fr"><div class="main">
     <div class="bar"><div class="lights" style="padding:0"><i></i><i></i><i></i></div><b style="margin-left:10px">Settings · CI runners · Tailscale</b><span class="sp"></span><span class="chip ok"><span class="pulse"></span> connected</span><span class="chip mono">tail8f2c.ts.net</span><span class="chip">4 devices</span></div>
     <div style="padding:12px 14px;display:grid;grid-template-columns:330px 1fr;gap:12px;flex:1;min-height:0;overflow:hidden">
       <div style="display:flex;flex-direction:column;gap:10px;min-width:0">
         <div class="card"><h4>Automatic setup <span class="chip ok">5 of 6 done</span></h4>
-          <div class="stp done"><span class="c">✓</span><div>Tailscale found<div class="small">1.8x · CLI at /usr/local/bin/tailscale</div></div></div>
-          <div class="stp done"><span class="c">✓</span><div>Signed in<div class="small">you@example.com</div></div></div>
-          <div class="stp done"><span class="c">✓</span><div>HTTPS certificates on<div class="small">needed for private HTTPS</div></div></div>
-          <div class="stp done"><span class="c">✓</span><div>This Mac published, privately<div class="small mono">https://kal-mbp.tail8f2c.ts.net → :7771</div></div></div>
-          <div class="stp done"><span class="c">✓</span><div>Public sharing locked off <span class="lock">🔒 Funnel off</span></div></div>
-          <div class="stp cur"><span class="c">●</span><div>Runner tag &amp; access rules<div class="small">tag:committo-runner · review below</div></div></div></div>
+          <div class="stp done"><span class="c"><svg class="i" aria-hidden="true"><use href="#i-check"/></svg></span><div>Tailscale found<div class="small">v1.8x</div></div></div>
+          <div class="stp done"><span class="c"><svg class="i" aria-hidden="true"><use href="#i-check"/></svg></span><div>Signed in<div class="small">you@example.com</div></div></div>
+          <div class="stp done"><span class="c"><svg class="i" aria-hidden="true"><use href="#i-check"/></svg></span><div>HTTPS certificates on</div></div>
+          <div class="stp done"><span class="c"><svg class="i" aria-hidden="true"><use href="#i-check"/></svg></span><div>This Mac published, privately<div class="small mono">https://kal-mbp.tail8f2c.ts.net <svg class="i" aria-hidden="true"><use href="#i-arrow-right"/></svg> :7771</div></div></div>
+          <div class="stp done"><span class="c"><svg class="i" aria-hidden="true"><use href="#i-check"/></svg></span><div>Public sharing locked off <span class="lock"><svg class="i" aria-hidden="true"><use href="#i-lock"/></svg> Funnel off</span></div></div>
+          <div class="stp cur"><span class="c"><svg class="i" aria-hidden="true"><use href="#i-dot"/></svg></span><div>Runner tag &amp; access rules<div class="small">tag:committo-runner · review below</div></div></div></div>
         <div class="card"><h4>Full automation <span class="chip">optional</span></h4>
-          <div style="font-size:12px;line-height:1.5">Connect a Tailscale OAuth client so Committo can create tagged, expiring auth keys for servers and apply the access rules for you. Without it, you copy two things from the admin console and Committo does the rest.</div>
+          <div style="font-size:12px;line-height:1.5">Connect an OAuth client and Committo creates expiring keys and applies the rules. Skip it and you copy two things from the admin console.</div>
           <div style="display:flex;gap:6px;margin-top:8px"><span class="btn pri sm">Connect OAuth client</span><span class="btn sm">Do it manually</span></div></div>
         <div class="card"><h4>Access rules <span class="chip warn">not applied</span></h4>
 <div class="acl"><span class="c">// minimum needed, nothing more</span>
@@ -618,11 +601,11 @@ footer.sum p{margin:0;color:var(--mut);max-width:60ch;line-height:1.5}
   <span class="k">"dst"</span>: [<span class="s">"tag:committo-runner"</span>],
   <span class="k">"ip"</span>:  [<span class="s">"tcp:443"</span>]
 }]</div>
-          <div style="display:flex;gap:6px;margin-top:8px"><span class="btn pri sm">Apply</span><span class="btn sm">Copy</span><span class="btn sm">Explain ✦</span></div>
-          <div class="small" style="margin-top:6px">Runners can’t reach anything. Only you can reach runners, on HTTPS.</div></div>
+          <div style="display:flex;gap:6px;margin-top:8px"><span class="btn pri sm">Apply</span><span class="btn sm">Copy</span><span class="btn sm">Explain <svg class="i" aria-hidden="true"><use href="#i-spark"/></svg></span></div>
+          </div>
       </div>
       <div style="display:flex;flex-direction:column;gap:10px;min-width:0">
-        <div class="card" style="padding:0;overflow:hidden"><div style="padding:10px 12px;display:flex;gap:8px;align-items:center"><b>Devices on your tailnet</b><span class="sp" style="flex:1"></span><span class="btn sm">⟳ Refresh</span><span class="btn sm">＋ Add a server by command</span></div>
+        <div class="card" style="padding:0;overflow:hidden"><div style="padding:10px 12px;display:flex;gap:8px;align-items:center"><b>Devices on your tailnet</b><span class="sp" style="flex:1"></span><span class="btn sm"><svg class="i" aria-hidden="true"><use href="#i-refresh"/></svg> Refresh</span><span class="btn sm"><svg class="i" aria-hidden="true"><use href="#i-plus"/></svg> Add a server by command</span></div>
           <table class="dt"><tr><th>Device</th><th>Connection</th><th>Runner</th><th></th></tr>
             <tr><td><b>mac-mini</b><div class="small">macOS 15 · tag:committo-runner</div></td><td><span class="chip ok">direct 3 ms</span></td><td><span class="rn ts">runner</span> <span class="small">2 / 4 busy · act + Docker</span></td><td><span class="btn sm">Settings</span></td></tr>
             <tr><td><b>linux-box</b><div class="small">Ubuntu 24.04 · tag:committo-runner</div></td><td><span class="chip ok">direct 5 ms</span></td><td><span class="rn ts">runner</span> <span class="small">idle · 0 / 4</span></td><td><span class="btn sm">Settings</span></td></tr>
@@ -631,57 +614,49 @@ footer.sum p{margin:0;color:var(--mut);max-width:60ch;line-height:1.5}
             <tr style="opacity:.6"><td><b>kal-iphone</b><div class="small">iOS</div></td><td><span class="chip ok">direct</span></td><td><span class="small">not eligible</span></td><td></td></tr></table></div>
         <div class="card"><h4>Adding home-nas <span class="chip acc">in progress</span><span class="seg" style="margin-left:auto"><span class="on">Tailscale SSH</span><span>Copy command</span><span>Pair code</span></span></h4>
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:0 18px">
-            <div><div class="stp done"><span class="c">✓</span>Reachable over the tailnet</div><div class="stp done"><span class="c">✓</span>SSH allowed by your rules</div><div class="stp done"><span class="c">✓</span>Install committo CLI</div><div class="stp done"><span class="c">✓</span>Install act</div></div>
-            <div><div class="stp cur"><span class="c">●</span>Tag as runner, join with an expiring key</div><div class="stp"><span class="c">○</span>Publish privately over HTTPS</div><div class="stp"><span class="c">○</span>Self-test: run a sample workflow</div><div class="stp"><span class="c">○</span>Show up in CI live</div></div></div>
-          <div class="small" style="margin-top:4px">Docker is missing on home-nas. Committo will show the one command to install it and wait.</div></div>
-        <div class="card"><h4>What Committo will and will not do</h4>
+            <div><div class="stp done"><span class="c"><svg class="i" aria-hidden="true"><use href="#i-check"/></svg></span>Reachable over the tailnet</div><div class="stp done"><span class="c"><svg class="i" aria-hidden="true"><use href="#i-check"/></svg></span>SSH allowed by your rules</div><div class="stp done"><span class="c"><svg class="i" aria-hidden="true"><use href="#i-check"/></svg></span>Install committo CLI</div><div class="stp done"><span class="c"><svg class="i" aria-hidden="true"><use href="#i-check"/></svg></span>Install act</div></div>
+            <div><div class="stp cur"><span class="c"><svg class="i" aria-hidden="true"><use href="#i-dot"/></svg></span>Tag as runner, join with an expiring key</div><div class="stp"><span class="c"><svg class="i" aria-hidden="true"><use href="#i-circle"/></svg></span>Publish privately over HTTPS</div><div class="stp"><span class="c"><svg class="i" aria-hidden="true"><use href="#i-circle"/></svg></span>Self-test: run a sample workflow</div><div class="stp"><span class="c"><svg class="i" aria-hidden="true"><use href="#i-circle"/></svg></span>Show up in CI live</div></div></div>
+          <div class="small" style="margin-top:4px">Docker is missing on home-nas. Install it and Committo continues.</div></div>
+        <div class="card"><h4>Safeguards</h4>
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px 18px;font-size:12px;line-height:1.45">
-            <div><span class="chip ok">✓</span> Keeps runners tailnet-only. <b>Never</b> turns on public sharing (Funnel).</div>
-            <div><span class="chip ok">✓</span> Controller calls runners; runners cannot call you.</div>
-            <div><span class="chip ok">✓</span> Checks your Tailscale identity on every request, plus a per-runner token.</div>
-            <div><span class="chip ok">✓</span> Servers join with tagged, expiring, single-purpose keys.</div>
-            <div><span class="chip ok">✓</span> Secrets stay on your Mac unless you allow a runner to receive them.</div>
-            <div><span class="chip warn">!</span> Runners execute workflows in Docker. Only run repos you trust.</div></div></div>
+            <div><span class="chip ok"><svg class="i" aria-hidden="true"><use href="#i-check"/></svg></span> Tailnet only. Public sharing never on.</div>
+            <div><span class="chip ok"><svg class="i" aria-hidden="true"><use href="#i-check"/></svg></span> Your Mac calls runners, never the reverse.</div>
+            <div><span class="chip ok"><svg class="i" aria-hidden="true"><use href="#i-check"/></svg></span> Tailscale identity plus a token on every call.</div>
+            <div><span class="chip ok"><svg class="i" aria-hidden="true"><use href="#i-check"/></svg></span> Expiring, tagged keys for servers.</div>
+            <div><span class="chip warn"><svg class="i" aria-hidden="true"><use href="#i-x"/></svg></span> Runners execute workflows. Trust the repo.</div></div></div></div>
       </div>
     </div>
   </div></div></div></div>
-  <aside class="notes"><h3>Notes</h3>
-    <div class="note"><span class="n">1</span><div><b>Detect and sign in.</b> Finds the Tailscale app or CLI (both the standalone and App Store variants), shows tailnet and devices, and opens sign-in if needed.<i>SPEC §7.11</i></div></div>
-    <div class="note"><span class="n">2</span><div><b>Private HTTPS for the controller</b> through Tailscale Serve (tailnet only, real certificates). Public sharing (Funnel) is checked and kept off.<i>SPEC §7.11</i></div></div>
-    <div class="note"><span class="n">3</span><div><b>Add a machine in a click</b> through Tailscale SSH, or paste one command, or enter a pairing code. Works across networks and NAT; direct or relayed shown.<i>SPEC §7.11</i></div></div>
-    <div class="note"><span class="n">4</span><div><b>Least privilege:</b> a runner tag and a two-line access rule. Tailscale does not send identity headers for tagged devices, so the controller dials runners, never the reverse.<i>SPEC §7.11</i></div></div>
-    <div class="note"><span class="n">5</span><div><b>Automation level is honest:</b> with an OAuth client Committo creates keys and applies rules; without one it guides you through two copy-pastes.<i>SPEC §7.11</i></div></div>
-    <div class="note"><span class="n">6</span><div><b>MCP:</b> <span class="mono">tailscale_status</span>, <span class="mono">tailscale_devices</span>, <span class="mono">runner_add</span>, <span class="mono">runner_remove</span>, <span class="mono">runner_list</span>.<i>SPEC §11</i></div></div>
-  </aside></div>
+  <aside class="notes"><h3>Notes</h3><div class="note"><span class="n">1</span><div>Setup is automatic. The app guides any admin step.</div></div><div class="note"><span class="n">2</span><div>Private HTTPS only. Public sharing stays off.</div></div><div class="note"><span class="n">3</span><div>Your Mac calls runners. They never call back.</div></div></aside></div>
 </section>
 
 
 <!-- SECURITYCAGE -->
 <section class="screen" id="s-securitycage" data-title="SecurityCage">
-  <div class="shead"><div><h2>SecurityCage: install, pin and update</h2><p>Plain-English security scans for pull requests. Committo finds it, installs a pinned version in one click, shows the scan option on every PR automatically, and tells you when a newer pin exists.</p></div><div class="approve" data-k="securitycage"></div></div>
+  <div class="shead"><div><h2>SecurityCage</h2><p>Security scans on every PR, installed and kept current for you.</p></div><div class="approve" data-k="securitycage"></div></div>
   <div class="cols"><div class="stage"><div class="win xl" data-active="Security"><div class="main">
     <div class="bar"><b>SecurityCage</b><span class="chip ok">installed</span><span class="chip mono">kalahroudi/securitycage @ 35ea2b3</span><span class="sp"></span><span class="chip warn">update available</span><span class="btn sm">Check now</span></div>
     <div style="padding:12px 14px;display:grid;grid-template-columns:1fr 1fr;gap:12px;align-content:start;flex:1;min-height:0;overflow:hidden">
       <div class="card"><h4>Install &amp; pin</h4>
-        <div class="vs"><span class="chip ok">✓</span>Node 22.22 <span class="small">(needs 22.18+)</span></div>
-        <div class="vs"><span class="chip ok">✓</span>npm 12</div>
-        <div class="vs"><span class="chip ok">✓</span>Docker <span class="small">only needed for “Prove”</span></div>
-        <div class="vs"><span class="chip">○</span>Opengrep rule pack <span class="small">50 MB, checksum-verified</span><span class="btn sm" style="margin-left:auto">Add</span></div>
-        <div class="kv" style="margin-top:8px;font-size:12px"><dt>Pinned</dt><dd class="mono">35ea2b3 · v0.1.0 · Oct 15</dd><dt>Source</dt><dd>GitHub main (no releases yet)</dd><dt>SHA-256</dt><dd class="mono">d575c1698c2e…</dd><dt>Self-test</dt><dd><span class="chip ok">✓ flagged a known-bad sample</span></dd></div></div>
+        <div class="vs"><span class="chip ok"><svg class="i" aria-hidden="true"><use href="#i-check"/></svg></span>Node 22.22 <span class="small">(needs 22.18+)</span></div>
+        <div class="vs"><span class="chip ok"><svg class="i" aria-hidden="true"><use href="#i-check"/></svg></span>npm 12</div>
+        <div class="vs"><span class="chip ok"><svg class="i" aria-hidden="true"><use href="#i-check"/></svg></span>Docker <span class="small">only needed for “Prove”</span></div>
+        <div class="vs"><span class="chip"><svg class="i" aria-hidden="true"><use href="#i-circle"/></svg></span>Opengrep rule pack <span class="small">50 MB, checksum-verified</span><span class="btn sm" style="margin-left:auto">Add</span></div>
+        <div class="kv" style="margin-top:8px;font-size:12px"><dt>Pinned</dt><dd class="mono">35ea2b3 · v0.1.0 · Oct 15</dd><dt>Source</dt><dd>GitHub main (no releases yet)</dd><dt>SHA-256</dt><dd class="mono">d575c1698c2e…</dd><dt>Self-test</dt><dd><span class="chip ok"><svg class="i" aria-hidden="true"><use href="#i-check"/></svg> flagged a known-bad sample</span></dd></div></div>
       <div class="card" style="border-color:var(--warn)"><h4>Update available <span class="chip warn">3 commits</span></h4>
         <div style="font-size:12px;line-height:1.6">• fix(cli): report proven stage in scan reports<br>• fix(cli): restore likelyItems in report.html<br>• feat(cli): disable reasoning tokens by default</div>
-        <div class="vs" style="margin-top:6px"><span class="mono small">35ea2b3 → a1c9e04</span></div>
+        <div class="vs" style="margin-top:6px"><span class="mono small">35ea2b3 <svg class="i" aria-hidden="true"><use href="#i-arrow-right"/></svg> a1c9e04</span></div>
         <div style="display:flex;gap:6px;margin-top:6px;flex-wrap:wrap"><span class="btn pri sm">Update (≈5 s)</span><span class="btn sm">View changes</span><span class="btn sm">Roll back to previous</span></div>
-        <div class="stack" style="margin-top:8px;gap:3px;font-size:11.5px"><div class="stp done" style="padding:2px 0"><span class="c">✓</span>Find latest · download · verify SHA-256</div><div class="stp done" style="padding:2px 0"><span class="c">✓</span>Install with scripts off</div><div class="stp cur" style="padding:2px 0"><span class="c">●</span>Self-test, then switch (old version kept)</div></div></div>
+        <div class="stack" style="margin-top:8px;gap:3px;font-size:11.5px"><div class="stp done" style="padding:2px 0"><span class="c"><svg class="i" aria-hidden="true"><use href="#i-check"/></svg></span>Find latest · download · verify SHA-256</div><div class="stp done" style="padding:2px 0"><span class="c"><svg class="i" aria-hidden="true"><use href="#i-check"/></svg></span>Install with scripts off</div><div class="stp cur" style="padding:2px 0"><span class="c"><svg class="i" aria-hidden="true"><use href="#i-dot"/></svg></span>Self-test, then switch (old version kept)</div></div></div>
       <div class="card"><h4>Runs automatically</h4>
-        <div class="vs">Pull requests <span class="small">scan changed files when a PR opens</span><span class="sw on" style="margin-left:auto"></span></div>
-        <div class="vs">Before commit <span class="small">staged files, warn only</span><span class="sw" style="margin-left:auto"></span></div>
+        <div class="vs">Pull requests<span class="sw on" style="margin-left:auto"></span></div>
+        <div class="vs">Before commit<span class="sw" style="margin-left:auto"></span></div>
         <div class="vs">Check for updates daily<span class="sw on" style="margin-left:auto"></span></div>
         <div class="vs">Ask before updating<span class="sw on" style="margin-left:auto"></span></div>
-        <div class="vs">Treat PR code as untrusted <span class="small">PRs cannot vouch for themselves</span><span class="sw on" style="margin-left:auto"></span></div></div>
+        <div class="vs">Treat PR code as untrusted<span class="sw on" style="margin-left:auto"></span></div></div>
       <div class="card"><h4>Scan depth</h4>
         <div class="seg" style="margin-bottom:8px"><span class="on">Plan</span><span>Deep scan</span><span>Prove</span></div>
-        <div style="font-size:12px;line-height:1.55"><b>Plan:</b> free, offline, about a second. Maps entry points and flags unguarded ones.<br><b>Deep scan:</b> AI checks with your key. Estimate $0.02 to $0.15, capped at $2.<br><b>Prove:</b> reproduces the exploit in a no-network container so only confirmed items stay.</div></div>
+        <div style="font-size:12px;line-height:1.55"><b>Plan:</b> free, offline, about a second.<br><b>Deep scan:</b> AI with your key, about $0.02 to $0.15.<br><b>Prove:</b> confirms exploits in a sandbox.</div></div>
       <div class="card" style="grid-column:1/-1"><h4>Repos</h4>
         <table><tr><th>Repo</th><th>PR scan</th><th>GitHub Action</th><th>Deep scan</th><th>Prove</th></tr>
           <tr><td><b>committo</b></td><td><span class="sw on"></span></td><td><span class="chip ok">@ 35ea2b3</span></td><td><span class="sw on"></span> <span class="small">key ok</span></td><td><span class="chip warn">recipe missing</span> <span class="btn sm">Set up</span></td></tr>
@@ -689,14 +664,7 @@ footer.sum p{margin:0;color:var(--mut);max-width:60ch;line-height:1.5}
           <tr><td><b>dotfiles</b></td><td><span class="sw"></span></td><td><span class="chip">none</span> <span class="btn sm">Add workflow</span></td><td><span class="sw"></span></td><td><span class="chip">n/a</span></td></tr></table></div>
     </div>
   </div></div></div></div>
-  <aside class="notes"><h3>Notes</h3>
-    <div class="note"><span class="n">1</span><div><b>Option appears by itself.</b> If SecurityCage is installed, every PR shows its scan card. If not, the card offers “Enable” (one click, one consent) as long as Node 22.18+ is present.<i>SPEC §7.10</i></div></div>
-    <div class="note"><span class="n">2</span><div><b>Pinned install, not npm.</b> Committo fetches the latest release (or main head) at a commit SHA, verifies it, installs with scripts off, self-tests it on a known-bad sample, then switches. The npm name “securitycage” is a different, empty package.<i>SPEC §7.10</i></div></div>
-    <div class="note"><span class="n">3</span><div><b>Update and rollback.</b> Daily check, a changelog of what changed, ask-before-update by default, and the previous version kept so rollback is instant.<i>SPEC §7.10</i></div></div>
-    <div class="note"><span class="n">4</span><div><b>Repos stay in sync.</b> The new-repo wizard adds the Action pinned to a SHA; existing repos with an older pin get a one-click bump PR.<i>SPEC §6.4</i></div></div>
-    <div class="note"><span class="n">5</span><div><b>Safe by default for PRs:</b> untrusted config, code read as data, results written outside the repo.<i>SPEC §7.10</i></div></div>
-    <div class="note"><span class="n">6</span><div><b>MCP:</b> <span class="mono">securitycage_status</span>, <span class="mono">_install</span>, <span class="mono">_scan</span> (built and tested).<i>SPEC §11</i></div></div>
-  </aside></div>
+  <aside class="notes"><h3>Notes</h3><div class="note"><span class="n">1</span><div>One-click install, pinned to a commit and self-tested.</div></div><div class="note"><span class="n">2</span><div>Updates ask first. Rollback is instant.</div></div><div class="note"><span class="n">3</span><div>PR code is always scanned as untrusted.</div></div></aside></div>
 </section>
 
 
@@ -704,7 +672,7 @@ footer.sum p{margin:0;color:var(--mut);max-width:60ch;line-height:1.5}
 
 <!-- 5 NEW REPO -->
 <section class="screen" id="s-new" data-title="New repo">
-  <div class="shead"><div><h2>New repo, set up for you</h2><p>One screen replaces the usual hour of manual setup. Defaults are opinionated and every item is a toggle. Nothing is applied until you press Create.</p></div><div class="approve" data-k="new"></div></div>
+  <div class="shead"><div><h2>New repo</h2><p>Everything a repo needs, in one step.</p></div><div class="approve" data-k="new"></div></div>
   <div class="cols">
     <div class="stage"><div class="win tall" data-active="Changes" style="grid-template-columns:1fr">
       <div class="main">
@@ -713,7 +681,7 @@ footer.sum p{margin:0;color:var(--mut);max-width:60ch;line-height:1.5}
           <div class="pane" style="flex:1;padding:16px;display:flex;flex-direction:column;gap:12px">
             <div class="grid2"><div><div class="small">Name</div><div class="input">my-new-app</div></div><div><div class="small">Location</div><div class="input">~/Developer <span class="chip" style="margin-left:auto">Choose…</span></div></div></div>
             <div class="grid2">
-              <div class="card"><h4>Main branch</h4><div class="input">main</div><div class="small" style="margin-top:6px">Created with an initial signed commit so rules can attach.</div></div>
+              <div class="card"><h4>Main branch</h4><div class="input">main</div><div class="small" style="margin-top:6px">Signed first commit so rules can attach.</div></div>
               <div class="card"><h4>Files</h4><div class="stack" style="gap:6px">
                 <div style="display:flex;gap:8px;align-items:center"><span class="sw on"></span>README <span class="chip" style="margin-left:auto">template: app</span></div>
                 <div style="display:flex;gap:8px;align-items:center"><span class="sw on"></span>License <span class="chip" style="margin-left:auto">MIT</span></div>
@@ -733,25 +701,19 @@ footer.sum p{margin:0;color:var(--mut);max-width:60ch;line-height:1.5}
                 <div style="display:flex;gap:8px;align-items:center"><span class="sw on"></span>SecurityCage on PRs <span class="chip acc" style="margin-left:auto">Action @ pinned SHA</span></div>
                 <div style="display:flex;gap:8px;align-items:center"><span class="sw on"></span>Sign commits <span class="chip ok" style="margin-left:auto">SSH key</span></div></div></div>
             </div>
-            <div class="card" style="background:var(--accent-soft);border-color:transparent"><b>Create will:</b> <span class="small" style="color:inherit">git init → write 6 files → signed first commit → create GitHub repo → push main → apply ruleset → add CI → run it locally once.</span></div>
-            <div style="display:flex;gap:8px;align-items:center"><span class="small">Provider support: GitHub ● full · GitLab ● full · Gitea ◐ partial · Bitbucket ◐ protection only · Azure DevOps ◐ policies only</span><span class="sp" style="flex:1"></span><span class="btn ai">✦ Suggest README from description</span><span class="btn">Cancel</span><span class="btn pri">Create</span></div>
+            <div class="card" style="background:var(--accent-soft);border-color:transparent"><b>Will:</b> <span class="small" style="color:inherit">init, 6 files, signed first commit, create remote, push, apply rules, add CI, run it once.</span></div>
+            <div style="display:flex;gap:8px;align-items:center"><span class="small">GitHub and GitLab full · others partial</span><span class="sp" style="flex:1"></span><span class="btn ai"><svg class="i" aria-hidden="true"><use href="#i-spark"/></svg> Suggest README from description</span><span class="btn">Cancel</span><span class="btn pri">Create</span></div>
           </div>
         </div>
       </div>
     </div></div>
-    <aside class="notes"><h3>Notes</h3>
-      <div class="note"><span class="n">1</span><div><b>Create, Add existing, Clone</b> share one wizard. Import detects an existing repo and offers to add the missing pieces.<i>SPEC §6.1</i></div></div>
-      <div class="note"><span class="n">2</span><div><b>Main branch creation</b> with a first commit, so protection can attach immediately.<i>SPEC §6.2</i></div></div>
-      <div class="note"><span class="n">3</span><div><b>Rulesets/protection</b> are generated per provider, previewed, then applied. Unsupported parts are shown as such.<i>SPEC §6.3</i></div></div>
-      <div class="note"><span class="n">4</span><div><b>Auto files:</b> README, license, .gitignore, CODEOWNERS, templates. Chosen from the project type it detects.<i>SPEC §6.4</i></div></div>
-      <div class="note"><span class="n">5</span><div><b>MCP:</b> <span class="mono">repo_create</span> takes the same options, so an agent can bootstrap a project end to end.<i>SPEC §11</i></div></div>
-    </aside>
+    <aside class="notes"><h3>Notes</h3><div class="note"><span class="n">1</span><div>Create, add existing, or clone.</div></div><div class="note"><span class="n">2</span><div>Rules are previewed before they apply.</div></div><div class="note"><span class="n">3</span><div>Every item is a toggle.</div></div></aside>
   </div>
 </section>
 
 <!-- 6 LENS -->
 <section class="screen" id="s-lens" data-title="Agent Lens">
-  <div class="shead"><div><h2>Agent Lens</h2><p>Everything agents are doing in this repo, attributed and live. Dispatch a new task into its own worktree and watch it work.</p></div><div class="approve" data-k="lens"></div></div>
+  <div class="shead"><div><h2>Agent Lens</h2><p>What every agent is doing, live.</p></div><div class="approve" data-k="lens"></div></div>
   <div class="cols">
     <div class="stage"><div class="win" data-active="Agent Lens">
       <div class="main">
@@ -759,40 +721,36 @@ footer.sum p{margin:0;color:var(--mut);max-width:60ch;line-height:1.5}
         <div class="body">
           <div class="pane" style="flex:1;padding:14px;display:flex;flex-direction:column;gap:10px">
             <div class="card"><h4>Dispatch</h4><div class="input" style="min-height:44px;align-items:flex-start">Add a dark-mode toggle to Settings and persist it</div>
-              <div style="display:flex;gap:8px;margin-top:8px;align-items:center"><span class="btn">Claude Code ▾</span><span class="small">▣ own worktree</span><span class="small">▢ read-only</span><span class="sp" style="flex:1"></span><span class="btn pri">▶ Run</span></div></div>
-            <div class="card"><div style="display:flex;gap:10px;align-items:center"><div class="av">✦</div><div style="flex:1"><b>claude/fix-lanes</b><div class="small">Claude Code · 3 min ago · 14 commits</div></div><span class="chip ok"><span class="pulse"></span> working</span></div>
+              <div style="display:flex;gap:8px;margin-top:8px;align-items:center"><span class="btn">Claude Code <svg class="i" aria-hidden="true"><use href="#i-chevron-down"/></svg></span><span class="small"><svg class="i" aria-hidden="true"><use href="#i-stack"/></svg> own worktree</span><span class="small"><svg class="i" aria-hidden="true"><use href="#i-square"/></svg> read-only</span><span class="sp" style="flex:1"></span><span class="btn pri"><svg class="i" aria-hidden="true"><use href="#i-play"/></svg> Run</span></div></div>
+            <div class="card"><div style="display:flex;gap:10px;align-items:center"><div class="av"><svg class="i" aria-hidden="true"><use href="#i-spark"/></svg></div><div style="flex:1"><b>claude/fix-lanes</b><div class="small">Claude Code · 3 min ago · 14 commits</div></div><span class="chip ok"><span class="pulse"></span> working</span></div>
               <div style="display:flex;gap:4px;margin:10px 0">
                 <i style="width:8px;height:8px;border-radius:50%;background:var(--accent)"></i><i style="width:8px;height:8px;border-radius:50%;background:var(--accent)"></i><i style="width:8px;height:8px;border-radius:50%;background:var(--accent)"></i><i style="width:8px;height:8px;border-radius:50%;background:var(--accent)"></i><i style="width:8px;height:8px;border-radius:50%;background:var(--accent)"></i><i style="width:8px;height:8px;border-radius:50%;background:var(--accent)"></i><i style="width:8px;height:8px;border-radius:50%;background:var(--accent)"></i><i style="width:8px;height:8px;border-radius:50%;background:var(--accent)"></i></div>
               <div style="display:flex;gap:10px;align-items:center"><span class="mono" style="color:var(--ok)">+84</span><span class="mono" style="color:var(--bad)">−12</span><span class="bars"><i style="width:87%"></i></span><span class="small">6 files</span><span class="sp" style="flex:1"></span><span class="btn sm">Review</span><span class="btn sm">Merge</span></div></div>
             <div class="card"><div style="display:flex;gap:10px;align-items:center"><div class="av">⌘</div><div style="flex:1"><b>cmd/readme-pass</b><div class="small">Command Code · yesterday · 3 commits</div></div><span class="chip warn">ready for review</span></div></div>
-            <div class="card"><div style="display:flex;gap:10px;align-items:center"><div class="av">◇</div><div style="flex:1"><b>codex/test-coverage</b><div class="small">Codex · 2 days ago · 9 commits</div></div><span class="chip ok">CI ✓</span></div></div>
+            <div class="card"><div style="display:flex;gap:10px;align-items:center"><div class="av"><svg class="i" aria-hidden="true"><use href="#i-diamond"/></svg></div><div style="flex:1"><b>codex/test-coverage</b><div class="small">Codex · 2 days ago · 9 commits</div></div><span class="chip ok">CI <svg class="i" aria-hidden="true"><use href="#i-check"/></svg></span></div></div>
           </div>
           <div class="pane divv" style="width:310px;background:var(--panel);display:flex;flex-direction:column">
             <div class="sec">Live console · claude/fix-lanes</div>
             <div class="code pad" style="display:flex;flex-direction:column;gap:7px;font-size:11px">
-              <span style="color:var(--teal)">⚒ Grep  laneCount</span>
-              <span style="color:var(--teal)">⚒ Read  CommitGraph.swift</span>
+              <span style="color:var(--teal)"><svg class="i" aria-hidden="true"><use href="#i-terminal"/></svg> Grep  laneCount</span>
+              <span style="color:var(--teal)"><svg class="i" aria-hidden="true"><use href="#i-terminal"/></svg> Read  CommitGraph.swift</span>
               <span>The lane index can exceed the drawn width when more than 12 branches overlap. I’ll clamp it in the renderer.</span>
-              <span style="color:var(--teal)">⚒ Edit  HistoryView.swift</span>
-              <span style="color:var(--teal)">⚒ Bash  swift test</span>
-              <span style="color:var(--ok)">✓ 12 tests passed</span>
+              <span style="color:var(--teal)"><svg class="i" aria-hidden="true"><use href="#i-terminal"/></svg> Edit  HistoryView.swift</span>
+              <span style="color:var(--teal)"><svg class="i" aria-hidden="true"><use href="#i-terminal"/></svg> Bash  swift test</span>
+              <span style="color:var(--ok)"><svg class="i" aria-hidden="true"><use href="#i-check"/></svg> 12 tests passed</span>
               <span class="small">cost so far $0.18</span>
             </div>
           </div>
         </div>
       </div>
     </div></div>
-    <aside class="notes"><h3>Notes</h3>
-      <div class="note"><span class="n">1</span><div><b>Attribution</b> from branch prefix, co-author trailers and bot authors. Works for Claude, Codex, Cursor, Copilot, Gemini, Aider, Command Code and more.<i>SPEC §8.1</i></div></div>
-      <div class="note"><span class="n">2</span><div><b>Dispatch</b> runs headless Claude, a CLI agent, an API agent or an MCP-bridged agent, in an isolated worktree by default.<i>SPEC §8.2</i></div></div>
-      <div class="note"><span class="n">3</span><div><b>Live console</b> shows tool calls as they happen. Stop at any time.<i>SPEC §8.3</i></div></div>
-    </aside>
+    <aside class="notes"><h3>Notes</h3><div class="note"><span class="n">1</span><div>Agents are detected from branch names and commit trailers.</div></div><div class="note"><span class="n">2</span><div>Dispatch runs in its own worktree by default.</div></div></aside>
   </div>
 </section>
 
 <!-- 7 MCP -->
 <section class="screen" id="s-mcp" data-title="MCP surface">
-  <div class="shead"><div><h2>Everything is an MCP tool</h2><p>Each feature in the app has a matching tool, generated from one action registry so the UI and MCP can’t drift. Tools are grouped by risk, and you decide what each connected agent may do.</p></div><div class="approve" data-k="mcp"></div></div>
+  <div class="shead"><div><h2>MCP</h2><p>Every feature is also a tool for your agents.</p></div><div class="approve" data-k="mcp"></div></div>
   <div class="cols">
     <div class="stage"><div class="win tall" data-active="Settings" style="grid-template-columns:1fr">
       <div class="main">
@@ -803,7 +761,7 @@ footer.sum p{margin:0;color:var(--mut);max-width:60ch;line-height:1.5}
               <div class="stack" style="gap:8px">
                 <div style="display:flex;gap:8px;align-items:center"><span class="pulse"></span><b>Claude Code</b><span class="chip" style="margin-left:auto">read + write</span></div>
                 <div style="display:flex;gap:8px;align-items:center"><span class="pulse"></span><b>Cursor</b><span class="chip" style="margin-left:auto">read</span></div>
-                <div style="display:flex;gap:8px;align-items:center"><span class="chip">○</span><b>Codex</b><span class="chip" style="margin-left:auto">not connected</span></div></div></div>
+                <div style="display:flex;gap:8px;align-items:center"><span class="chip"><svg class="i" aria-hidden="true"><use href="#i-circle"/></svg></span><b>Codex</b><span class="chip" style="margin-left:auto">not connected</span></div></div></div>
             <div class="card"><h4>Add to an agent</h4><span class="btn">Install in Claude Code</span><div class="small" style="margin-top:8px">or copy config for Cursor, Codex, Windsurf</div></div>
             <div class="card"><h4>Ask before</h4><div class="stack" style="gap:6px"><div style="display:flex;gap:8px"><span class="sw on"></span>Writes</div><div style="display:flex;gap:8px"><span class="sw on"></span>Destructive</div><div style="display:flex;gap:8px"><span class="sw"></span>Reads</div></div></div>
           </div>
@@ -827,41 +785,36 @@ footer.sum p{margin:0;color:var(--mut);max-width:60ch;line-height:1.5}
         </div>
       </div>
     </div></div>
-    <aside class="notes"><h3>Notes</h3>
-      <div class="note"><span class="n">1</span><div><b>One action registry.</b> Buttons, ⌘K and MCP tools are generated from the same definitions, so a new feature is exposed by default.<i>SPEC §11.1</i></div></div>
-      <div class="note"><span class="n">2</span><div><b>Three risk tiers.</b> Destructive tools (force push, merge on remote, applying rules) are off for agents until you enable them and always ask.<i>SPEC §11.2</i></div></div>
-      <div class="note"><span class="n">3</span><div><b>Per-agent scopes</b> and an audit log of every call.<i>SPEC §11.3</i></div></div>
-      <div class="note"><span class="n">4</span><div><b>Transports:</b> stdio for local agents, optional localhost HTTP with a token.<i>SPEC §11.4</i></div></div>
-    </aside>
+    <aside class="notes"><h3>Notes</h3><div class="note"><span class="n">1</span><div>Buttons, ⌘K and tools share one list.</div></div><div class="note"><span class="n">2</span><div>Destructive tools stay off until you enable them.</div></div><div class="note"><span class="n">3</span><div>Set what each agent may do.</div></div></aside>
   </div>
 </section>
 
 <!-- 8 SETTINGS -->
 <section class="screen" id="s-settings" data-title="Updates &amp; signing">
-  <div class="shead"><div><h2>Self-update, signing and accounts</h2><p>Updates install themselves from a signed feed. Signing is set up once and shown as a badge on every commit.</p></div><div class="approve" data-k="settings"></div></div>
+  <div class="shead"><div><h2>Updates and signing</h2><p>Self-updating app, signed commits.</p></div><div class="approve" data-k="settings"></div></div>
   <div class="cols">
     <div class="stage"><div class="win tall" data-active="Settings" style="grid-template-columns:1fr">
       <div class="main">
         <div class="bar"><div class="lights" style="padding:0"><i></i><i></i><i></i></div><b style="margin-left:10px">Settings</b><span class="sp"></span><span class="btn sm pri">General</span><span class="btn sm">Accounts</span><span class="btn sm">Agents</span><span class="btn sm">CI</span><span class="btn sm">MCP</span></div>
         <div class="body"><div class="pane" style="flex:1;padding:16px"><div class="grid2">
-          <div class="card"><h4>Updates <span class="chip acc">0.1.0 → 0.2.0</span></h4>
-            <div style="line-height:1.5">Added 3-way merge with AI help, issue → agent, ruleset presets.</div>
+          <div class="card"><h4>Updates <span class="chip acc">0.1.0 <svg class="i" aria-hidden="true"><use href="#i-arrow-right"/></svg> 0.2.0</span></h4>
+            <div style="line-height:1.5">Added 3-way merge with AI help, issue <svg class="i" aria-hidden="true"><use href="#i-arrow-right"/></svg> agent, ruleset presets.</div>
             <div class="stack" style="margin-top:10px;gap:7px">
               <div style="display:flex;gap:8px;align-items:center"><span class="sw on"></span>Check automatically</div>
               <div style="display:flex;gap:8px;align-items:center"><span class="sw on"></span>Download in the background</div>
               <div style="display:flex;gap:8px;align-items:center"><span class="sw"></span>Install without asking</div>
-              <div style="display:flex;gap:8px;align-items:center">Channel <span class="btn sm" style="margin-left:auto">Stable ▾</span></div></div>
+              <div style="display:flex;gap:8px;align-items:center">Channel <span class="btn sm" style="margin-left:auto">Stable <svg class="i" aria-hidden="true"><use href="#i-chevron-down"/></svg></span></div></div>
             <div style="display:flex;gap:8px;margin-top:12px"><span class="btn pri">Install &amp; relaunch</span><span class="btn">Release notes</span></div>
-            <div class="small" style="margin-top:8px">Updates are EdDSA-signed and notarized. Delivered with Sparkle.</div></div>
+            <div class="small" style="margin-top:8px">Signed and notarized.</div></div>
           <div class="card"><h4>Identity &amp; signing</h4>
             <dl class="kv"><dt>Name</dt><dd>Your Name</dd><dt>Email</dt><dd>you@example.com</dd><dt>Format</dt><dd>SSH <span class="chip">GPG</span></dd><dt>Key</dt><dd class="mono">ed25519 · 1Password agent</dd><dt>Verified</dt><dd><span class="chip ok">GitHub knows this key</span></dd></dl>
             <div style="display:flex;gap:8px;margin-top:10px"><span class="btn">Generate key</span><span class="btn">Upload to GitHub</span></div></div>
           <div class="card"><h4>Accounts</h4>
             <div class="stack" style="gap:7px">
-              <div style="display:flex;gap:8px;align-items:center">🐙 <b>kalahroudi</b> GitHub <span class="chip ok" style="margin-left:auto">gh CLI</span></div>
-              <div style="display:flex;gap:8px;align-items:center">🦊 <b>kal</b> GitLab <span class="chip acc" style="margin-left:auto">OAuth</span></div>
-              <div style="display:flex;gap:8px;align-items:center">🪣 <b>kal</b> Bitbucket <span class="chip" style="margin-left:auto">token</span></div>
-              <span class="btn sm" style="align-self:flex-start">＋ Add account</span></div></div>
+              <div style="display:flex;gap:8px;align-items:center"><span class="chip">GH</span> <b>kalahroudi</b> GitHub <span class="chip ok" style="margin-left:auto">gh CLI</span></div>
+              <div style="display:flex;gap:8px;align-items:center"><span class="chip">GL</span> <b>kal</b> GitLab <span class="chip acc" style="margin-left:auto">OAuth</span></div>
+              <div style="display:flex;gap:8px;align-items:center"><span class="chip">BB</span> <b>kal</b> Bitbucket <span class="chip" style="margin-left:auto">token</span></div>
+              <span class="btn sm" style="align-self:flex-start"><svg class="i" aria-hidden="true"><use href="#i-plus"/></svg> Add account</span></div></div>
           <div class="card"><h4>Git flows</h4>
             <div class="stack" style="gap:7px">
               <div style="display:flex;gap:8px;align-items:center"><span class="sw on"></span>Pull with rebase + autostash</div>
@@ -872,21 +825,16 @@ footer.sum p{margin:0;color:var(--mut);max-width:60ch;line-height:1.5}
         </div></div></div>
       </div>
     </div></div>
-    <aside class="notes"><h3>Notes</h3>
-      <div class="note"><span class="n">1</span><div><b>Self-update</b> via Sparkle: signed appcast, delta updates, stable and beta channels, install on quit. Also reachable by MCP (<span class="mono">update_check</span>).<i>SPEC §12</i></div></div>
-      <div class="note"><span class="n">2</span><div><b>Signing</b> for SSH, GPG and 1Password agent, with one-click upload of the public key to the provider.<i>SPEC §9</i></div></div>
-      <div class="note"><span class="n">3</span><div><b>Accounts</b> via gh CLI, OAuth device flow or tokens.<i>SPEC §10</i></div></div>
-      <div class="note"><span class="n">4</span><div><b>Usual flows:</b> rebase pull, lease force-push, git-flow, LFS, submodules, worktrees, stash, reflog.<i>SPEC §4</i></div></div>
-    </aside>
+    <aside class="notes"><h3>Notes</h3><div class="note"><span class="n">1</span><div>Signed updates install on quit.</div></div><div class="note"><span class="n">2</span><div>SSH, GPG or 1Password signing.</div></div></aside>
   </div>
 </section>
 
 
 <!-- 9 HISTORY -->
 <section class="screen" id="s-history" data-title="History &amp; graph">
-  <div class="shead"><div><h2>History and commit graph</h2><p>The visual centrepiece. Lane-routed graph, agent and signature badges on every commit, filters by author, agent or path, and one-click blame, file history, cherry-pick and compare.</p></div><div class="approve" data-k="history"></div></div>
+  <div class="shead"><div><h2>History</h2><p>Lane graph with agent and signature badges.</p></div><div class="approve" data-k="history"></div></div>
   <div class="cols"><div class="stage"><div class="win tall" data-active="History"><div class="main">
-    <div class="bar"><b>History</b><span class="chip">all branches</span><div class="input" style="width:190px;padding:3px 8px"><span>⌕</span><span style="color:var(--mut)">message, author, path</span></div><span class="seg"><span class="on">All</span><span>Agents</span><span>Humans</span></span><span class="btn sm">Author ▾</span><span class="btn sm">Path ▾</span><span class="sp"></span><span class="btn sm">⇄ Compare branches</span></div>
+    <div class="bar"><b>History</b><span class="chip">all branches</span><div class="input" style="width:190px;padding:3px 8px"><span><svg class="i" aria-hidden="true"><use href="#i-search"/></svg></span><span style="color:var(--mut)">message, author, path</span></div><span class="seg"><span class="on">All</span><span>Agents</span><span>Humans</span></span><span class="btn sm">Author <svg class="i" aria-hidden="true"><use href="#i-chevron-down"/></svg></span><span class="btn sm">Path <svg class="i" aria-hidden="true"><use href="#i-chevron-down"/></svg></span><span class="sp"></span><span class="btn sm"><svg class="i" aria-hidden="true"><use href="#i-pr"/></svg> Compare branches</span></div>
     <div class="body"><div class="pane" style="flex:1;overflow:hidden">
       <div class="gl" style="display:flex">
         <svg width="84" height="300" viewBox="0 0 84 300" style="flex:none;border-right:1px solid var(--line)">
@@ -901,39 +849,33 @@ footer.sum p{margin:0;color:var(--mut);max-width:60ch;line-height:1.5}
           </g>
         </svg>
         <div style="flex:1;min-width:0">
-          <div class="gr"><span class="chip acc">HEAD → main</span><span class="chip">origin/main</span><span class="m">Merge feature/oauth into main</span><span class="chip ok">🔒</span><span class="small">kal · 2m</span></div>
-          <div class="gr sel"><span class="m">fix(graph): keep merge edges inside lane bounds</span><span class="chip ok">🔒</span><span class="small">kal · 1h</span></div>
-          <div class="gr"><span class="chip acc">✦ Claude</span><span class="chip">feature/oauth</span><span class="m">feat(auth): device flow polling</span><span class="chip ok">🔒</span><span class="small">3h</span></div>
-          <div class="gr"><span class="chip acc">✦ Claude</span><span class="m">feat(auth): start device flow</span><span class="chip ok">🔒</span><span class="small">3h</span></div>
-          <div class="gr"><span class="m">docs: describe MCP setup</span><span class="chip ok">🔒</span><span class="small">kal · 1d</span></div>
+          <div class="gr"><span class="chip acc">HEAD <svg class="i" aria-hidden="true"><use href="#i-arrow-right"/></svg> main</span><span class="chip">origin/main</span><span class="m">Merge feature/oauth into main</span><span class="chip ok"><svg class="i" aria-hidden="true"><use href="#i-lock"/></svg></span><span class="small">kal · 2m</span></div>
+          <div class="gr sel"><span class="m">fix(graph): keep merge edges inside lane bounds</span><span class="chip ok"><svg class="i" aria-hidden="true"><use href="#i-lock"/></svg></span><span class="small">kal · 1h</span></div>
+          <div class="gr"><span class="chip acc"><svg class="i" aria-hidden="true"><use href="#i-spark"/></svg> Claude</span><span class="chip">feature/oauth</span><span class="m">feat(auth): device flow polling</span><span class="chip ok"><svg class="i" aria-hidden="true"><use href="#i-lock"/></svg></span><span class="small">3h</span></div>
+          <div class="gr"><span class="chip acc"><svg class="i" aria-hidden="true"><use href="#i-spark"/></svg> Claude</span><span class="m">feat(auth): start device flow</span><span class="chip ok"><svg class="i" aria-hidden="true"><use href="#i-lock"/></svg></span><span class="small">3h</span></div>
+          <div class="gr"><span class="m">docs: describe MCP setup</span><span class="chip ok"><svg class="i" aria-hidden="true"><use href="#i-lock"/></svg></span><span class="small">kal · 1d</span></div>
           <div class="gr"><span class="chip">⌘ Command Code</span><span class="chip">cmd/readme-pass</span><span class="m">docs: tighten README intro</span><span class="chip warn">unsigned</span><span class="small">1d</span></div>
           <div class="gr"><span class="chip">⌘ Command Code</span><span class="m">docs: add screenshots section</span><span class="chip warn">unsigned</span><span class="small">1d</span></div>
-          <div class="gr"><span class="m">chore: bump act</span><span class="chip ok">🔒</span><span class="small">kal · 2d</span></div>
-          <div class="gr"><span class="chip">v0.1.0</span><span class="m">feat: scaffold app</span><span class="chip ok">🔒</span><span class="small">kal · 3d</span></div>
-          <div class="gr"><span class="m">Initial commit</span><span class="chip ok">🔒</span><span class="small">kal · 3d</span></div>
+          <div class="gr"><span class="m">chore: bump act</span><span class="chip ok"><svg class="i" aria-hidden="true"><use href="#i-lock"/></svg></span><span class="small">kal · 2d</span></div>
+          <div class="gr"><span class="chip">v0.1.0</span><span class="m">feat: scaffold app</span><span class="chip ok"><svg class="i" aria-hidden="true"><use href="#i-lock"/></svg></span><span class="small">kal · 3d</span></div>
+          <div class="gr"><span class="m">Initial commit</span><span class="chip ok"><svg class="i" aria-hidden="true"><use href="#i-lock"/></svg></span><span class="small">kal · 3d</span></div>
         </div>
       </div>
       <div style="border-top:1px solid var(--line);padding:12px 14px;display:flex;gap:14px;align-items:flex-start;background:var(--panel)">
         <div style="flex:1;min-width:0"><b>fix(graph): keep merge edges inside lane bounds</b><div class="small">a41f9c2 · kal · signed with ed25519 · verified by GitHub</div>
           <div class="mono small" style="margin-top:8px">HistoryView.swift +6 −2 · CommitGraph.swift +9 −1</div></div>
-        <div style="display:flex;gap:6px;flex-wrap:wrap;max-width:300px;justify-content:flex-end"><span class="btn sm">Cherry-pick</span><span class="btn sm">Revert</span><span class="btn sm">Branch here</span><span class="btn sm">Blame</span><span class="btn sm">File history</span><span class="btn sm">Interactive rebase from here</span><span class="btn ai sm">✦ Summarize</span></div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap;max-width:300px;justify-content:flex-end"><span class="btn sm">Cherry-pick</span><span class="btn sm">Revert</span><span class="btn sm">Branch here</span><span class="btn sm">Blame</span><span class="btn sm">File history</span><span class="btn sm">Interactive rebase from here</span><span class="btn ai sm"><svg class="i" aria-hidden="true"><use href="#i-spark"/></svg> Summarize</span></div>
       </div>
     </div></div>
   </div></div></div>
-  <aside class="notes"><h3>Notes</h3>
-    <div class="note"><span class="n">1</span><div><b>Graph</b> with coloured lanes, merge edges, HEAD and remote markers, tags.<i>SPEC §4.4</i></div></div>
-    <div class="note"><span class="n">2</span><div><b>Agent badges</b> on commits (Claude, Command Code, Codex…) and an Agents/Humans filter.<i>SPEC §8.1</i></div></div>
-    <div class="note"><span class="n">3</span><div><b>Signature state</b> on every commit: verified, unsigned, unknown key.<i>SPEC §9</i></div></div>
-    <div class="note"><span class="n">4</span><div><b>Commit actions:</b> cherry-pick, revert, branch, blame, file history, interactive rebase from here, export patch.<i>SPEC §4.3–4.4</i></div></div>
-    <div class="note"><span class="n">5</span><div><b>✦ Summarize</b> explains a commit or a range in plain English.<i>SPEC §5.4</i></div></div>
-  </aside></div>
+  <aside class="notes"><h3>Notes</h3><div class="note"><span class="n">1</span><div>Filter by author, agent or path.</div></div><div class="note"><span class="n">2</span><div>Cherry-pick, revert and rebase from any commit.</div></div></aside></div>
 </section>
 
 <!-- 10 BRANCHES -->
 <section class="screen" id="s-branches" data-title="Branches &amp; stacks">
-  <div class="shead"><div><h2>Branches, stacks, stash and worktrees</h2><p>Everything about where work lives. Stacked branches are shown as a ladder with PR state per rung, including a one-click restack.</p></div><div class="approve" data-k="branches"></div></div>
+  <div class="shead"><div><h2>Branches</h2><p>Stacks, worktrees and safe cleanup.</p></div><div class="approve" data-k="branches"></div></div>
   <div class="cols"><div class="stage"><div class="win xl" data-active="Branches"><div class="main">
-    <div class="bar"><b>Branches</b><div class="input" style="width:200px;padding:3px 8px"><span>⌕</span><span style="color:var(--mut)">filter</span></div><span class="sp"></span><span class="btn sm">＋ New branch</span><span class="btn sm">⇄ Compare</span><span class="btn sm">🧹 Clean up merged (4)</span></div>
+    <div class="bar"><b>Branches</b><div class="input" style="width:200px;padding:3px 8px"><span><svg class="i" aria-hidden="true"><use href="#i-search"/></svg></span><span style="color:var(--mut)">filter</span></div><span class="sp"></span><span class="btn sm"><svg class="i" aria-hidden="true"><use href="#i-plus"/></svg> New branch</span><span class="btn sm"><svg class="i" aria-hidden="true"><use href="#i-pr"/></svg> Compare</span><span class="btn sm"><svg class="i" aria-hidden="true"><use href="#i-trash"/></svg> Clean up merged (4)</span></div>
     <div class="body"><div class="pane" style="flex:1;padding:14px;display:grid;grid-template-columns:1fr 1fr;gap:12px;align-content:start;overflow:hidden">
       <div class="card" style="grid-column:1/-1;padding:0;overflow:hidden"><div style="padding:10px 12px;display:flex;gap:8px;align-items:center;flex-wrap:wrap"><b>Merged branches</b><span class="chip ok">3 safe</span><span class="chip warn">1 needs a look</span><span class="sp" style="flex:1"></span><span class="small">Auto-clean: <b>suggest only</b></span><span class="btn pri sm">Clean up 3 safe</span></div>
           <table class="dt"><tr><th>Branch</th><th>How we know</th><th>Check</th><th>Will remove</th></tr>
@@ -941,84 +883,73 @@ footer.sum p{margin:0;color:var(--mut);max-width:60ch;line-height:1.5}
             <tr><td><b>cmd/readme-pass</b></td><td>PR #131 merged (rebase)</td><td><span class="chip ok">safe</span> <span class="small">remote already deleted</span></td><td class="small">local</td></tr>
             <tr><td><b>feature/old-spike</b></td><td>in main (git)</td><td><span class="chip ok">safe</span></td><td class="small">local · remote</td></tr>
             <tr style="background:var(--warn-soft)"><td><b>codex/test-coverage</b></td><td>PR #140 merged</td><td><span class="chip warn">2 commits added after the merge</span></td><td><span class="btn sm">Keep as new branch</span> <span class="btn sm">Review</span></td></tr></table>
-          <div class="small" style="padding:8px 12px">Protected and kept: main, develop, release/*. Anything deleted can be restored for 30 days from Time Machine.</div></div>
-      <div class="card"><h4>Stack <span class="chip acc">stacked</span><span class="btn sm" style="margin-left:auto">↻ Restack</span></h4>
+          <div class="small" style="padding:8px 12px">Kept: main, develop, release/*. Restorable for 30 days.</div></div>
+      <div class="card"><h4>Stack <span class="chip acc">stacked</span><span class="btn sm" style="margin-left:auto"><svg class="i" aria-hidden="true"><use href="#i-refresh"/></svg> Restack</span></h4>
         <div class="stk">
-          <div class="b"><span class="chip ok">✓</span><b>feat/oauth-ui</b><span class="chip">PR #146</span><span class="small" style="margin-left:auto">↑1</span></div>
-          <div class="b"><span class="chip ok">✓</span><b>feat/oauth-core</b><span class="chip">PR #142</span><span class="small" style="margin-left:auto">in review</span></div>
-          <div class="b"><span class="chip">●</span><b>main</b><span class="small" style="margin-left:auto">base</span></div>
+          <div class="b"><span class="chip ok"><svg class="i" aria-hidden="true"><use href="#i-check"/></svg></span><b>feat/oauth-ui</b><span class="chip">PR #146</span><span class="small" style="margin-left:auto"><svg class="i" aria-hidden="true"><use href="#i-arrow-up"/></svg>1</span></div>
+          <div class="b"><span class="chip ok"><svg class="i" aria-hidden="true"><use href="#i-check"/></svg></span><b>feat/oauth-core</b><span class="chip">PR #142</span><span class="small" style="margin-left:auto">in review</span></div>
+          <div class="b"><span class="chip"><svg class="i" aria-hidden="true"><use href="#i-dot"/></svg></span><b>main</b><span class="small" style="margin-left:auto">base</span></div>
         </div></div>
       <div class="card"><h4>Local</h4>
-        <div class="row" style="padding:5px 0"><span class="chip acc">●</span><b style="flex:1">main</b><span class="chip ok">↑2</span></div>
-        <div class="row" style="padding:5px 0"><span class="chip">⑂</span><span style="flex:1">feature/oauth</span><span class="chip warn">↓1</span></div>
-        <div class="row" style="padding:5px 0"><span class="chip">✦</span><span style="flex:1">claude/fix-lanes</span><span class="chip ok"><span class="pulse"></span></span></div>
-        <div class="row" style="padding:5px 0;border:0"><span class="chip">⑂</span><span style="flex:1">cmd/readme-pass</span><span class="chip">merged</span></div></div>
+        <div class="row" style="padding:5px 0"><span class="chip acc"><svg class="i" aria-hidden="true"><use href="#i-dot"/></svg></span><b style="flex:1">main</b><span class="chip ok"><svg class="i" aria-hidden="true"><use href="#i-arrow-up"/></svg>2</span></div>
+        <div class="row" style="padding:5px 0"><span class="chip"><svg class="i" aria-hidden="true"><use href="#i-branch"/></svg></span><span style="flex:1">feature/oauth</span><span class="chip warn"><svg class="i" aria-hidden="true"><use href="#i-arrow-down"/></svg>1</span></div>
+        <div class="row" style="padding:5px 0"><span class="chip"><svg class="i" aria-hidden="true"><use href="#i-spark"/></svg></span><span style="flex:1">claude/fix-lanes</span><span class="chip ok"><span class="pulse"></span></span></div>
+        <div class="row" style="padding:5px 0;border:0"><span class="chip"><svg class="i" aria-hidden="true"><use href="#i-branch"/></svg></span><span style="flex:1">cmd/readme-pass</span><span class="chip">merged</span></div></div>
       <div class="card"><h4>Stashes <span class="chip">2</span></h4>
         <div class="row" style="padding:5px 0"><span style="flex:1">WIP on main: spike merge UI</span><span class="btn sm">Apply</span><span class="btn sm">Pop</span></div>
         <div class="row" style="padding:5px 0;border:0"><span style="flex:1">auto-stash before pull</span><span class="btn sm">Apply</span><span class="btn sm">Drop</span></div></div>
       <div class="card"><h4>Worktrees <span class="chip">3</span></h4>
         <div class="row" style="padding:5px 0"><span class="mono small" style="flex:1">~/Developer/committo</span><span class="chip acc">main</span></div>
-        <div class="row" style="padding:5px 0"><span class="mono small" style="flex:1">…/committo-claude-fix-lanes</span><span class="chip">✦ agent</span></div>
+        <div class="row" style="padding:5px 0"><span class="mono small" style="flex:1">…/committo-claude-fix-lanes</span><span class="chip"><svg class="i" aria-hidden="true"><use href="#i-spark"/></svg> agent</span></div>
         <div class="row" style="padding:5px 0;border:0"><span class="mono small" style="flex:1">…/committo-pr-142</span><span class="chip">PR</span></div></div>
       <div class="card"><h4>Compare <span class="small">main … feature/oauth</span></h4>
         <div style="display:flex;gap:10px;align-items:center"><span class="chip ok">+312</span><span class="chip bad">−24</span><span class="small">9 files · 7 commits ahead · 2 behind</span></div>
-        <div style="display:flex;gap:6px;margin-top:8px"><span class="btn sm">Open diff</span><span class="btn sm">Merge</span><span class="btn sm">Rebase</span><span class="btn ai sm">✦ Explain</span></div></div>
+        <div style="display:flex;gap:6px;margin-top:8px"><span class="btn sm">Open diff</span><span class="btn sm">Merge</span><span class="btn sm">Rebase</span><span class="btn ai sm"><svg class="i" aria-hidden="true"><use href="#i-spark"/></svg> Explain</span></div></div>
       <div class="card"><h4>Tags, submodules, LFS</h4>
-        <div class="small" style="line-height:1.8">Tags: <span class="chip">v0.1.0</span> <span class="chip">v0.0.9</span> · <span class="btn sm">＋ Tag</span><br>Submodules: <span class="chip ok">Vendor/act clean</span> <span class="btn sm">Update all</span><br>LFS: <span class="chip">tracking *.psd</span> <span class="chip">1.2 GB</span></div></div>
+        <div class="small" style="line-height:1.8">Tags: <span class="chip">v0.1.0</span> <span class="chip">v0.0.9</span> · <span class="btn sm"><svg class="i" aria-hidden="true"><use href="#i-plus"/></svg> Tag</span><br>Submodules: <span class="chip ok">Vendor/act clean</span> <span class="btn sm">Update all</span><br>LFS: <span class="chip">tracking *.psd</span> <span class="chip">1.2 GB</span></div></div>
     </div></div>
   </div></div></div></div>
-  <aside class="notes"><h3>Notes</h3>
-    <div class="note"><span class="n">1</span><div><b>Stacked branches</b> as a ladder with PR state and one-click restack.<i>SPEC §13</i></div></div>
-    <div class="note"><span class="n">2</span><div><b>Merged-branch cleanup.</b> Merged is decided from the PR first (so squash and rebase merges count), then git. “Safe” means the branch tip is exactly what the PR merged, with nothing unpushed or uncommitted. Anything else is shown for review and never auto-deleted. Deletions are restorable for 30 days.<i>SPEC §7.12</i></div></div>
-    <div class="note"><span class="n">3</span><div><b>Stash, worktrees, tags, submodules, LFS</b> in one place.<i>SPEC §4.1, 4.5</i></div></div>
-    <div class="note"><span class="n">4</span><div><b>Compare branches</b> opens the same diff engine and has the ✦ explain link.<i>SPEC §4.3</i></div></div>
-  </aside></div>
+  <aside class="notes"><h3>Notes</h3><div class="note"><span class="n">1</span><div>Merged is read from the PR, so squash and rebase count.</div></div><div class="note"><span class="n">2</span><div>Branches with extra work are flagged, never deleted.</div></div><div class="note"><span class="n">3</span><div>Deleted branches restore for 30 days.</div></div></aside></div>
 </section>
 <!-- RELEASES -->
 <section class="screen" id="s-releases" data-title="Tags &amp; releases">
-  <div class="shead"><div><h2>Tags and releases</h2><p>Everything from “tag this commit” to a published release with notes, artifacts and the update feed, in one flow. The version bump is suggested from the commits, and the notes write themselves.</p></div><div class="approve" data-k="releases"></div></div>
+  <div class="shead"><div><h2>Releases</h2><p>Tag, write notes, publish.</p></div><div class="approve" data-k="releases"></div></div>
   <div class="cols"><div class="stage"><div class="win tall" data-active="Releases"><div class="main">
-    <div class="bar"><b>Releases</b><span class="chip">committo</span><span class="sp"></span><span class="btn sm">＋ Tag</span><span class="btn sm pri">＋ Draft release</span></div>
+    <div class="bar"><b>Releases</b><span class="chip">committo</span><span class="sp"></span><span class="btn sm"><svg class="i" aria-hidden="true"><use href="#i-plus"/></svg> Tag</span><span class="btn sm pri"><svg class="i" aria-hidden="true"><use href="#i-plus"/></svg> Draft release</span></div>
     <div class="body">
       <div class="pane" style="width:290px;padding:14px;overflow:hidden">
         <div class="tl">
           <div class="t un sel"><b>Unreleased</b> <span class="chip warn">14 commits</span><div class="small" style="margin:4px 0 6px">since v0.1.0 · 3 feat · 2 fix · 1 docs</div>
             <div class="mix"><i style="flex:3;background:var(--accent)"></i><i style="flex:2;background:var(--bad)"></i><i style="flex:1;background:var(--teal)"></i><i style="flex:8;background:var(--panel2)"></i></div></div>
-          <div class="t"><div style="display:flex;gap:6px;align-items:center"><b>v0.1.0</b><span class="chip ok">🔒 signed</span><span class="chip acc">release</span></div><div class="small">3 days ago · 42 commits · 128 downloads</div></div>
-          <div class="t"><div style="display:flex;gap:6px;align-items:center"><b>v0.0.9</b><span class="chip ok">🔒</span><span class="chip acc">release</span></div><div class="small">2 weeks ago · 31 commits</div></div>
+          <div class="t"><div style="display:flex;gap:6px;align-items:center"><b>v0.1.0</b><span class="chip ok"><svg class="i" aria-hidden="true"><use href="#i-lock"/></svg> signed</span><span class="chip acc">release</span></div><div class="small">3 days ago · 42 commits · 128 downloads</div></div>
+          <div class="t"><div style="display:flex;gap:6px;align-items:center"><b>v0.0.9</b><span class="chip ok"><svg class="i" aria-hidden="true"><use href="#i-lock"/></svg></span><span class="chip acc">release</span></div><div class="small">2 weeks ago · 31 commits</div></div>
           <div class="t"><div style="display:flex;gap:6px;align-items:center"><b>v0.0.1</b><span class="chip">tag only</span><span class="chip warn">unsigned</span></div><div class="small">1 month ago · <span style="color:var(--accent)">Create release</span></div></div>
         </div>
-        <div class="card" style="margin-top:6px"><h4>Tag actions</h4><div style="display:flex;gap:6px;flex-wrap:wrap"><span class="btn sm">Annotate</span><span class="btn sm">Sign</span><span class="btn sm">Push</span><span class="btn sm">Compare</span><span class="btn sm">Delete local</span><span class="btn sm" style="color:var(--bad)">Delete remote…</span><span class="btn sm" style="color:var(--bad)">Move…</span></div><div class="small" style="margin-top:6px">Moving or deleting a pushed tag shows who may have it and asks twice.</div></div>
+        <div class="card" style="margin-top:6px"><h4>Tag actions</h4><div style="display:flex;gap:6px;flex-wrap:wrap"><span class="btn sm">Annotate</span><span class="btn sm">Sign</span><span class="btn sm">Push</span><span class="btn sm">Compare</span><span class="btn sm">Delete local</span><span class="btn sm" style="color:var(--bad)">Delete remote…</span><span class="btn sm" style="color:var(--bad)">Move…</span></div><div class="small" style="margin-top:6px">Moving a pushed tag asks twice.</div></div>
       </div>
       <div class="pane divv" style="flex:1;padding:14px;display:flex;flex-direction:column;gap:10px;overflow:hidden">
         <div style="display:flex;gap:10px;align-items:center"><div style="font:700 19px var(--display)">Draft: v0.2.0</div><span class="chip warn">not published</span><span class="sp" style="flex:1"></span><span class="seg"><span>patch</span><span class="on">minor</span><span>major</span></span></div>
-        <div class="small">Minor suggested: 3 features, 2 fixes, no breaking changes (from conventional commits and PR labels).</div>
-        <div class="card"><h4>Release notes <span class="chip acc">auto</span><span class="btn ai sm" style="margin-left:auto">✦ Polish</span></h4>
-          <div style="font-size:12.5px;line-height:1.6"><b>Features</b><br>• 3-way merge tool with AI help (#131)<br>• Merge preview that shows how commits land (#142)<br>• Releases and tag management (#148)<br><b>Fixes</b><br>• Graph lane overflow with many branches (#139)<br>• Poll loop ignores cancellation (#144)<br><b>Contributors</b> <span class="chip">kal</span> <span class="chip acc">✦ Claude</span> <span class="chip">⌘ Command Code</span></div></div>
+        <div class="small">Minor: 3 features, 2 fixes, nothing breaking.</div>
+        <div class="card"><h4>Release notes <span class="chip acc">auto</span><span class="btn ai sm" style="margin-left:auto"><svg class="i" aria-hidden="true"><use href="#i-spark"/></svg> Polish</span></h4>
+          <div style="font-size:12.5px;line-height:1.6"><b>Features</b><br>• 3-way merge tool with AI help (#131)<br>• Merge preview that shows how commits land (#142)<br>• Releases and tag management (#148)<br><b>Fixes</b><br>• Graph lane overflow with many branches (#139)<br>• Poll loop ignores cancellation (#144)<br><b>Contributors</b> <span class="chip">kal</span> <span class="chip acc"><svg class="i" aria-hidden="true"><use href="#i-spark"/></svg> Claude</span> <span class="chip">⌘ Command Code</span></div></div>
         <div class="grid2">
-          <div class="card"><h4>Checks</h4><div class="stack" style="gap:5px;font-size:12px"><div><span class="chip ok">✓</span> CI green on main</div><div><span class="chip ok">✓</span> No unsigned commits since v0.1.0</div><div><span class="chip ok">✓</span> Security scan clean</div><div><span class="chip warn">!</span> 1 open PR labelled <span class="mono">release-blocker</span></div></div></div>
-          <div class="card"><h4>Artifacts &amp; feed</h4><div class="stack" style="gap:5px;font-size:12px"><div><span class="chip ok">✓</span> <span class="mono">Committo-0.2.0.dmg</span> notarized</div><div><span class="chip ok">✓</span> <span class="mono">Committo-0.2.0.zip</span></div><div><span class="chip">○</span> Update the Sparkle appcast</div><div><span class="chip">○</span> Attach checksums</div></div></div>
+          <div class="card"><h4>Checks</h4><div class="stack" style="gap:5px;font-size:12px"><div><span class="chip ok"><svg class="i" aria-hidden="true"><use href="#i-check"/></svg></span> CI green on main</div><div><span class="chip ok"><svg class="i" aria-hidden="true"><use href="#i-check"/></svg></span> No unsigned commits since v0.1.0</div><div><span class="chip ok"><svg class="i" aria-hidden="true"><use href="#i-check"/></svg></span> Security scan clean</div><div><span class="chip warn">!</span> 1 open PR labelled <span class="mono">release-blocker</span></div></div></div>
+          <div class="card"><h4>Artifacts &amp; feed</h4><div class="stack" style="gap:5px;font-size:12px"><div><span class="chip ok"><svg class="i" aria-hidden="true"><use href="#i-check"/></svg></span> <span class="mono">Committo-0.2.0.dmg</span> notarized</div><div><span class="chip ok"><svg class="i" aria-hidden="true"><use href="#i-check"/></svg></span> <span class="mono">Committo-0.2.0.zip</span></div><div><span class="chip"><svg class="i" aria-hidden="true"><use href="#i-circle"/></svg></span> Update the Sparkle appcast</div><div><span class="chip"><svg class="i" aria-hidden="true"><use href="#i-circle"/></svg></span> Attach checksums</div></div></div>
         </div>
-        <div style="display:flex;gap:8px;align-items:center"><span class="small" style="flex:1">Will: create signed tag v0.2.0 on main → push → publish GitHub release → update appcast.</span><span class="btn">Save draft</span><span class="btn pri">Tag &amp; publish</span></div>
+        <div style="display:flex;gap:8px;align-items:center"><span class="small" style="flex:1">Signed tag, push, release, appcast.</span><span class="btn">Save draft</span><span class="btn pri">Tag &amp; publish</span></div>
       </div>
     </div>
   </div></div></div>
-  <aside class="notes"><h3>Notes</h3>
-    <div class="note"><span class="n">1</span><div><b>Tags</b> listed as a timeline with signed state, commit counts and whether a release exists. Create, annotate, sign, push, compare, delete, move.<i>SPEC §7.8</i></div></div>
-    <div class="note"><span class="n">2</span><div><b>Suggested bump</b> from conventional commits and PR labels. You can override.<i>SPEC §7.8</i></div></div>
-    <div class="note"><span class="n">3</span><div><b>Notes write themselves,</b> grouped and credited, including agents. ✦ polishes the wording.<i>SPEC §7.8</i></div></div>
-    <div class="note"><span class="n">4</span><div><b>One button to ship:</b> signed tag, push, release, assets and the Sparkle appcast that powers self-update.<i>SPEC §12</i></div></div>
-    <div class="note"><span class="n">5</span><div><b>MCP:</b> <span class="mono">tag_*</span>, <span class="mono">release_draft</span>, <span class="mono">release_publish</span> (destructive tier).<i>SPEC §11</i></div></div>
-  </aside></div>
+  <aside class="notes"><h3>Notes</h3><div class="note"><span class="n">1</span><div>Version bump suggested from your commits.</div></div><div class="note"><span class="n">2</span><div>Notes are generated. <svg class="i" aria-hidden="true"><use href="#i-spark"/></svg> polishes them.</div></div><div class="note"><span class="n">3</span><div>One button signs, tags, publishes and updates the feed.</div></div></aside></div>
 </section>
 
 
 
 <!-- 11 INSIGHTS -->
 <section class="screen" id="s-insights" data-title="Insights &amp; security">
-  <div class="shead"><div><h2>Insights and security</h2><p>Visual answers to “what is happening in this repo?”: activity, who and what is writing the code, hotspots, review health, and the security picture.</p></div><div class="approve" data-k="insights"></div></div>
+  <div class="shead"><div><h2>Insights</h2><p>Activity, authorship, hotspots, security.</p></div><div class="approve" data-k="insights"></div></div>
   <div class="cols"><div class="stage"><div class="win tall" data-active="Insights"><div class="main">
-    <div class="bar"><b>Insights</b><span class="seg"><span>30 d</span><span>90 d</span><span class="on">1 y</span></span><span class="sp"></span><span class="btn sm">All repos ▾</span></div>
+    <div class="bar"><b>Insights</b><span class="seg"><span>30 d</span><span>90 d</span><span class="on">1 y</span></span><span class="sp"></span><span class="btn sm">All repos <svg class="i" aria-hidden="true"><use href="#i-chevron-down"/></svg></span></div>
     <div class="body"><div class="pane" style="flex:1;padding:14px;display:grid;grid-template-columns:1fr 1fr;gap:12px;align-content:start;overflow:hidden">
       <div class="card" style="grid-column:1/-1"><h4>Activity · 612 commits</h4><div class="hm" id="hm"></div></div>
       <div class="card"><h4>Who writes the code</h4>
@@ -1026,31 +957,27 @@ footer.sum p{margin:0;color:var(--mut);max-width:60ch;line-height:1.5}
       <div class="card"><h4>Churn hotspots</h4>
         <div class="hb"><span class="l">GitRepository.swift</span><b style="width:90%"></b><em>41</em></div><div class="hb"><span class="l">HistoryView.swift</span><b style="width:64%"></b><em>29</em></div><div class="hb"><span class="l">MCPServer.swift</span><b style="width:46%"></b><em>21</em></div><div class="hb"><span class="l">AgentLens.swift</span><b style="width:30%"></b><em>14</em></div></div>
       <div class="card"><h4>Review health</h4>
-        <div class="kv"><dt>Median PR open→merge</dt><dd><b>7h 20m</b> <span class="chip ok">↓ 18%</span></dd><dt>Agent PRs merged first try</dt><dd><b>71%</b></dd><dt>Stale PRs (&gt;7 d)</dt><dd><b>1</b></dd><dt>CI pass rate</dt><dd><b>94%</b></dd></div></div>
-      <div class="card"><h4>🛡 Security <span class="chip warn">3 open</span><span class="btn sm" style="margin-left:auto">Scan now</span></h4>
+        <div class="kv"><dt>Median PR open<svg class="i" aria-hidden="true"><use href="#i-arrow-right"/></svg>merge</dt><dd><b>7h 20m</b> <span class="chip ok"><svg class="i" aria-hidden="true"><use href="#i-arrow-down"/></svg> 18%</span></dd><dt>Agent PRs merged first try</dt><dd><b>71%</b></dd><dt>Stale PRs (&gt;7 d)</dt><dd><b>1</b></dd><dt>CI pass rate</dt><dd><b>94%</b></dd></div></div>
+      <div class="card"><h4><svg class="i" aria-hidden="true"><use href="#i-shield"/></svg> Security <span class="chip warn">3 open</span><span class="btn sm" style="margin-left:auto">Scan now</span></h4>
         <div style="font-size:12px;line-height:1.7"><span class="chip bad">High</span> workflow uses <span class="mono">pull_request_target</span><br><span class="chip warn">Medium</span> hard-coded client id · Settings.swift:12<br><span class="chip">CVE</span> OSV: 1 advisory in <span class="mono">swift-nio 2.62</span> <span class="btn sm">Update</span></div></div>
     </div></div>
   </div></div></div></div>
-  <aside class="notes"><h3>Notes</h3>
-    <div class="note"><span class="n">1</span><div><b>Visualization:</b> activity heatmap, authorship split (human vs each agent), churn hotspots, review health.<i>SPEC §4.8</i></div></div>
-    <div class="note"><span class="n">2</span><div><b>Security</b> combines the offline secret and pattern scan, workflow red flags and OSV dependency advisories.<i>SPEC §7.2</i></div></div>
-    <div class="note"><span class="n">3</span><div><b>Cross-repo scope</b> so the popover counters and this view agree.<i>SPEC §3.1</i></div></div>
-  </aside></div>
+  <aside class="notes"><h3>Notes</h3><div class="note"><span class="n">1</span><div>See who and what writes the code.</div></div></aside></div>
 </section>
 
 <!-- 12 INTEGRATIONS -->
 <section class="screen" id="s-integrations" data-title="Accounts, agents &amp; CI">
-  <div class="shead"><div><h2>Accounts, agents and CI runners</h2><p>Every connection in one place: how you sign in to providers, which agents Committo can drive, and where CI runs, including machines on your network.</p></div><div class="approve" data-k="integrations"></div></div>
+  <div class="shead"><div><h2>Accounts, agents, CI</h2><p>Everything Committo connects to.</p></div><div class="approve" data-k="integrations"></div></div>
   <div class="cols"><div class="stage"><div class="win tall" data-active="Settings" style="grid-template-columns:1fr"><div class="main">
     <div class="bar"><div class="lights" style="padding:0"><i></i><i></i><i></i></div><b style="margin-left:10px">Settings</b><span class="sp"></span><span class="btn sm">General</span><span class="btn sm pri">Integrations</span><span class="btn sm">MCP</span></div>
     <div class="body"><div class="pane" style="flex:1;padding:14px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;align-content:start;overflow:hidden">
       <div class="card"><h4>Add account</h4>
         <div class="seg" style="margin-bottom:8px"><span class="on">GitHub</span><span>GitLab</span><span>Bitbucket</span><span>Azure</span><span>Gitea</span></div>
         <div class="stack" style="gap:8px">
-          <div class="btn ok" style="justify-content:center">✓ Use my gh CLI login</div>
+          <div class="btn ok" style="justify-content:center"><svg class="i" aria-hidden="true"><use href="#i-check"/></svg> Use my gh CLI login</div>
           <div class="card" style="padding:9px;text-align:center"><div class="small">Sign in with browser · device code</div><div class="code2" style="margin:6px 0">WDJB-MJHT</div><div class="small">github.com/login/device · waiting…</div></div>
           <div class="input"><span style="color:var(--mut)">Personal access token</span><span class="btn sm" style="margin-left:auto">Create…</span></div>
-          <div class="small">Tokens and OAuth go to the Keychain. Scopes are shown before you accept.</div></div></div>
+          <div class="small">Stored in the Keychain.</div></div></div>
       <div class="card"><h4>Agents</h4>
         <div class="stack" style="gap:7px;font-size:12px">
           <div style="display:flex;gap:8px;align-items:center"><span class="chip ok">ready</span><b>Claude Code</b><span class="small">headless</span></div>
@@ -1059,9 +986,9 @@ footer.sum p{margin:0;color:var(--mut);max-width:60ch;line-height:1.5}
           <div style="display:flex;gap:8px;align-items:center"><span class="chip ok">ready</span><b>Command Code</b><span class="small">CLI</span></div>
           <div style="display:flex;gap:8px;align-items:center"><span class="chip">not found</span><b>dsh</b><span class="small">CLI</span></div>
           <div style="display:flex;gap:8px;align-items:center"><span class="chip">ready</span><b>Codex · Gemini · Aider</b></div>
-          <div style="display:flex;gap:8px;align-items:center"><span class="chip acc">bridge</span><b>acme-mcp → review_pr</b></div>
-          <div style="display:flex;gap:6px"><span class="btn sm">＋ CLI agent</span><span class="btn sm">＋ MCP bridge</span><span class="btn sm">Test</span></div>
-          <div class="small">Default for review ▸ Claude Code · for tests ▸ Codex · for merge help ▸ Claude Code</div></div></div>
+          <div style="display:flex;gap:8px;align-items:center"><span class="chip acc">bridge</span><b>acme-mcp <svg class="i" aria-hidden="true"><use href="#i-arrow-right"/></svg> review_pr</b></div>
+          <div style="display:flex;gap:6px"><span class="btn sm"><svg class="i" aria-hidden="true"><use href="#i-plus"/></svg> CLI agent</span><span class="btn sm"><svg class="i" aria-hidden="true"><use href="#i-plus"/></svg> MCP bridge</span><span class="btn sm">Test</span></div>
+          </div></div>
       <div class="card"><h4>CI runners</h4>
         <div class="stack" style="gap:7px;font-size:12px">
           <div style="display:flex;gap:8px;align-items:center"><span class="rn ts">Tailscale</span><b>connected</b><span class="small">tail8f2c.ts.net · 4 devices</span><span class="btn sm" style="margin-left:auto">Manage</span></div>
@@ -1072,52 +999,44 @@ footer.sum p{margin:0;color:var(--mut);max-width:60ch;line-height:1.5}
           <div class="input"><span style="color:var(--mut)">http://host.local:7771</span></div>
           <div style="display:flex;gap:6px"><span class="btn sm">Add server</span><span class="btn sm">Copy runner command</span></div>
           <div class="mono small" style="background:var(--panel2);padding:6px;border-radius:6px">committo ci-serve --port 7771</div>
-          <div class="small">Found over Tailscale (private HTTPS, tailnet identity) or Bonjour on the LAN. Also exposed as the <span class="mono">ci_*</span> MCP tools.</div></div></div>
+          <div class="small">Found over Tailscale or Bonjour.</div></div></div>
     </div></div>
   </div></div></div></div>
-  <aside class="notes"><h3>Notes</h3>
-    <div class="note"><span class="n">1</span><div><b>Accounts:</b> gh CLI reuse, browser OAuth (device code), or token, for GitHub, GitLab, Bitbucket, Azure DevOps and Gitea.<i>SPEC §10</i></div></div>
-    <div class="note"><span class="n">2</span><div><b>Agents:</b> Claude headless, APIs, CLI agents (Command Code, dsh, Codex…), and an MCP bridge for anything else. Pick a default per job: review, test, merge help.<i>SPEC §8.2</i></div></div>
-    <div class="note"><span class="n">3</span><div><b>CI runners:</b> this Mac with act, or servers on your network, auto-discovered. Choose a default runner.<i>SPEC §7.2</i></div></div>
-  </aside></div>
+  <aside class="notes"><h3>Notes</h3><div class="note"><span class="n">1</span><div>Sign in with gh, the browser, or a token.</div></div><div class="note"><span class="n">2</span><div>Pick a default agent per job.</div></div></aside></div>
 </section>
 
 <!-- 13 FIRST RUN + CMD -->
 <section class="screen" id="s-first" data-title="First run &amp; ⌘K">
-  <div class="shead"><div><h2>First run and the ⌘K bar</h2><p>For people who would rather say what they want than learn where things live. A five-step setup that finishes in a minute, then a command bar that understands plain language and always shows what it will run.</p></div><div class="approve" data-k="first"></div></div>
+  <div class="shead"><div><h2>First run</h2><p>Six steps, then a command bar that understands plain words.</p></div><div class="approve" data-k="first"></div></div>
   <div class="cols"><div class="stage"><div class="win tall" data-active="Changes" style="grid-template-columns:1fr"><div class="main">
     <div class="bar"><div class="lights" style="padding:0"><i></i><i></i><i></i></div><b style="margin-left:10px">Welcome to Committo</b><span class="sp"></span><span class="chip">Guided mode</span><span class="sw on"></span></div>
     <div class="body"><div class="pane" style="flex:1;padding:18px;display:grid;grid-template-columns:1fr 1fr;gap:18px;overflow:hidden">
       <div><div style="font:700 18px var(--display);margin-bottom:6px">Set up in a minute</div>
-        <div class="step done"><span class="c">✓</span><div style="flex:1"><b>Connect GitHub</b><div class="small">via gh CLI · kalahroudi</div></div></div>
-        <div class="step done"><span class="c">✓</span><div style="flex:1"><b>Find your repos</b><div class="small">Scanning ~/Developer, ~/Code · 14 found</div></div></div>
-        <div class="step cur"><span class="c">3</span><div style="flex:1"><b>Pick your agent</b><div class="small">Claude Code detected · use it for reviews and merge help?</div></div><span class="btn pri sm">Use Claude</span></div>
-        <div class="step"><span class="c">4</span><div style="flex:1"><b>Let agents use Committo</b><div class="small">Install the MCP server in Claude Code</div></div><span class="btn sm">Install</span></div>
-        <div class="step"><span class="c">5</span><div style="flex:1"><b>Add security scans</b><div class="small">SecurityCage · Node 22 found · pinned install</div></div><span class="btn sm">Install</span></div>
+        <div class="step done"><span class="c"><svg class="i" aria-hidden="true"><use href="#i-check"/></svg></span><div style="flex:1"><b>Connect GitHub</b><div class="small">via gh CLI · kalahroudi</div></div></div>
+        <div class="step done"><span class="c"><svg class="i" aria-hidden="true"><use href="#i-check"/></svg></span><div style="flex:1"><b>Find your repos</b><div class="small">Scanning ~/Developer, ~/Code · 14 found</div></div></div>
+        <div class="step cur"><span class="c">3</span><div style="flex:1"><b>Pick your agent</b><div class="small">Claude Code found</div></div><span class="btn pri sm">Use Claude</span></div>
+        <div class="step"><span class="c">4</span><div style="flex:1"><b>Let agents use Committo</b><div class="small">Install the MCP server</div></div><span class="btn sm">Install</span></div>
+        <div class="step"><span class="c">5</span><div style="flex:1"><b>Add security scans</b><div class="small">SecurityCage</div></div><span class="btn sm">Install</span></div>
         <div class="step"><span class="c">6</span><div style="flex:1"><b>Sign your commits</b><div class="small">SSH key via 1Password agent</div></div><span class="btn sm">Set up</span></div>
-        <div class="small" style="margin-top:12px">Guided mode uses plain words (“save your work” for commit, “send” for push) and confirms anything risky. Turn it off any time for standard git names.</div></div>
+        <div class="small" style="margin-top:12px">Guided mode uses plain words and confirms risky actions.</div></div>
       <div><div class="cmd">
-        <div class="i"><span style="color:var(--accent)">✦</span><span>undo my last commit but keep the changes</span></div>
-        <div class="o sel"><span class="chip acc">Suggested</span><div style="flex:1"><b>Undo last commit, keep changes</b><div class="mono small">git reset --soft HEAD~1</div></div><span class="chip">↩</span></div>
+        <div class="i"><span style="color:var(--accent)"><svg class="i" aria-hidden="true"><use href="#i-spark"/></svg></span><span>undo my last commit but keep the changes</span></div>
+        <div class="o sel"><span class="chip acc">Suggested</span><div style="flex:1"><b>Undo last commit, keep changes</b><div class="mono small">git reset --soft HEAD~1</div></div><span class="chip"><svg class="i" aria-hidden="true"><use href="#i-return"/></svg></span></div>
         <div class="o"><span class="chip">Action</span><div style="flex:1">Undo last history change (Time Machine)</div></div>
         <div class="o"><span class="chip">Go to</span><div style="flex:1">History</div></div>
         <div class="o"><span class="chip">Repo</span><div style="flex:1">Open committo · acme-api · dotfiles</div></div>
         <div class="o"><span class="chip">PR</span><div style="flex:1">#142 Add OAuth device flow</div></div>
-        <div class="o" style="border-top:1px solid var(--line);color:var(--mut)"><span>✦ Ask Claude instead</span><span class="chip" style="margin-left:auto">⇥</span></div></div>
-        <div class="small" style="margin-top:10px">Nothing runs until you press ↩. Risky commands show the exact git command and what will be lost, and offer a safer alternative.</div></div>
+        <div class="o" style="border-top:1px solid var(--line);color:var(--mut)"><span><svg class="i" aria-hidden="true"><use href="#i-spark"/></svg> Ask Claude instead</span><span class="chip" style="margin-left:auto">Tab</span></div></div>
+        <div class="small" style="margin-top:10px">Nothing runs until you press return. Risky commands show what will be lost.</div></div>
     </div></div>
   </div></div></div></div>
-  <aside class="notes"><h3>Notes</h3>
-    <div class="note"><span class="n">1</span><div><b>Six-step setup</b> covers accounts, repo discovery, agent, MCP, security scans and signing.<i>SPEC §3.3</i></div></div>
-    <div class="note"><span class="n">2</span><div><b>Guided mode</b> swaps git jargon for plain words and adds confirmations. Off for experts.<i>SPEC §3.3</i></div></div>
-    <div class="note"><span class="n">3</span><div><b>⌘K understands plain language</b> and maps it to registry actions, showing the real git command first. The same registry is the MCP surface.<i>SPEC §11.1</i></div></div>
-  </aside></div>
+  <aside class="notes"><h3>Notes</h3><div class="note"><span class="n">1</span><div>Guided mode swaps git jargon for plain words.</div></div><div class="note"><span class="n">2</span><div>⌘K shows the exact command before it runs.</div></div></aside></div>
 </section>
 <!-- LOGO -->
 <section class="screen" id="s-logo" data-title="Logo">
-  <div class="shead"><div><h2>Logo: A, “Landing”, chosen</h2><p>Decision: option A. A branch swings in and lands on main as a coral commit, under a HEAD ring. The other six are kept below for the record. The app icon, menu-bar glyph (one-colour template) and README logo all use A.</p></div><div class="approve" data-k="logo"></div></div>
+  <div class="shead"><div><h2>Logo</h2><p>Option A chosen. The rest are kept for reference.</p></div><div class="approve" data-k="logo"></div></div>
   <div class="lgrid">
-    <div class="lt pick"><div class="sv"><svg viewBox="0 0 256 256" width="112" height="112"><use href="#logoA"/></svg></div><h4>A · Landing <span class="chip ok">✓ chosen</span></h4><p>A branch merges into main; the coral node is the commit that just landed. Ring on top is HEAD.</p></div>
+    <div class="lt pick"><div class="sv"><svg viewBox="0 0 256 256" width="112" height="112"><use href="#logoA"/></svg></div><h4>A · Landing <span class="chip ok"><svg class="i" aria-hidden="true"><use href="#i-check"/></svg> chosen</span></h4><p>A branch merges into main; the coral node is the commit that just landed. Ring on top is HEAD.</p></div>
     <div class="lt" style="opacity:.55"><div class="sv"><svg viewBox="0 0 256 256" width="112" height="112"><use href="#logoB"/></svg></div><h4>B · Check-in</h4><p>A checkmark drawn as a branch with three nodes: committed, done. Friendly, but checkmarks are common.</p></div>
     <div class="lt" style="opacity:.55"><div class="sv"><svg viewBox="0 0 256 256" width="112" height="112"><use href="#logoC"/></svg></div><h4>C · Ship</h4><p>Commits climbing to an arrow. Energetic, a little generic.</p></div>
     <div class="lt" style="opacity:.55"><div class="sv"><svg viewBox="0 0 256 256" width="112" height="112"><use href="#logoD"/></svg></div><h4>D · Braid</h4><p>Two lanes crossing: merge as a weave. Distinctive, busy at small sizes.</p></div>
@@ -1154,14 +1073,14 @@ footer.sum p{margin:0;color:var(--mut);max-width:60ch;line-height:1.5}
   try{state=JSON.parse(localStorage.getItem("committo-mock-approvals")||"{}")}catch(e){}
   function save(){try{localStorage.setItem("committo-mock-approvals",JSON.stringify(state))}catch(e){}}
 
-  var NAV=[["Changes","✎"],["History","⑂"],["Branches","⎇"],["Pull requests","⇄",4],["Issues","◎",7],["Agent Lens","◉"],["Security","⛨"],["CI Runners","⚙"],["Insights","▤"],["Releases","⚑"],["Settings","⚙"]];
+  var NAV=[["Changes","pencil"],["History","commit"],["Branches","branch"],["Pull requests","pr",4],["Issues","issue",7],["Agent Lens","eye"],["Security","shield"],["CI Runners","server"],["Insights","chart"],["Releases","tag"],["Settings","cog"]];
   var GROUPS={"Work":["Changes","History","Branches"],"Collaborate":["Pull requests","Issues"],"Agents":["Agent Lens"],"Quality":["Security","CI Runners"],"Ship":["Releases"],"Explore":["Insights"]};
   document.querySelectorAll(".win").forEach(function(w){
     if(w.style.gridTemplateColumns==="1fr")return;
-    var act=w.getAttribute("data-active"),h='<aside class="side"><div class="lights"><i></i><i></i><i></i></div><div class="repo"><div class="glyph"><svg viewBox="0 0 256 256" aria-hidden="true"><use href="#logoA"/></svg></div><div><b>committo</b><small>⑂ main</small></div></div>';
+    var act=w.getAttribute("data-active"),h='<aside class="side"><div class="lights"><i></i><i></i><i></i></div><div class="repo"><div class="glyph"><svg viewBox="0 0 256 256" aria-hidden="true"><use href="#logoA"/></svg></div><div><b>committo</b><small><svg class="i" aria-hidden="true"><use href="#i-branch"/></svg> main</small></div></div>';
     Object.keys(GROUPS).forEach(function(g){h+='<div class="grp">'+g+'</div>';GROUPS[g].forEach(function(n){
       var d=NAV.filter(function(x){return x[0]===n})[0];
-      h+='<div class="item'+(n===act?' act':'')+'"><span class="ico">'+d[1]+'</span>'+n+(d[2]?'<span class="c">'+d[2]+'</span>':'')+'</div>';});});
+      h+='<div class="item'+(n===act?' act':'')+'"><span class="ico"><svg class="i"><use href="#i-'+d[1]+'"/></svg></span>'+n+(d[2]?'<span class="c">'+d[2]+'</span>':'')+'</div>';});});
     h+='<div class="side-ci"><span class="ring2"></span><span>CI · <b>2 running</b> · <span style="color:var(--bad)">1 failed</span></span></div></aside>';w.insertAdjacentHTML("afterbegin",h);
   });
 
@@ -1170,7 +1089,7 @@ footer.sum p{margin:0;color:var(--mut);max-width:60ch;line-height:1.5}
 (function(){
   var NW=34,LX=[22,58];
   var R=function(l,m,h,x){var o={l:l,m:m,h:h};for(var k in (x||{}))o[k]=x[k];return o;};
-  var AG={a:'✦ Claude'};
+  var AG={a:'Claude'};
   var BEFORE={rows:[R(0,'Merge #139 · fix lane overflow','e7a1'),R(1,'feat(auth): add scopes','7be0',{a:1}),R(1,'feat(auth): poll with backoff','3c9d',{a:1}),R(0,'chore: bump act','b20f'),R(1,'test: device flow','91aa',{a:1}),R(1,'feat(auth): start device flow','44fe',{a:1}),R(0,'docs: describe MCP setup','0d12')],
     edges:[[0,3],[3,6],[1,2],[2,4],[4,5],[5,6]]};
   var OPT={
@@ -1178,19 +1097,19 @@ footer.sum p{margin:0;color:var(--mut);max-width:60ch;line-height:1.5}
       rows:[R(0,'Merge pull request #142','f00d',{s:'new'}),R(0,'Merge #139 · fix lane overflow','e7a1'),R(1,'feat(auth): add scopes','7be0',{a:1}),R(1,'feat(auth): poll with backoff','3c9d',{a:1}),R(0,'chore: bump act','b20f'),R(1,'test: device flow','91aa',{a:1}),R(1,'feat(auth): start device flow','44fe',{a:1}),R(0,'docs: describe MCP setup','0d12')],
       edges:[[0,1],[0,2],[1,4],[2,3],[3,5],[5,6],[6,7],[4,7]],
       props:[['History','Branches and joins (not a straight line)','warn'],['Added to main','4 of yours + 1 merge commit',''],['Hashes','All unchanged','ok'],['Signatures','Kept; merge commit signed by GitHub','ok'],['Undo','Revert the merge (-m 1)',''],['Bisect and blame','Fine-grained','ok']],
-      learn:'<b>In plain words:</b> a merge commit is a knot that ties your branch back into main. Nothing is rewritten, so it is the safest option, but history gets branchy. <b>Good for:</b> long-lived branches and when you want the full story.',
+      learn:'<b>A knot that ties your branch into main.</b> Nothing is rewritten, so it is safest, but history branches. Good for long-lived work.',
       undo:'To undo: <span class="mono">git revert -m 1 f00d</span>',go:'Merge on GitHub'},
     squash:{name:'Squash',count:'+1 commit',
       rows:[R(0,'feat(auth): add OAuth device flow (#142)','5a1c',{s:'new',x:'+312 −24'}),R(0,'Merge #139 · fix lane overflow','e7a1'),R(0,'chore: bump act','b20f'),R(0,'docs: describe MCP setup','0d12'),R(1,'feat(auth): add scopes','7be0',{s:'ghost',a:1}),R(1,'feat(auth): poll with backoff','3c9d',{s:'ghost',a:1}),R(1,'test: device flow','91aa',{s:'ghost',a:1}),R(1,'feat(auth): start device flow','44fe',{s:'ghost',a:1})],
       edges:[[0,1],[1,2],[2,3],[4,5,1],[5,6,1],[6,7,1],[7,3,1]],
       props:[['History','Straight line, one commit','ok'],['Added to main','1 new commit (+312 −24)',''],['Hashes','New commit; branch commits stay on the PR','warn'],['Signatures','New commit signed by GitHub','ok'],['Undo','One revert undoes the whole PR','ok'],['Detail','Step-by-step commits not kept in main','warn']],
-      learn:'<b>In plain words:</b> squash takes all the little commits in the PR and folds them into one tidy commit on main. The originals (faded here) stay on the branch, but main only gets the summary. <b>Good for:</b> “wip” commits and agent noise, and when a PR is one idea.',
+      learn:'<b>One tidy commit.</b> The PR’s small commits fold into one on main; the originals stay on the branch. Good for “wip” and agent noise.',
       undo:'To undo: <span class="mono">git revert 5a1c</span>',go:'Squash &amp; merge on GitHub'},
     rebase:{name:'Rebase',count:'+4 commits',
       rows:[R(0,'feat(auth): add scopes','1e4b',{s:'new',a:1,x:'was 7be0'}),R(0,'feat(auth): poll with backoff','8d02',{s:'new',a:1,x:'was 3c9d'}),R(0,'test: device flow','c7a9',{s:'new',a:1,x:'was 91aa'}),R(0,'feat(auth): start device flow','2f61',{s:'new',a:1,x:'was 44fe'}),R(0,'Merge #139 · fix lane overflow','e7a1'),R(0,'chore: bump act','b20f'),R(0,'docs: describe MCP setup','0d12')],
       edges:[[0,1],[1,2],[2,3],[3,4],[4,5],[5,6]],
       props:[['History','Straight line, every step kept','ok'],['Added to main','4 commits replayed on top',''],['Hashes','All 4 rewritten (new IDs)','warn'],['Signatures','Dropped on GitHub; re-signed if merged locally','warn'],['Undo','Revert each, or the range',''],['Bisect and blame','Fine-grained','ok']],
-      learn:'<b>In plain words:</b> rebase picks up your commits and sets them down again on top of the latest main, one after another, as if you had started from there. They look the same but get new IDs. <b>Good for:</b> clean, meaningful commits you want to keep, with a straight history.',
+      learn:'<b>Replay in a straight line.</b> Your commits are set down again on top of main with new IDs. Good for clean, meaningful commits.',
       undo:'To undo: <span class="mono">git revert 2f61..1e4b</span>',go:'Rebase &amp; merge on GitHub'}
   };
   function draw(d){
@@ -1206,7 +1125,7 @@ footer.sum p{margin:0;color:var(--mut);max-width:60ch;line-height:1.5}
       else if(r.s==='ghost')svg+='<circle cx="'+p[0]+'" cy="'+p[1]+'" r="5.5" fill="var(--win)" stroke="var(--mut)" stroke-width="2" stroke-dasharray="3 2"/>';
       else svg+='<circle cx="'+p[0]+'" cy="'+p[1]+'" r="5.5" fill="'+c+'" stroke="var(--win)" stroke-width="1.5"/>';});
     svg+='</svg>';
-    var rows='<div class="vzr">'+d.rows.map(function(r){return '<div class="vr'+(r.s?' '+r.s:'')+'"><span class="m">'+r.m+'</span>'+(r.a?'<span class="chip acc">✦</span>':'')+(r.x?'<span class="chip '+(r.s==='new'?'warn':'')+'">'+r.x+'</span>':'')+'<span class="hs">'+r.h+'</span></div>';}).join('')+'</div>';
+    var rows='<div class="vzr">'+d.rows.map(function(r){return '<div class="vr'+(r.s?' '+r.s:'')+'"><span class="m">'+r.m+'</span>'+(r.a?'<span class="chip acc"><svg class="i" aria-hidden="true"><use href="#i-spark"/></svg></span>':'')+(r.x?'<span class="chip '+(r.s==='new'?'warn':'')+'">'+r.x+'</span>':'')+'<span class="hs">'+r.h+'</span></div>';}).join('')+'</div>';
     return svg+rows;
   }
   var cur='squash',beforeEl=document.getElementById('vzBefore');
@@ -1247,6 +1166,7 @@ footer.sum p{margin:0;color:var(--mut);max-width:60ch;line-height:1.5}
   function show(id){
     document.querySelectorAll("section.screen").forEach(function(s){s.classList.toggle("on",s.id==="s-"+id)});
     SCREENS.forEach(function(s){document.getElementById("t-"+s[0]).setAttribute("aria-selected",String(s[0]===id))});
+    try{document.getElementById("t-"+id).scrollIntoView({inline:"center",block:"nearest",behavior:"smooth"})}catch(e){}
     if(location.hash!=="#"+id){try{history.replaceState(null,"","#"+id)}catch(e){}}
   }
   function paint(){
@@ -1264,6 +1184,9 @@ footer.sum p{margin:0;color:var(--mut);max-width:60ch;line-height:1.5}
   var start=(location.hash||"#popover").slice(1);
   show(SCREENS.some(function(s){return s[0]===start})?start:"popover");paint();
 
+  (function(){function upd(e){e.style.setProperty("--l",e.scrollLeft>4?1:0);e.style.setProperty("--r",e.scrollLeft+e.clientWidth<e.scrollWidth-4?1:0)}
+    var els=document.querySelectorAll("nav.tabs,.stage");els.forEach(function(e){e.classList.add("fx");e.addEventListener("scroll",function(){upd(e)},{passive:true});upd(e)});
+    addEventListener("resize",function(){els.forEach(upd)});setTimeout(function(){els.forEach(upd)},300)})();
   var root=document.documentElement,btn=document.getElementById("themeBtn");
   btn.addEventListener("click",function(){
     var dark=root.getAttribute("data-theme")==="dark"||(!root.getAttribute("data-theme")&&matchMedia("(prefers-color-scheme: dark)").matches);
