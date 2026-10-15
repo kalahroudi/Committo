@@ -1,4 +1,72 @@
-# Committo
+<p align="center">
+  <img src="docs/assets/logo.svg" width="128" alt="Committo logo">
+</p>
+
+<h1 align="center">Committo</h1>
+
+<p align="center">
+  A native macOS git companion for people who build with AI agents.<br>
+  Menu-bar popover · built-in diff &amp; merge with AI help · PRs and issues with local CI and agent review · every feature exposed over MCP.
+</p>
+
+<p align="center">
+  <a href="docs/SPEC.md">Spec</a> ·
+  <a href="docs/mockup/index.html">Mockup</a> ·
+  <a href="LICENSE">Apache 2.0</a>
+</p>
+
+## Prompt for coding agents
+
+Paste this into Claude Code, Codex, Cursor or any agent that has access to this repo on a Mac.
+
+```text
+You are continuing development of Committo, a native macOS git client (Swift 5.9+, SwiftUI, macOS 14+).
+
+Read first, in order: README.md (status table), docs/SPEC.md (product + technical spec),
+docs/mockup/index.html (approved screens; open in a browser), Package.swift.
+
+Ground rules
+- Modules: CommittoCore (Foundation-only; must build and test on Linux and macOS), Committo (SwiftUI app,
+  macOS only), committo-cli. Keep UI logic out of Core.
+- Run `swift build && swift test` before every commit. Do not mark work done on code you have not compiled.
+- Every user-facing action goes through the single action registry (SPEC section 11) so it is automatically
+  a button, a command-palette entry and an MCP tool, with a JSON schema and a risk tier (read/write/destructive).
+  Destructive tools stay disabled for agents by default.
+- Never embed secrets or OAuth client secrets. Tokens live in the Keychain.
+- AI features are read-only until the user clicks Apply. Show what context will be sent on first use.
+- Shell out to the system `git`; do not reimplement git.
+- Work in small PRs against `main`. `main` is protected: open a PR, wait for CI (core-linux, app-macos), sign commits.
+
+Current state: CommittoCore, the CLI and the MCP server are compiled and tested (12 tests). The SwiftUI app, the
+menu-bar item, the LAN CI server and the icon script were written but never compiled; start with milestone M0
+(SPEC section 14): build on a Mac, fix compile errors, launch the app, verify the popover and main window.
+
+Then proceed M1 to M6 in order. After each milestone update the status table in README.md and add tests for any
+logic that does not need a UI. Ask before changing anything under docs/SPEC.md sections 1 and 11.
+```
+
+## Screenshots
+
+These are mockups of the intended UI (see [docs/mockup](docs/mockup/index.html)); the app is not shipped yet.
+
+<table>
+  <tr>
+    <td width="50%"><img src="docs/screenshots/popover.png" alt="Menu-bar popover"><br><sub><b>Menu-bar popover</b>: recent repos, needs-you list, quick actions</sub></td>
+    <td width="50%"><img src="docs/screenshots/merge.png" alt="Merge tool with AI help"><br><sub><b>Diff &amp; merge</b>: 3-way merge with an AI link</sub></td>
+  </tr>
+  <tr>
+    <td><img src="docs/screenshots/prs.png" alt="Pull request with local CI and agent review"><br><sub><b>Pull requests</b>: local CI, agent review, agent test, security</sub></td>
+    <td><img src="docs/screenshots/new.png" alt="New repository wizard"><br><sub><b>New repo</b>: main branch, rules, license, README, CI</sub></td>
+  </tr>
+  <tr>
+    <td><img src="docs/screenshots/changes.png" alt="Changes and commit"><br><sub><b>Changes</b>: line-level staging, AI commit message, signing</sub></td>
+    <td><img src="docs/screenshots/lens.png" alt="Agent Lens"><br><sub><b>Agent Lens</b>: what every agent is doing, live</sub></td>
+  </tr>
+  <tr>
+    <td><img src="docs/screenshots/mcp.png" alt="MCP surface"><br><sub><b>MCP</b>: every feature as a tool, with risk tiers</sub></td>
+    <td><img src="docs/screenshots/settings.png" alt="Updates and signing"><br><sub><b>Settings</b>: self-update, signing, accounts</sub></td>
+  </tr>
+</table>
 
 A native macOS (SwiftUI, macOS 14+) git companion that lives in your menu bar, built for people who code with agents.
 
@@ -39,3 +107,7 @@ Scripts/bundle.sh      # macOS: universal Committo.app in ./dist (generates the 
 
 Done/partial: clone & accounts, status w/ diffs, hunk staging, commit/amend, AI commit messages, discard, ignore, stash, branches/tags/remotes, merge/rebase/cherry-pick/revert, force-with-lease, history search, undo, reflog, worktrees, submodules (engine), dark mode, command-line tool, PRs (GitHub/GitLab).
 Missing: line-level staging, conflict wizard, interactive rebase, git-flow, LFS, profiles, external diff, signing UI, 1Password SSH agent, groups/tags for repos, multiple windows, git-svn.
+
+## License
+
+Apache License 2.0. See [LICENSE](LICENSE).

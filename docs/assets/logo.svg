@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256" role="img" aria-label="Committo logo">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#6b5bff"/><stop offset="1" stop-color="#00c7d9"/></linearGradient>
+    <linearGradient id="gl" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".30"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
+  </defs>
+  <rect x="16" y="16" width="224" height="224" rx="52" fill="url(#g)"/>
+  <rect x="16" y="16" width="224" height="112" rx="52" fill="url(#gl)"/>
+  <g fill="none" stroke="#fff" stroke-width="11" stroke-linecap="round">
+    <path d="M92 58V198"/>
+    <path d="M92 58C168 58 168 90 168 128C168 166 168 198 92 198"/>
+  </g>
+  <g fill="#fff" stroke="#4b45d6" stroke-width="3">
+    <circle cx="92" cy="58" r="17"/><circle cx="92" cy="128" r="17"/><circle cx="92" cy="198" r="17"/><circle cx="168" cy="128" r="17"/>
+  </g>
+</svg>
