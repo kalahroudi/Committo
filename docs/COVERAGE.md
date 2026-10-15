@@ -31,7 +31,7 @@ Every request made so far, mapped to where it appears. Legend: **M** = in the mo
 | 26 | **Merge options visualize how commits land on main; educational for students** | 14 | §7.6, §3.4 | – (preview component not built) |
 | 27 | **Tags, tag management, releases** | 15 | §7.8 | – |
 | 28 | **Light, fast, effective, a delight** | 14 (keyboard, instant preview) | §16 | – (budgets defined, not measured) |
-| 29 | **Better logo than a generic "C"** | 16 | §2 | logo.svg, menubar.svg, icon script (icon script uncompiled) |
+| 29 | **Better logo than a generic "C"** | 18 | §2 | **A chosen**; logo.svg, menubar.svg, icon script (icon script uncompiled) |
 | 30 | **CI status highlighted: running, local, remote, self-hosted** | 1, 15 | §7.9 | partial (act + LAN runner exist, uncompiled UI; hosted-provider status: –) |
 | 31 | **SecurityCage integration: setup, install, auto-appearing scan, pinned latest, updates** | 4, 5, 13, 16 | §7.10 | **install/pin/update/rollback/scan/MCP implemented and tested live**; UI mock only |
 | 25 | main branch, protected; Apache 2.0; README with agent prompt, logo, screenshots | – | – | main + README + LICENSE done; protection **pending** (needs `Scripts/protect-main.sh`) |

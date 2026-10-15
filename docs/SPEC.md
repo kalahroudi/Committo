@@ -19,6 +19,7 @@ Status: **draft for approval**. The clickable mockup is `docs/mockup/index.html`
 - macOS 14+, Swift 5.9+/SwiftUI, universal binary. Git is executed through the system `git` CLI (hooks, signing, LFS, credential helpers behave as in a terminal).
 - Modules: `CommittoCore` (Foundation-only: git, providers, agents, scan, CI, MCP, action registry), `Committo` (SwiftUI app), `committo` (CLI: `mcp`, `ci-serve`, `scan`).
 - Secrets in the macOS Keychain. No telemetry by default.
+- **Brand:** logo A, "Landing" (a branch merging onto main under a HEAD ring; ink, teal, coral). Assets: `docs/assets/logo.svg`, `docs/assets/menubar.svg` (template glyph), `Scripts/make-icon.swift` (app icon). Wordmark in Bricolage Grotesque Bold.
 - Distribution: notarized, Developer ID signed `.app` in a DMG; updates via Sparkle (§12).
 
 ## 3. Surfaces
