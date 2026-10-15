@@ -12,6 +12,7 @@
 <p align="center">
   <a href="docs/SPEC.md">Spec</a> ·
   <a href="docs/mockup/index.html">Mockup</a> ·
+  <a href="docs/COVERAGE.md">Coverage</a> ·
   <a href="LICENSE">Apache 2.0</a>
 </p>
 
@@ -51,7 +52,7 @@ These are mockups of the intended UI (see [docs/mockup](docs/mockup/index.html))
 
 <table>
   <tr>
-    <td width="50%"><img src="docs/screenshots/popover.png" alt="Menu-bar popover"><br><sub><b>Menu-bar popover</b>: recent repos, needs-you list, quick actions</sub></td>
+    <td width="50%"><img src="docs/screenshots/popover.png" alt="Menu-bar popover"><br><sub><b>Menu-bar popover</b>: PR and issue counters for your most active repos</sub></td>
     <td width="50%"><img src="docs/screenshots/merge.png" alt="Merge tool with AI help"><br><sub><b>Diff &amp; merge</b>: 3-way merge with an AI link</sub></td>
   </tr>
   <tr>
@@ -65,6 +66,18 @@ These are mockups of the intended UI (see [docs/mockup](docs/mockup/index.html))
   <tr>
     <td><img src="docs/screenshots/mcp.png" alt="MCP surface"><br><sub><b>MCP</b>: every feature as a tool, with risk tiers</sub></td>
     <td><img src="docs/screenshots/settings.png" alt="Updates and signing"><br><sub><b>Settings</b>: self-update, signing, accounts</sub></td>
+  </tr>
+  <tr>
+    <td><img src="docs/screenshots/history.png" alt="History and graph"><br><sub><b>History</b>: lane graph, agent and signature badges</sub></td>
+    <td><img src="docs/screenshots/branches.png" alt="Branches and stacks"><br><sub><b>Branches</b>: stacks, stash, worktrees, compare</sub></td>
+  </tr>
+  <tr>
+    <td><img src="docs/screenshots/insights.png" alt="Insights and security"><br><sub><b>Insights</b>: activity, authorship, hotspots, security</sub></td>
+    <td><img src="docs/screenshots/integrations.png" alt="Accounts, agents and CI runners"><br><sub><b>Integrations</b>: accounts, agents, LAN CI runners</sub></td>
+  </tr>
+  <tr>
+    <td><img src="docs/screenshots/first.png" alt="First run and command bar"><br><sub><b>First run</b> and the plain-language ⌘K bar</sub></td>
+    <td></td>
   </tr>
 </table>
 
