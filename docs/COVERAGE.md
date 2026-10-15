@@ -35,6 +35,7 @@ Every request made so far, mapped to where it appears. Legend: **M** = in the mo
 | 30 | **CI status highlighted: running, local, remote, self-hosted** | 1, 15 | §7.9 | partial (act + LAN runner exist, uncompiled UI; hosted-provider status: –) |
 | 31 | **SecurityCage integration: setup, install, auto-appearing scan, pinned latest, updates** | 4, 5, 13, 16 | §7.10 | **install/pin/update/rollback/scan/MCP implemented and tested live**; UI mock only |
 | 32 | **Tailscale: local machines/servers connect as CI runners; setup automated in-app** | 15, 16, 12 | §7.11 | – (mock and spec only; untested against a real tailnet) |
+| 33 | **Managing branches whose PRs are merged** | 10 | §7.12 | – (spec and mock only) |
 | 25 | main branch, protected; Apache 2.0; README with agent prompt, logo, screenshots | – | – | main + README + LICENSE done; protection **pending** (needs `Scripts/protect-main.sh`) |
 
 ## Screens in the mockup (19)
