@@ -1,0 +1,608 @@
+<title>Committo Mockup</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout concept: a review desk. Sticky screen switcher on top, one macOS window mock per screen,
+   numbered annotations beside it that point at spec sections, and an approval strip per screen. */
+:root{
+  --bg:#f3f2f6; --ink:#1b1a24; --mut:#6b6a78; --line:#dcdae6;
+  --win:#ffffff; --side:#eeedf4; --panel:#f7f6fb; --panel2:#ecebf3;
+  --accent:#5b4bff; --accent-ink:#ffffff; --accent-soft:#e8e5ff; --teal:#0aa5b5;
+  --ok:#1a9a5b; --ok-soft:#dff4e8; --warn:#b97400; --warn-soft:#fbefd2; --bad:#d23b3b; --bad-soft:#fbe0e0;
+  --add:#e3f6e9; --del:#fce4e4; --add-ink:#17653d; --del-ink:#a32a2a; --conf:#fff1cc;
+  --stage:#d9d6ea; --menubar:#ece9f7;
+  --ui:-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",system-ui,sans-serif;
+  --display:"Bricolage Grotesque",var(--ui); --mono:"JetBrains Mono",ui-monospace,"SF Mono",Menlo,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#12111a; --ink:#ecebf5; --mut:#9a98ab; --line:#2c2a3b;
+  --win:#1b1a26; --side:#16151f; --panel:#201f2d; --panel2:#282638;
+  --accent:#8a7dff; --accent-ink:#12111a; --accent-soft:#2a2650; --teal:#38c9d8;
+  --ok:#4cc88a; --ok-soft:#183a2b; --warn:#e5b04a; --warn-soft:#3b2f12; --bad:#ff7b7b; --bad-soft:#40191c;
+  --add:#173625; --del:#3c1a1d; --add-ink:#7fe0a8; --del-ink:#ff9a9a; --conf:#3b3213;
+  --stage:#0c0b12; --menubar:#201e2e; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#12111a; --ink:#ecebf5; --mut:#9a98ab; --line:#2c2a3b;
+  --win:#1b1a26; --side:#16151f; --panel:#201f2d; --panel2:#282638;
+  --accent:#8a7dff; --accent-ink:#12111a; --accent-soft:#2a2650; --teal:#38c9d8;
+  --ok:#4cc88a; --ok-soft:#183a2b; --warn:#e5b04a; --warn-soft:#3b2f12; --bad:#ff7b7b; --bad-soft:#40191c;
+  --add:#173625; --del:#3c1a1d; --add-ink:#7fe0a8; --del-ink:#ff9a9a; --conf:#3b3213;
+  --stage:#0c0b12; --menubar:#201e2e; color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--ui);padding-block:0 64px;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--bg)}
+.wrap{max-width:1240px;margin:0 auto}
+header.top{padding:28px 0 12px;display:flex;gap:16px;flex-wrap:wrap;align-items:flex-end;justify-content:space-between}
+h1{font:700 30px/1.1 var(--display);margin:0;letter-spacing:-.01em;text-wrap:balance}
+.sub{color:var(--mut);margin:6px 0 0;max-width:62ch;line-height:1.5}
+.pill{font:500 11px var(--mono);padding:3px 8px;border-radius:99px;background:var(--accent-soft);color:var(--accent);white-space:nowrap}
+.theme{border:1px solid var(--line);background:var(--panel);color:var(--ink);border-radius:8px;padding:6px 10px;font:500 12px var(--ui);cursor:pointer}
+nav.tabs{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--bg);padding:8px 0;border-bottom:1px solid var(--line);
+  display:flex;gap:6px;overflow-x:auto;scrollbar-width:thin}
+nav.tabs button{flex:none;border:1px solid transparent;background:none;color:var(--mut);font:500 13px var(--ui);padding:7px 12px;border-radius:8px;cursor:pointer;display:flex;gap:7px;align-items:center}
+nav.tabs button:hover{color:var(--ink);background:var(--panel)}
+nav.tabs button[aria-selected="true"]{background:var(--accent);color:var(--accent-ink)}
+nav.tabs .dot{width:7px;height:7px;border-radius:50%;background:var(--line)}
+nav.tabs .dot.ok{background:var(--ok)} nav.tabs .dot.chg{background:var(--warn)}
+button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+section.screen{display:none;padding-top:22px}
+section.screen.on{display:block}
+.shead{display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;align-items:flex-start;margin-bottom:14px}
+.shead h2{font:700 22px var(--display);margin:0}
+.shead p{margin:4px 0 0;color:var(--mut);max-width:70ch;line-height:1.5}
+.approve{display:flex;gap:6px;align-items:center}
+.approve button{border:1px solid var(--line);background:var(--panel);color:var(--ink);padding:7px 12px;border-radius:8px;font:500 12px var(--ui);cursor:pointer}
+.approve button.sel-ok{background:var(--ok-soft);border-color:var(--ok);color:var(--ok)}
+.approve button.sel-chg{background:var(--warn-soft);border-color:var(--warn);color:var(--warn)}
+.cols{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:20px;align-items:start}
+@media(max-width:1000px){.cols{grid-template-columns:minmax(0,1fr)}}
+.stage{background:var(--stage);border-radius:14px;padding:22px;overflow-x:auto;min-width:0}
+.notes{display:flex;flex-direction:column;gap:12px;min-width:0}
+.notes h3{font:700 12px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--mut);margin:0}
+.note{display:grid;grid-template-columns:24px 1fr;gap:10px;font-size:13px;line-height:1.45}
+.note b{font-weight:600}
+.note i{font:500 11px var(--mono);font-style:normal;color:var(--accent);display:block;margin-top:3px}
+.n{width:22px;height:22px;border-radius:50%;background:var(--accent);color:var(--accent-ink);font:700 11px var(--mono);display:grid;place-items:center}
+.pin{position:absolute;width:20px;height:20px;border-radius:50%;background:var(--accent);color:var(--accent-ink);font:700 10px var(--mono);display:grid;place-items:center;box-shadow:0 0 0 3px var(--win);z-index:5}
+
+/* ---------- macOS window ---------- */
+.win{background:var(--win);border:1px solid var(--line);border-radius:12px;min-width:960px;height:600px;display:grid;grid-template-columns:210px 1fr;overflow:hidden;position:relative;box-shadow:0 18px 50px rgba(0,0,0,.28);font-size:12.5px}
+.win.tall{height:660px}
+.side{background:var(--side);border-right:1px solid var(--line);padding:12px 10px;display:flex;flex-direction:column;gap:2px;overflow:hidden}
+.lights{display:flex;gap:7px;padding:2px 4px 12px}
+.lights i{width:12px;height:12px;border-radius:50%;background:#ff5f57}.lights i:nth-child(2){background:#febc2e}.lights i:nth-child(3){background:#28c840}
+.repo{display:flex;gap:8px;align-items:center;padding:8px;border-radius:8px;background:var(--panel2);margin-bottom:8px}
+.repo b{display:block;font-size:13px}.repo small{color:var(--mut)}
+.glyph{width:26px;height:26px;border-radius:7px;background:var(--accent);color:var(--accent-ink);display:grid;place-items:center;font:700 12px var(--display)}
+.grp{font:700 10px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--mut);padding:10px 8px 4px}
+.item{display:flex;align-items:center;gap:8px;padding:5px 8px;border-radius:6px;color:var(--ink)}
+.item.act{background:var(--accent);color:var(--accent-ink)}
+.item .c{margin-left:auto;font:500 10px var(--mono);padding:1px 6px;border-radius:99px;background:var(--panel2);color:var(--mut)}
+.item.act .c{background:rgba(255,255,255,.25);color:inherit}
+.ico{width:14px;text-align:center;opacity:.85}
+.main{display:flex;flex-direction:column;min-width:0;min-height:0}
+.bar{display:flex;align-items:center;gap:8px;padding:9px 14px;border-bottom:1px solid var(--line);background:var(--panel)}
+.bar .sp{flex:1}
+.btn{border:1px solid var(--line);background:var(--win);color:var(--ink);border-radius:6px;padding:4px 10px;font:500 12px var(--ui);display:inline-flex;gap:6px;align-items:center;white-space:nowrap}
+.btn.pri{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.btn.ai{background:var(--accent-soft);border-color:transparent;color:var(--accent)}
+.btn.ok{background:var(--ok-soft);border-color:transparent;color:var(--ok)}
+.btn.sm{padding:2px 8px;font-size:11px}
+.chip{font:500 10.5px var(--mono);padding:2px 7px;border-radius:99px;background:var(--panel2);color:var(--mut);white-space:nowrap;display:inline-flex;gap:4px;align-items:center}
+.chip.ok{background:var(--ok-soft);color:var(--ok)}.chip.warn{background:var(--warn-soft);color:var(--warn)}.chip.bad{background:var(--bad-soft);color:var(--bad)}.chip.acc{background:var(--accent-soft);color:var(--accent)}
+.mono{font-family:var(--mono)}
+.body{flex:1;min-height:0;display:flex}
+.pane{min-width:0;min-height:0;overflow:hidden}
+.divv{border-left:1px solid var(--line)}
+.row{display:flex;align-items:center;gap:8px;padding:6px 12px;border-bottom:1px solid var(--line)}
+.row.sel{background:var(--accent-soft)}
+.row .t{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.row small{color:var(--mut)}
+.sec{font:700 10px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--mut);padding:8px 12px;background:var(--panel);border-bottom:1px solid var(--line)}
+.code{font:400 11.5px/1.65 var(--mono)}
+.ln{display:grid;grid-template-columns:34px 34px 14px 1fr;white-space:pre}
+.ln>span:nth-child(-n+2){color:var(--mut);text-align:right;padding-right:6px;opacity:.7}
+.ln.a{background:var(--add)}.ln.d{background:var(--del)}.ln.h{background:var(--panel2);color:var(--mut)}
+.ln.a>span:nth-child(3){color:var(--add-ink)}.ln.d>span:nth-child(3){color:var(--del-ink)}
+.chk{width:12px;height:12px;border:1.5px solid var(--mut);border-radius:3px;display:inline-block;vertical-align:-2px}
+.chk.on{background:var(--accent);border-color:var(--accent)}
+.card{border:1px solid var(--line);border-radius:10px;background:var(--panel);padding:12px}
+.card h4{margin:0 0 8px;font:600 12.5px var(--ui);display:flex;gap:8px;align-items:center}
+.bars{display:flex;height:5px;border-radius:9px;overflow:hidden;width:70px;background:var(--del)}
+.bars i{background:var(--ok);display:block}
+.kv{display:grid;grid-template-columns:auto 1fr;gap:4px 10px}
+.kv dt{color:var(--mut)}.kv dd{margin:0}
+.input{border:1px solid var(--line);background:var(--win);border-radius:6px;padding:6px 9px;color:var(--ink);display:flex;gap:8px;align-items:center}
+.sw{width:30px;height:18px;border-radius:99px;background:var(--panel2);position:relative;flex:none;border:1px solid var(--line)}
+.sw::after{content:"";position:absolute;top:1px;left:1px;width:14px;height:14px;border-radius:50%;background:var(--mut)}
+.sw.on{background:var(--accent);border-color:var(--accent)}.sw.on::after{left:13px;background:var(--accent-ink)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.stack{display:flex;flex-direction:column;gap:10px}
+.pad{padding:14px}
+.scroll{overflow:hidden}
+.pulse{width:7px;height:7px;border-radius:50%;background:var(--ok);box-shadow:0 0 0 0 var(--ok);animation:p 1.6s infinite}
+@keyframes p{70%{box-shadow:0 0 0 7px transparent}100%{box-shadow:0 0 0 0 transparent}}
+@media(prefers-reduced-motion:reduce){.pulse{animation:none}}
+
+/* ---------- menu bar + popover ---------- */
+.desk{min-width:560px;height:660px;position:relative;border-radius:10px;overflow:hidden;background:linear-gradient(160deg,var(--stage),var(--panel2))}
+.mb{height:26px;background:var(--menubar);display:flex;align-items:center;justify-content:flex-end;gap:14px;padding:0 14px;font-size:12px;color:var(--ink)}
+.mb .me{background:var(--accent);color:var(--accent-ink);border-radius:5px;padding:1px 7px;display:flex;gap:5px;align-items:center;font-weight:600}
+.pop{position:absolute;right:92px;top:36px;width:400px;height:590px;background:var(--win);border:1px solid var(--line);border-radius:12px;box-shadow:0 22px 60px rgba(0,0,0,.4);display:flex;flex-direction:column;font-size:12.5px}
+.pop::before{content:"";position:absolute;top:-7px;right:36px;width:14px;height:14px;background:var(--win);border-left:1px solid var(--line);border-top:1px solid var(--line);transform:rotate(45deg)}
+.tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:7px}
+.tile{background:var(--panel);border-radius:9px;padding:9px 4px;text-align:center;font-weight:500;font-size:11.5px}
+.tile b{display:block;font-size:16px;margin-bottom:3px;font-weight:400}
+.rr{display:flex;gap:9px;align-items:center;padding:7px 8px;border-radius:9px}
+.rr:hover,.rr.hov{background:var(--panel)}
+.av{width:28px;height:28px;border-radius:50%;background:var(--accent-soft);color:var(--accent);display:grid;place-items:center;font:700 12px var(--display);flex:none}
+.upd{background:var(--accent);color:var(--accent-ink);border-radius:9px;padding:9px 11px;display:flex;gap:8px;align-items:center}
+
+/* ---------- merge ---------- */
+.m3{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line)}
+.m3>div{background:var(--win);min-width:0}
+.mh{display:flex;gap:8px;align-items:center;padding:6px 10px;background:var(--panel);border-bottom:1px solid var(--line);font-weight:600}
+.cl{display:grid;grid-template-columns:30px 1fr;white-space:pre}
+.cl>span:first-child{color:var(--mut);text-align:right;padding-right:7px;opacity:.7}
+.cl.conf{background:var(--conf)}.cl.mine{background:var(--add)}.cl.theirs{background:var(--accent-soft)}
+.cl.res{background:var(--ok-soft)}
+.aipanel{position:absolute;right:14px;bottom:14px;width:380px;background:var(--win);border:1px solid var(--accent);border-radius:12px;box-shadow:0 14px 40px rgba(0,0,0,.35);z-index:4;padding:12px;display:flex;flex-direction:column;gap:9px}
+
+/* ---------- tables for MCP ---------- */
+table{border-collapse:collapse;width:100%;font-size:12px}
+th{font:700 10px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--mut);text-align:left;padding:7px 10px;background:var(--panel);border-bottom:1px solid var(--line);position:sticky;top:0}
+td{padding:6px 10px;border-bottom:1px solid var(--line);vertical-align:middle}
+.tier{font:500 10px var(--mono);padding:2px 6px;border-radius:5px}
+.t-r{background:var(--ok-soft);color:var(--ok)}.t-w{background:var(--warn-soft);color:var(--warn)}.t-d{background:var(--bad-soft);color:var(--bad)}
+
+footer.sum{margin-top:30px;border:1px solid var(--line);border-radius:12px;padding:16px;background:var(--panel);display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between}
+footer.sum p{margin:0;color:var(--mut);max-width:60ch;line-height:1.5}
+.small{font-size:11px;color:var(--mut)}
+</style>
+
+<div class="wrap">
+<header class="top">
+  <div>
+    <h1>Committo — mockup v0</h1>
+    <p class="sub">Eight screens for approval. Everything is static; nothing here talks to git. Use the buttons under each screen to approve it or request changes. The full spec lives in <span class="mono">docs/SPEC.md</span> on the branch.</p>
+  </div>
+  <div style="display:flex;gap:8px;align-items:center"><span class="pill">for approval</span><button class="theme" id="themeBtn" type="button">Toggle theme</button></div>
+</header>
+
+<nav class="tabs" role="tablist" id="tabs"></nav>
+
+<!-- 1 POPOVER -->
+<section class="screen" id="s-popover" data-title="Menu bar">
+  <div class="shead"><div><h2>Menu-bar popover</h2><p>The always-there surface. The arrow ties it to the icon. It answers three questions at a glance: what repos am I in, what needs my review, and what are my agents doing.</p></div><div class="approve" data-k="popover"></div></div>
+  <div class="cols">
+    <div class="stage"><div class="desk">
+      <div class="mb"><span class="small">Wi-Fi</span><span class="small">86%</span><span class="me">⑂ 2</span><span>Thu 9:41</span></div>
+      <div class="pop">
+        <div style="padding:14px 14px 8px;display:flex;gap:9px;align-items:center">
+          <div class="glyph">C</div><div class="input" style="flex:1"><span>⌕</span><span style="color:var(--mut)">Jump to repo, branch, PR or issue</span><span class="chip" style="margin-left:auto">⌘K</span></div>
+        </div>
+        <div style="padding:0 14px;display:flex;flex-direction:column;gap:12px;overflow:hidden;flex:1">
+          <div class="upd"><b style="font-size:13px">↻</b><div style="flex:1"><b>Committo 0.2.0 is ready</b><div style="opacity:.85;font-size:11px">Signed and verified. Installs on quit.</div></div><span class="btn sm" style="background:rgba(255,255,255,.2);border:0;color:inherit">Restart</span></div>
+          <div class="tiles">
+            <div class="tile"><b>＋</b>New repo</div><div class="tile"><b>⤓</b>Clone</div><div class="tile"><b>⇪</b>Import</div><div class="tile"><b>⟳</b>Fetch all</div>
+            <div class="tile"><b>⑂</b>PRs <span class="chip acc">4</span></div><div class="tile"><b>◎</b>Issues <span class="chip">7</span></div><div class="tile"><b>◉</b>Lens</div><div class="tile"><b>⚙</b>CI</div>
+          </div>
+          <div class="card" style="padding:10px"><h4>Needs you <span class="chip warn">3</span></h4>
+            <div class="stack" style="gap:6px">
+              <div style="display:flex;gap:8px"><span class="chip ok">CI ✓</span><span style="flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">#142 Add OAuth device flow</span><span class="chip acc">agent ✓</span></div>
+              <div style="display:flex;gap:8px"><span class="chip bad">CI ✗</span><span style="flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">#139 Fix graph lane overflow</span><span class="chip warn">1 conflict</span></div>
+              <div style="display:flex;gap:8px"><span class="chip">review</span><span style="flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">#37 Docs: MCP setup (issue → agent)</span></div>
+            </div></div>
+          <div><div class="grp" style="padding-left:0">Recent</div>
+            <div class="rr hov"><div class="av">C</div><div style="flex:1"><b>committo</b><div class="small">⑂ main · 2 min ago</div></div><span class="chip warn">✎ 4</span><span class="chip ok">↑2</span></div>
+            <div class="rr"><div class="av">A</div><div style="flex:1"><b>acme-api</b><div class="small">⑂ feat/billing · 1 h ago</div></div><span class="chip warn">↓3</span></div>
+            <div class="rr"><div class="av">D</div><div style="flex:1"><b>dotfiles</b><div class="small">⑂ main · yesterday</div></div></div>
+            <div class="rr"><div class="av">W</div><div style="flex:1"><b>web-portfolio</b><div class="small">⑂ main · 3 days ago</div></div></div>
+          </div>
+          <div class="card" style="padding:10px"><h4><span class="pulse"></span> Agent Lens <span class="small" style="margin-left:auto">committo</span></h4>
+            <div style="display:flex;gap:8px;align-items:center"><span class="chip acc">Claude</span><span class="mono" style="font-size:11px;flex:1">claude/fix-lanes</span><span class="mono" style="color:var(--ok)">+84</span><span class="mono" style="color:var(--bad)">−12</span></div></div>
+        </div>
+        <div style="padding:9px 14px;border-top:1px solid var(--line);display:flex;gap:12px;color:var(--mut);font-size:12px"><span>▣ Open Committo</span><span style="margin-left:auto">⚙</span><span>⏻</span></div>
+      </div>
+    </div></div>
+    <aside class="notes"><h3>Notes</h3>
+      <div class="note"><span class="n">1</span><div><b>Native popover arrow</b> anchored to the status icon. Icon shows a badge count for things that need you.<i>SPEC §3.1</i></div></div>
+      <div class="note"><span class="n">2</span><div><b>Self-update banner</b> appears only when a signed update is ready. Never interrupts while you type.<i>SPEC §12</i></div></div>
+      <div class="note"><span class="n">3</span><div><b>New / Clone / Import</b> are first-class tiles. They open the repo wizard (screen 5).<i>SPEC §6</i></div></div>
+      <div class="note"><span class="n">4</span><div><b>“Needs you”</b> merges PR review requests, failing CI and conflicts across all repos. Each row opens the PR deep dive.<i>SPEC §7</i></div></div>
+      <div class="note"><span class="n">5</span><div><b>Every tile and row is an MCP tool</b> too, so an agent can do whatever you can click.<i>SPEC §11</i></div></div>
+    </aside>
+  </div>
+</section>
+
+<!-- 2 CHANGES -->
+<section class="screen" id="s-changes" data-title="Changes">
+  <div class="shead"><div><h2>Changes and commit</h2><p>Line-level staging with checkboxes in the gutter. The sparkle writes the commit message from the staged diff. Signing status is visible before you commit.</p></div><div class="approve" data-k="changes"></div></div>
+  <div class="cols">
+    <div class="stage"><div class="win" data-active="Changes">
+      <div class="main">
+        <div class="bar"><b>committo</b><span class="chip">⑂ main</span><span class="chip ok">↑2</span><span class="sp"></span><span class="btn">⌘K</span><span class="btn">↩ Undo</span><span class="btn">Fetch</span><span class="btn">Pull</span><span class="btn pri">Push</span></div>
+        <div class="body">
+          <div class="pane" style="width:250px;display:flex;flex-direction:column">
+            <div class="sec">Staged · 1</div>
+            <div class="row"><span class="chip ok">M</span><span class="t">CommitGraph.swift</span><span class="small">✓</span></div>
+            <div class="sec">Changes · 3</div>
+            <div class="row sel"><span class="chip warn">M</span><span class="t">GitRepository.swift</span></div>
+            <div class="row"><span class="chip warn">M</span><span class="t">HistoryView.swift</span></div>
+            <div class="row"><span class="chip ok">A</span><span class="t">MergeTool.swift</span></div>
+            <div style="flex:1"></div>
+            <div style="padding:10px;border-top:1px solid var(--line);display:flex;flex-direction:column;gap:8px;background:var(--panel)">
+              <div class="input" style="min-height:64px;align-items:flex-start"><span style="flex:1;line-height:1.45">fix(graph): keep merge edges inside lane bounds<br><span style="color:var(--mut)">Clamp lane index when more than 12 parallel branches…</span></span><span class="btn ai sm">✦</span></div>
+              <div style="display:flex;gap:8px;align-items:center"><span class="chip ok">🔒 SSH signed</span><span class="small">Amend</span><span class="chip" style="margin-left:auto">⌘↩</span><span class="btn pri">Commit</span></div>
+            </div>
+          </div>
+          <div class="pane divv" style="flex:1">
+            <div class="bar" style="background:var(--win)"><b class="mono" style="font-size:12px">Sources/…/GitRepository.swift</b><span class="sp"></span><span class="chip ok">+14</span><span class="chip bad">−3</span><span class="btn sm">Unified</span><span class="btn sm">Split</span><span class="btn ai sm">✦ Explain change</span></div>
+            <div class="code">
+              <div class="ln h"><span></span><span></span><span></span><span>@@ -118,9 +118,16 @@ public func log(…) async throws</span></div>
+              <div class="ln"><span>118</span><span>118</span><span> </span><span>        var a = ["log", "--topo-order"]</span></div>
+              <div class="ln d"><span>119</span><span></span><span>−</span><span>        if all { a.append("--all") }</span></div>
+              <div class="ln a"><span></span><span>119</span><span>+</span><span>        if all && ref == nil { a.append("--all") }</span></div>
+              <div class="ln a"><span></span><span>120</span><span>+</span><span>        if let ref { a.append(ref) }</span></div>
+              <div class="ln"><span>120</span><span>121</span><span> </span><span>        if let path { a += ["--follow", "--", path] }</span></div>
+              <div class="ln h"><span></span><span></span><span></span><span>@@ -142,6 +149,13 @@ <span style="color:var(--accent)">Stage hunk · Stage selected lines</span></span></div>
+              <div class="ln a"><span></span><span>149</span><span>+</span><span><span class="chk on"></span> public func hotspots(limit: Int = 15) async throws {</span></div>
+              <div class="ln a"><span></span><span>150</span><span>+</span><span><span class="chk on"></span>     var c: [String: Int] = [:]</span></div>
+              <div class="ln a"><span></span><span>151</span><span>+</span><span><span class="chk"></span>     // TODO: tune window</span></div>
+              <div class="ln a"><span></span><span>152</span><span>+</span><span><span class="chk on"></span> }</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div></div>
+    <aside class="notes"><h3>Notes</h3>
+      <div class="note"><span class="n">1</span><div><b>Line-level staging.</b> Tick lines in the gutter, or stage a whole hunk with one click.<i>SPEC §4.2</i></div></div>
+      <div class="note"><span class="n">2</span><div><b>✦ is the AI link everywhere.</b> Here it writes the commit message and explains a diff. Same button in the merge tool.<i>SPEC §5.4</i></div></div>
+      <div class="note"><span class="n">3</span><div><b>Signing shown up front.</b> SSH, GPG or 1Password agent. A warning appears if the key is missing.<i>SPEC §9</i></div></div>
+      <div class="note"><span class="n">4</span><div><b>↩ Undo</b> rewinds the last history change using the reflog, with a plain-language confirmation.<i>SPEC §4.6</i></div></div>
+    </aside>
+  </div>
+</section>
+
+<!-- 3 DIFF + MERGE -->
+<section class="screen" id="s-merge" data-title="Diff &amp; merge">
+  <div class="shead"><div><h2>Built-in diff and merge tool</h2><p>Three-way merge with your branch, theirs and an editable result. Every conflict has an AI link for explanation or a proposed resolution. You always see what changes before accepting.</p></div><div class="approve" data-k="merge"></div></div>
+  <div class="cols">
+    <div class="stage"><div class="win tall" data-active="Branches">
+      <div class="main">
+        <div class="bar"><b>Merge feature/oauth into main</b><span class="chip warn">3 conflicts</span><span class="sp"></span><span class="btn sm">Unified</span><span class="btn sm">Split</span><span class="btn sm pri">3-way</span><span class="btn">Abort merge</span><span class="btn ok">Mark resolved</span></div>
+        <div class="bar" style="background:var(--win)"><span class="chip">Files</span><span class="mono" style="font-size:11.5px">Auth/DeviceFlow.swift</span><span class="chip warn">conflict 2 of 3</span><span class="btn sm">‹ Prev</span><span class="btn sm">Next ›</span><span class="sp"></span><span class="btn sm">Take mine all</span><span class="btn sm">Take theirs all</span><span class="btn ai">✦ Resolve file with AI</span></div>
+        <div class="body" style="flex-direction:column;position:relative">
+          <div class="m3 code" style="flex:1">
+            <div><div class="mh"><span class="chip ok">mine</span> main · a41f9c2</div>
+              <div class="cl"><span>41</span><span>    let flow = DeviceFlow(provider: p,</span></div>
+              <div class="cl"><span>42</span><span>                          clientID: id)</span></div>
+              <div class="cl mine"><span>43</span><span>    let code = try await flow.start()</span></div>
+              <div class="cl mine"><span>44</span><span>    UI.show(code.userCode)</span></div>
+              <div class="cl"><span>45</span><span>    let token = try await flow.poll(code)</span></div>
+            </div>
+            <div><div class="mh"><span class="chip acc">theirs</span> feature/oauth · 7be03d1</div>
+              <div class="cl"><span>41</span><span>    let flow = DeviceFlow(provider: p,</span></div>
+              <div class="cl"><span>42</span><span>                          clientID: id)</span></div>
+              <div class="cl theirs"><span>43</span><span>    let code = try await flow.start(scopes: s)</span></div>
+              <div class="cl theirs"><span>44</span><span>    Telemetry.log("device_flow")</span></div>
+              <div class="cl"><span>45</span><span>    let token = try await flow.poll(code)</span></div>
+            </div>
+          </div>
+          <div style="display:flex;gap:8px;align-items:center;padding:6px 10px;background:var(--panel);border-block:1px solid var(--line)"><b>Result</b><span class="small">editable · saved to working tree on Mark resolved</span><span class="sp" style="flex:1"></span><span class="btn sm">« Take mine</span><span class="btn sm">Take theirs »</span><span class="btn sm">Both</span><span class="btn ai sm">✦ Explain</span></div>
+          <div class="code" style="flex:1">
+            <div class="cl"><span>41</span><span>    let flow = DeviceFlow(provider: p,</span></div>
+            <div class="cl"><span>42</span><span>                          clientID: id)</span></div>
+            <div class="cl conf"><span>43</span><span>&lt;&lt;&lt;&lt;&lt;&lt;&lt; unresolved: choose a side or edit here</span></div>
+            <div class="cl res"><span>43</span><span>    let code = try await flow.start(scopes: s)</span></div>
+            <div class="cl res"><span>44</span><span>    UI.show(code.userCode)</span></div>
+            <div class="cl"><span>45</span><span>    let token = try await flow.poll(code)</span></div>
+          </div>
+          <div class="aipanel">
+            <div style="display:flex;gap:8px;align-items:center"><b style="color:var(--accent)">✦ Merge help</b><span class="chip">Claude Code</span><span class="small" style="margin-left:auto">read-only</span></div>
+            <div style="line-height:1.5">Both sides changed how the code is shown. <b>Mine</b> keeps the UI call; <b>theirs</b> adds the <span class="mono">scopes</span> argument and a telemetry line. They do not overlap in behaviour.</div>
+            <div class="card" style="padding:8px"><b>Suggested:</b> take theirs’ <span class="mono">start(scopes:)</span>, keep your <span class="mono">UI.show</span>, drop telemetry (you removed it on main in 3ab2e11).</div>
+            <div style="display:flex;gap:8px"><span class="btn pri">Apply to result</span><span class="btn">Explain more</span><span class="btn">Ask a question…</span></div>
+          </div>
+        </div>
+      </div>
+    </div></div>
+    <aside class="notes"><h3>Notes</h3>
+      <div class="note"><span class="n">1</span><div><b>3-way layout</b> with an editable result pane. Take mine, theirs or both per hunk; arrows in the gutter on every chunk.<i>SPEC §5.2</i></div></div>
+      <div class="note"><span class="n">2</span><div><b>✦ AI link on every conflict and file.</b> The panel explains in plain English, proposes a resolution, and never writes until you press Apply.<i>SPEC §5.4</i></div></div>
+      <div class="note"><span class="n">3</span><div><b>Same engine for diffs.</b> Unified, split and word-level highlight, plus images and moved-line detection.<i>SPEC §5.1</i></div></div>
+      <div class="note"><span class="n">4</span><div><b>Optional external tools</b> (Kaleidoscope, Beyond Compare, VS Code) can still be set as the default.<i>SPEC §5.5</i></div></div>
+      <div class="note"><span class="n">5</span><div><b>MCP:</b> <span class="mono">merge_conflicts</span>, <span class="mono">merge_resolve_hunk</span>, <span class="mono">merge_explain</span>.<i>SPEC §11</i></div></div>
+    </aside>
+  </div>
+</section>
+
+<!-- 4 PRs + ISSUES -->
+<section class="screen" id="s-prs" data-title="PRs &amp; issues">
+  <div class="shead"><div><h2>Pull requests and issues, local first</h2><p>Pull both down, work on them locally, and run CI, an agent review and an agent test pass before anything touches the remote. An issue can become a branch and an agent task in one click.</p></div><div class="approve" data-k="prs"></div></div>
+  <div class="cols">
+    <div class="stage"><div class="win tall" data-active="Pull requests">
+      <div class="main">
+        <div class="bar"><span class="btn pri sm">Pull requests · 4</span><span class="btn sm">Issues · 7</span><span class="sp"></span><span class="chip">kalahroudi/committo</span><span class="btn sm">⟳ Sync</span><span class="btn sm">＋ New</span></div>
+        <div class="body">
+          <div class="pane" style="width:270px">
+            <div class="row sel"><span class="chip ok">✓</span><div class="t"><b>#142</b> Add OAuth device flow<br><small>@claude · 2h · local copy</small></div></div>
+            <div class="row"><span class="chip bad">✗</span><div class="t"><b>#139</b> Fix graph lane overflow<br><small>@sam · 1d · conflict</small></div></div>
+            <div class="row"><span class="chip warn">…</span><div class="t"><b>#137</b> Bump act to 0.2.70<br><small>@dependabot · 2d</small></div></div>
+            <div class="row"><span class="chip">◌</span><div class="t"><b>#133</b> Draft: stacked branches<br><small>@kal · 4d · draft</small></div></div>
+            <div class="sec">Issues → agent</div>
+            <div class="row"><span class="chip acc">◎</span><div class="t"><b>#37</b> Docs: MCP setup<br><small>good first issue</small></div><span class="btn ai sm">✦ Start</span></div>
+          </div>
+          <div class="pane divv" style="flex:1;padding:14px;display:flex;flex-direction:column;gap:10px">
+            <div style="display:flex;gap:10px;align-items:flex-start"><div style="flex:1"><div style="font:700 17px var(--display)">Add OAuth device flow</div><div class="small">#142 · claude/device-flow → main · +312 −24 · 9 files</div></div>
+              <span class="btn">Check out locally</span><span class="btn">Open worktree</span></div>
+            <div class="grid2">
+              <div class="card"><h4>⚙ Local CI <span class="chip ok">passed</span><span class="btn sm" style="margin-left:auto">▶ Re-run</span></h4>
+                <div class="kv mono" style="font-size:11px"><dt>build</dt><dd style="color:var(--ok)">✓ 41s · act · This Mac</dd><dt>test</dt><dd style="color:var(--ok)">✓ 1m 12s · 12 tests</dd><dt>lint</dt><dd style="color:var(--ok)">✓ 9s · lan-runner-2</dd></div></div>
+              <div class="card"><h4>✦ Agent review <span class="chip warn">2 notes</span><span class="small" style="margin-left:auto">Claude Code</span></h4>
+                <div style="line-height:1.45;font-size:12px"><b>Poll loop ignores cancellation</b> <span class="mono small">DeviceFlow.swift:88</span><br><b>Token logged at debug level</b> <span class="mono small">Auth.swift:41</span></div>
+                <div style="display:flex;gap:6px;margin-top:8px"><span class="btn sm">Fix with agent</span><span class="btn sm">Post to PR</span></div></div>
+              <div class="card"><h4>🧪 Agent test <span class="chip ok">6 / 6</span></h4>
+                <div style="font-size:12px;line-height:1.5">Agent wrote 6 tests for the new paths and ran them in a throwaway worktree. <span class="mono small">DeviceFlowTests.swift</span><br><span class="btn sm" style="margin-top:6px">Add tests to PR</span></div></div>
+              <div class="card"><h4>🛡 Security <span class="chip warn">1 medium</span></h4>
+                <div style="font-size:12px;line-height:1.5">Hard-coded client id string in <span class="mono">Settings.swift:12</span>. No secrets, no risky workflow changes.</div></div>
+            </div>
+            <div class="card" style="display:flex;gap:12px;align-items:center"><div style="flex:1"><b>Ready to merge?</b><div class="small">CI ✓ · review 2 notes · tests ✓ · 1 approval needed by ruleset</div></div>
+              <span class="btn">Merge locally</span><span class="btn pri">Squash &amp; merge on GitHub</span></div>
+            <div class="card" style="padding:10px"><b>Files</b> <span class="small">9</span> <span class="small" style="margin-left:8px">DeviceFlow.swift · Auth.swift · Accounts.swift · Settings.swift · …</span></div>
+          </div>
+        </div>
+      </div>
+    </div></div>
+    <aside class="notes"><h3>Notes</h3>
+      <div class="note"><span class="n">1</span><div><b>Local copy</b> for every PR and issue: fetch refs, check out into a worktree, comment and review from the app.<i>SPEC §7.1</i></div></div>
+      <div class="note"><span class="n">2</span><div><b>Four gates</b> in one view: local CI, agent review, agent test, security. Each runs on this Mac or a LAN runner.<i>SPEC §7.2</i></div></div>
+      <div class="note"><span class="n">3</span><div><b>Agent test</b> writes and runs tests in a throwaway worktree; you choose whether to add them.<i>SPEC §7.3</i></div></div>
+      <div class="note"><span class="n">4</span><div><b>Issue → agent</b> creates a branch and starts the task with the issue text as context.<i>SPEC §7.4</i></div></div>
+      <div class="note"><span class="n">5</span><div><b>Where supported:</b> GitHub and GitLab first; others show only what their API allows.<i>SPEC §7.5</i></div></div>
+    </aside>
+  </div>
+</section>
+
+<!-- 5 NEW REPO -->
+<section class="screen" id="s-new" data-title="New repo">
+  <div class="shead"><div><h2>New repo, set up for you</h2><p>One screen replaces the usual hour of manual setup. Defaults are opinionated and every item is a toggle. Nothing is applied until you press Create.</p></div><div class="approve" data-k="new"></div></div>
+  <div class="cols">
+    <div class="stage"><div class="win tall" data-active="Changes" style="grid-template-columns:1fr">
+      <div class="main">
+        <div class="bar"><div class="lights" style="padding:0"><i></i><i></i><i></i></div><b style="margin-left:10px">New repository</b><span class="sp"></span><span class="btn pri sm">Create new</span><span class="btn sm">Add existing</span><span class="btn sm">Clone</span></div>
+        <div class="body" style="overflow:hidden">
+          <div class="pane" style="flex:1;padding:16px;display:flex;flex-direction:column;gap:12px">
+            <div class="grid2"><div><div class="small">Name</div><div class="input">my-new-app</div></div><div><div class="small">Location</div><div class="input">~/Developer <span class="chip" style="margin-left:auto">Choose…</span></div></div></div>
+            <div class="grid2">
+              <div class="card"><h4>Main branch</h4><div class="input">main</div><div class="small" style="margin-top:6px">Created with an initial signed commit so rules can attach.</div></div>
+              <div class="card"><h4>Files</h4><div class="stack" style="gap:6px">
+                <div style="display:flex;gap:8px;align-items:center"><span class="sw on"></span>README <span class="chip" style="margin-left:auto">template: app</span></div>
+                <div style="display:flex;gap:8px;align-items:center"><span class="sw on"></span>License <span class="chip" style="margin-left:auto">MIT</span></div>
+                <div style="display:flex;gap:8px;align-items:center"><span class="sw on"></span>.gitignore <span class="chip" style="margin-left:auto">Swift + macOS</span></div>
+                <div style="display:flex;gap:8px;align-items:center"><span class="sw on"></span>CONTRIBUTING, CODEOWNERS, PR template</div>
+                <div style="display:flex;gap:8px;align-items:center"><span class="sw"></span>Dependabot / Renovate config</div></div></div>
+              <div class="card"><h4>Branch protection <span class="chip ok">GitHub ruleset</span></h4><div class="stack" style="gap:6px">
+                <div style="display:flex;gap:8px"><span class="sw on"></span>Require pull request, 1 approval</div>
+                <div style="display:flex;gap:8px"><span class="sw on"></span>Require status checks: <span class="mono">ci</span></div>
+                <div style="display:flex;gap:8px"><span class="sw on"></span>Block force-push and deletion</div>
+                <div style="display:flex;gap:8px"><span class="sw on"></span>Linear history</div>
+                <div style="display:flex;gap:8px"><span class="sw"></span>Require signed commits</div></div></div>
+              <div class="card"><h4>Remote, CI and signing</h4><div class="stack" style="gap:6px">
+                <div style="display:flex;gap:8px;align-items:center"><span class="sw on"></span>Create on <b>GitHub</b> <span class="chip" style="margin-left:auto">private · @kal</span></div>
+                <div style="display:flex;gap:8px;align-items:center"><span class="sw on"></span>Starter CI workflow <span class="chip" style="margin-left:auto">Swift</span></div>
+                <div style="display:flex;gap:8px;align-items:center"><span class="sw on"></span>Verify locally with act</div>
+                <div style="display:flex;gap:8px;align-items:center"><span class="sw on"></span>Sign commits <span class="chip ok" style="margin-left:auto">SSH key</span></div></div></div>
+            </div>
+            <div class="card" style="background:var(--accent-soft);border-color:transparent"><b>Create will:</b> <span class="small" style="color:inherit">git init → write 6 files → signed first commit → create GitHub repo → push main → apply ruleset → add CI → run it locally once.</span></div>
+            <div style="display:flex;gap:8px;align-items:center"><span class="small">Provider support: GitHub ● full · GitLab ● full · Gitea ◐ partial · Bitbucket ◐ protection only · Azure DevOps ◐ policies only</span><span class="sp" style="flex:1"></span><span class="btn ai">✦ Suggest README from description</span><span class="btn">Cancel</span><span class="btn pri">Create</span></div>
+          </div>
+        </div>
+      </div>
+    </div></div>
+    <aside class="notes"><h3>Notes</h3>
+      <div class="note"><span class="n">1</span><div><b>Create, Add existing, Clone</b> share one wizard. Import detects an existing repo and offers to add the missing pieces.<i>SPEC §6.1</i></div></div>
+      <div class="note"><span class="n">2</span><div><b>Main branch creation</b> with a first commit, so protection can attach immediately.<i>SPEC §6.2</i></div></div>
+      <div class="note"><span class="n">3</span><div><b>Rulesets/protection</b> are generated per provider, previewed, then applied. Unsupported parts are shown as such.<i>SPEC §6.3</i></div></div>
+      <div class="note"><span class="n">4</span><div><b>Auto files:</b> README, license, .gitignore, CODEOWNERS, templates. Chosen from the project type it detects.<i>SPEC §6.4</i></div></div>
+      <div class="note"><span class="n">5</span><div><b>MCP:</b> <span class="mono">repo_create</span> takes the same options, so an agent can bootstrap a project end to end.<i>SPEC §11</i></div></div>
+    </aside>
+  </div>
+</section>
+
+<!-- 6 LENS -->
+<section class="screen" id="s-lens" data-title="Agent Lens">
+  <div class="shead"><div><h2>Agent Lens</h2><p>Everything agents are doing in this repo, attributed and live. Dispatch a new task into its own worktree and watch it work.</p></div><div class="approve" data-k="lens"></div></div>
+  <div class="cols">
+    <div class="stage"><div class="win" data-active="Agent Lens">
+      <div class="main">
+        <div class="bar"><b>Agent Lens</b><span class="chip">committo</span><span class="sp"></span><span class="chip ok"><span class="pulse"></span> 1 working</span></div>
+        <div class="body">
+          <div class="pane" style="flex:1;padding:14px;display:flex;flex-direction:column;gap:10px">
+            <div class="card"><h4>Dispatch</h4><div class="input" style="min-height:44px;align-items:flex-start">Add a dark-mode toggle to Settings and persist it</div>
+              <div style="display:flex;gap:8px;margin-top:8px;align-items:center"><span class="btn">Claude Code ▾</span><span class="small">▣ own worktree</span><span class="small">▢ read-only</span><span class="sp" style="flex:1"></span><span class="btn pri">▶ Run</span></div></div>
+            <div class="card"><div style="display:flex;gap:10px;align-items:center"><div class="av">✦</div><div style="flex:1"><b>claude/fix-lanes</b><div class="small">Claude Code · 3 min ago · 14 commits</div></div><span class="chip ok"><span class="pulse"></span> working</span></div>
+              <div style="display:flex;gap:4px;margin:10px 0">
+                <i style="width:8px;height:8px;border-radius:50%;background:var(--accent)"></i><i style="width:8px;height:8px;border-radius:50%;background:var(--accent)"></i><i style="width:8px;height:8px;border-radius:50%;background:var(--accent)"></i><i style="width:8px;height:8px;border-radius:50%;background:var(--accent)"></i><i style="width:8px;height:8px;border-radius:50%;background:var(--accent)"></i><i style="width:8px;height:8px;border-radius:50%;background:var(--accent)"></i><i style="width:8px;height:8px;border-radius:50%;background:var(--accent)"></i><i style="width:8px;height:8px;border-radius:50%;background:var(--accent)"></i></div>
+              <div style="display:flex;gap:10px;align-items:center"><span class="mono" style="color:var(--ok)">+84</span><span class="mono" style="color:var(--bad)">−12</span><span class="bars"><i style="width:87%"></i></span><span class="small">6 files</span><span class="sp" style="flex:1"></span><span class="btn sm">Review</span><span class="btn sm">Merge</span></div></div>
+            <div class="card"><div style="display:flex;gap:10px;align-items:center"><div class="av">⌘</div><div style="flex:1"><b>cmd/readme-pass</b><div class="small">Command Code · yesterday · 3 commits</div></div><span class="chip warn">ready for review</span></div></div>
+            <div class="card"><div style="display:flex;gap:10px;align-items:center"><div class="av">◇</div><div style="flex:1"><b>codex/test-coverage</b><div class="small">Codex · 2 days ago · 9 commits</div></div><span class="chip ok">CI ✓</span></div></div>
+          </div>
+          <div class="pane divv" style="width:310px;background:var(--panel);display:flex;flex-direction:column">
+            <div class="sec">Live console · claude/fix-lanes</div>
+            <div class="code pad" style="display:flex;flex-direction:column;gap:7px;font-size:11px">
+              <span style="color:var(--teal)">⚒ Grep  laneCount</span>
+              <span style="color:var(--teal)">⚒ Read  CommitGraph.swift</span>
+              <span>The lane index can exceed the drawn width when more than 12 branches overlap. I’ll clamp it in the renderer.</span>
+              <span style="color:var(--teal)">⚒ Edit  HistoryView.swift</span>
+              <span style="color:var(--teal)">⚒ Bash  swift test</span>
+              <span style="color:var(--ok)">✓ 12 tests passed</span>
+              <span class="small">cost so far $0.18</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div></div>
+    <aside class="notes"><h3>Notes</h3>
+      <div class="note"><span class="n">1</span><div><b>Attribution</b> from branch prefix, co-author trailers and bot authors. Works for Claude, Codex, Cursor, Copilot, Gemini, Aider, Command Code and more.<i>SPEC §8.1</i></div></div>
+      <div class="note"><span class="n">2</span><div><b>Dispatch</b> runs headless Claude, a CLI agent, an API agent or an MCP-bridged agent, in an isolated worktree by default.<i>SPEC §8.2</i></div></div>
+      <div class="note"><span class="n">3</span><div><b>Live console</b> shows tool calls as they happen. Stop at any time.<i>SPEC §8.3</i></div></div>
+    </aside>
+  </div>
+</section>
+
+<!-- 7 MCP -->
+<section class="screen" id="s-mcp" data-title="MCP surface">
+  <div class="shead"><div><h2>Everything is an MCP tool</h2><p>Each feature in the app has a matching tool, generated from one action registry so the UI and MCP can’t drift. Tools are grouped by risk, and you decide what each connected agent may do.</p></div><div class="approve" data-k="mcp"></div></div>
+  <div class="cols">
+    <div class="stage"><div class="win tall" data-active="Settings" style="grid-template-columns:1fr">
+      <div class="main">
+        <div class="bar"><div class="lights" style="padding:0"><i></i><i></i><i></i></div><b style="margin-left:10px">Settings · MCP</b><span class="sp"></span><span class="chip ok">server running · stdio + localhost:7770</span></div>
+        <div class="body">
+          <div class="pane" style="width:250px;padding:14px;display:flex;flex-direction:column;gap:10px;background:var(--panel)">
+            <div class="card"><h4>Connected agents</h4>
+              <div class="stack" style="gap:8px">
+                <div style="display:flex;gap:8px;align-items:center"><span class="pulse"></span><b>Claude Code</b><span class="chip" style="margin-left:auto">read + write</span></div>
+                <div style="display:flex;gap:8px;align-items:center"><span class="pulse"></span><b>Cursor</b><span class="chip" style="margin-left:auto">read</span></div>
+                <div style="display:flex;gap:8px;align-items:center"><span class="chip">○</span><b>Codex</b><span class="chip" style="margin-left:auto">not connected</span></div></div></div>
+            <div class="card"><h4>Add to an agent</h4><span class="btn">Install in Claude Code</span><div class="small" style="margin-top:8px">or copy config for Cursor, Codex, Windsurf</div></div>
+            <div class="card"><h4>Ask before</h4><div class="stack" style="gap:6px"><div style="display:flex;gap:8px"><span class="sw on"></span>Writes</div><div style="display:flex;gap:8px"><span class="sw on"></span>Destructive</div><div style="display:flex;gap:8px"><span class="sw"></span>Reads</div></div></div>
+          </div>
+          <div class="pane divv" style="flex:1;overflow:hidden">
+            <table>
+              <tr><th>Area</th><th>Tools</th><th>Tier</th><th>Agent</th></tr>
+              <tr><td>Repos</td><td class="mono">repo_list · repo_create · repo_import · repo_clone</td><td><span class="tier t-w">write</span></td><td><span class="sw on"></span></td></tr>
+              <tr><td>Working copy</td><td class="mono">status · diff · stage_lines · commit · amend · discard</td><td><span class="tier t-w">write</span></td><td><span class="sw on"></span></td></tr>
+              <tr><td>History</td><td class="mono">log · blame · file_history · reflog · undo</td><td><span class="tier t-r">read</span></td><td><span class="sw on"></span></td></tr>
+              <tr><td>Branches</td><td class="mono">branch_create · merge · rebase · cherry_pick · tag</td><td><span class="tier t-w">write</span></td><td><span class="sw on"></span></td></tr>
+              <tr><td>Merge &amp; diff</td><td class="mono">merge_conflicts · merge_resolve_hunk · merge_explain</td><td><span class="tier t-w">write</span></td><td><span class="sw on"></span></td></tr>
+              <tr><td>PRs &amp; issues</td><td class="mono">pr_list · pr_checkout · pr_review · pr_comment · issue_to_branch</td><td><span class="tier t-w">write</span></td><td><span class="sw on"></span></td></tr>
+              <tr><td>Merge on remote</td><td class="mono">pr_merge · push_force_with_lease · branch_delete</td><td><span class="tier t-d">destructive</span></td><td><span class="sw"></span></td></tr>
+              <tr><td>CI</td><td class="mono">ci_list · ci_run · ci_servers</td><td><span class="tier t-w">write</span></td><td><span class="sw on"></span></td></tr>
+              <tr><td>Quality</td><td class="mono">security_scan · agent_review · agent_test</td><td><span class="tier t-r">read</span></td><td><span class="sw on"></span></td></tr>
+              <tr><td>Rules &amp; setup</td><td class="mono">ruleset_apply · license_add · gitignore_add · readme_generate</td><td><span class="tier t-d">destructive</span></td><td><span class="sw"></span></td></tr>
+              <tr><td>Lens</td><td class="mono">lens_list · agent_dispatch · agent_stop</td><td><span class="tier t-w">write</span></td><td><span class="sw on"></span></td></tr>
+              <tr><td>App</td><td class="mono">update_check · settings_get · accounts_list</td><td><span class="tier t-r">read</span></td><td><span class="sw on"></span></td></tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div></div>
+    <aside class="notes"><h3>Notes</h3>
+      <div class="note"><span class="n">1</span><div><b>One action registry.</b> Buttons, ⌘K and MCP tools are generated from the same definitions, so a new feature is exposed by default.<i>SPEC §11.1</i></div></div>
+      <div class="note"><span class="n">2</span><div><b>Three risk tiers.</b> Destructive tools (force push, merge on remote, applying rules) are off for agents until you enable them and always ask.<i>SPEC §11.2</i></div></div>
+      <div class="note"><span class="n">3</span><div><b>Per-agent scopes</b> and an audit log of every call.<i>SPEC §11.3</i></div></div>
+      <div class="note"><span class="n">4</span><div><b>Transports:</b> stdio for local agents, optional localhost HTTP with a token.<i>SPEC §11.4</i></div></div>
+    </aside>
+  </div>
+</section>
+
+<!-- 8 SETTINGS -->
+<section class="screen" id="s-settings" data-title="Updates &amp; signing">
+  <div class="shead"><div><h2>Self-update, signing and accounts</h2><p>Updates install themselves from a signed feed. Signing is set up once and shown as a badge on every commit.</p></div><div class="approve" data-k="settings"></div></div>
+  <div class="cols">
+    <div class="stage"><div class="win tall" data-active="Settings" style="grid-template-columns:1fr">
+      <div class="main">
+        <div class="bar"><div class="lights" style="padding:0"><i></i><i></i><i></i></div><b style="margin-left:10px">Settings</b><span class="sp"></span><span class="btn sm pri">General</span><span class="btn sm">Accounts</span><span class="btn sm">Agents</span><span class="btn sm">CI</span><span class="btn sm">MCP</span></div>
+        <div class="body"><div class="pane" style="flex:1;padding:16px"><div class="grid2">
+          <div class="card"><h4>Updates <span class="chip acc">0.1.0 → 0.2.0</span></h4>
+            <div style="line-height:1.5">Added 3-way merge with AI help, issue → agent, ruleset presets.</div>
+            <div class="stack" style="margin-top:10px;gap:7px">
+              <div style="display:flex;gap:8px;align-items:center"><span class="sw on"></span>Check automatically</div>
+              <div style="display:flex;gap:8px;align-items:center"><span class="sw on"></span>Download in the background</div>
+              <div style="display:flex;gap:8px;align-items:center"><span class="sw"></span>Install without asking</div>
+              <div style="display:flex;gap:8px;align-items:center">Channel <span class="btn sm" style="margin-left:auto">Stable ▾</span></div></div>
+            <div style="display:flex;gap:8px;margin-top:12px"><span class="btn pri">Install &amp; relaunch</span><span class="btn">Release notes</span></div>
+            <div class="small" style="margin-top:8px">Updates are EdDSA-signed and notarized. Delivered with Sparkle.</div></div>
+          <div class="card"><h4>Identity &amp; signing</h4>
+            <dl class="kv"><dt>Name</dt><dd>Your Name</dd><dt>Email</dt><dd>you@example.com</dd><dt>Format</dt><dd>SSH <span class="chip">GPG</span></dd><dt>Key</dt><dd class="mono">ed25519 · 1Password agent</dd><dt>Verified</dt><dd><span class="chip ok">GitHub knows this key</span></dd></dl>
+            <div style="display:flex;gap:8px;margin-top:10px"><span class="btn">Generate key</span><span class="btn">Upload to GitHub</span></div></div>
+          <div class="card"><h4>Accounts</h4>
+            <div class="stack" style="gap:7px">
+              <div style="display:flex;gap:8px;align-items:center">🐙 <b>kalahroudi</b> GitHub <span class="chip ok" style="margin-left:auto">gh CLI</span></div>
+              <div style="display:flex;gap:8px;align-items:center">🦊 <b>kal</b> GitLab <span class="chip acc" style="margin-left:auto">OAuth</span></div>
+              <div style="display:flex;gap:8px;align-items:center">🪣 <b>kal</b> Bitbucket <span class="chip" style="margin-left:auto">token</span></div>
+              <span class="btn sm" style="align-self:flex-start">＋ Add account</span></div></div>
+          <div class="card"><h4>Git flows</h4>
+            <div class="stack" style="gap:7px">
+              <div style="display:flex;gap:8px;align-items:center"><span class="sw on"></span>Pull with rebase + autostash</div>
+              <div style="display:flex;gap:8px;align-items:center"><span class="sw on"></span>Force-push uses lease</div>
+              <div style="display:flex;gap:8px;align-items:center"><span class="sw"></span>git-flow naming</div>
+              <div style="display:flex;gap:8px;align-items:center"><span class="sw on"></span>LFS enabled when needed</div>
+              <div style="display:flex;gap:8px;align-items:center">Default branch <span class="chip" style="margin-left:auto">main</span></div></div></div>
+        </div></div></div>
+      </div>
+    </div></div>
+    <aside class="notes"><h3>Notes</h3>
+      <div class="note"><span class="n">1</span><div><b>Self-update</b> via Sparkle: signed appcast, delta updates, stable and beta channels, install on quit. Also reachable by MCP (<span class="mono">update_check</span>).<i>SPEC §12</i></div></div>
+      <div class="note"><span class="n">2</span><div><b>Signing</b> for SSH, GPG and 1Password agent, with one-click upload of the public key to the provider.<i>SPEC §9</i></div></div>
+      <div class="note"><span class="n">3</span><div><b>Accounts</b> via gh CLI, OAuth device flow or tokens.<i>SPEC §10</i></div></div>
+      <div class="note"><span class="n">4</span><div><b>Usual flows:</b> rebase pull, lease force-push, git-flow, LFS, submodules, worktrees, stash, reflog.<i>SPEC §4</i></div></div>
+    </aside>
+  </div>
+</section>
+
+<footer class="sum">
+  <p id="sumText">No screens marked yet.</p>
+  <div class="pill" id="sumPill">0 / 8 approved</div>
+</footer>
+</div>
+
+<script>
+(function(){
+  var SCREENS=[["popover","Menu bar"],["changes","Changes"],["merge","Diff & merge"],["prs","PRs & issues"],["new","New repo"],["lens","Agent Lens"],["mcp","MCP surface"],["settings","Updates & signing"]];
+  var state={};
+  try{state=JSON.parse(localStorage.getItem("committo-mock-approvals")||"{}")}catch(e){}
+  function save(){try{localStorage.setItem("committo-mock-approvals",JSON.stringify(state))}catch(e){}}
+
+  var NAV=[["Changes","✎"],["History","⑂"],["Branches","⎇"],["Pull requests","⇄",4],["Issues","◎",7],["Agent Lens","◉"],["Security","⛨"],["CI Runners","⚙"],["Insights","▤"],["Settings","⚙"]];
+  var GROUPS={"Work":["Changes","History","Branches"],"Collaborate":["Pull requests","Issues"],"Agents":["Agent Lens"],"Quality":["Security","CI Runners"],"Explore":["Insights"]};
+  document.querySelectorAll(".win").forEach(function(w){
+    if(w.style.gridTemplateColumns==="1fr")return;
+    var act=w.getAttribute("data-active"),h='<aside class="side"><div class="lights"><i></i><i></i><i></i></div><div class="repo"><div class="glyph">C</div><div><b>committo</b><small>⑂ main</small></div></div>';
+    Object.keys(GROUPS).forEach(function(g){h+='<div class="grp">'+g+'</div>';GROUPS[g].forEach(function(n){
+      var d=NAV.filter(function(x){return x[0]===n})[0];
+      h+='<div class="item'+(n===act?' act':'')+'"><span class="ico">'+d[1]+'</span>'+n+(d[2]?'<span class="c">'+d[2]+'</span>':'')+'</div>';});});
+    h+='</aside>';w.insertAdjacentHTML("afterbegin",h);
+  });
+
+  var tabs=document.getElementById("tabs");
+  SCREENS.forEach(function(s,i){
+    var b=document.createElement("button");b.type="button";b.setAttribute("role","tab");b.id="t-"+s[0];
+    b.innerHTML='<span class="dot"></span>'+(i+1)+'  '+s[1];
+    b.addEventListener("click",function(){show(s[0])});tabs.appendChild(b);
+    var box=document.querySelector('.approve[data-k="'+s[0]+'"]');
+    box.innerHTML='<button type="button" data-v="ok">Approve</button><button type="button" data-v="chg">Request changes</button>';
+    box.querySelectorAll("button").forEach(function(bt){bt.addEventListener("click",function(){
+      state[s[0]]=state[s[0]]===bt.dataset.v?"":bt.dataset.v;save();paint();});});
+  });
+  function show(id){
+    document.querySelectorAll("section.screen").forEach(function(s){s.classList.toggle("on",s.id==="s-"+id)});
+    SCREENS.forEach(function(s){document.getElementById("t-"+s[0]).setAttribute("aria-selected",String(s[0]===id))});
+    if(location.hash!=="#"+id){try{history.replaceState(null,"","#"+id)}catch(e){}}
+  }
+  function paint(){
+    var ok=0,chg=[];
+    SCREENS.forEach(function(s){
+      var v=state[s[0]]||"",t=document.getElementById("t-"+s[0]).querySelector(".dot");
+      t.className="dot"+(v==="ok"?" ok":v==="chg"?" chg":"");
+      document.querySelectorAll('.approve[data-k="'+s[0]+'"] button').forEach(function(b){
+        b.className=b.dataset.v===v?(v==="ok"?"sel-ok":"sel-chg"):"";});
+      if(v==="ok")ok++;if(v==="chg")chg.push(s[1]);
+    });
+    document.getElementById("sumPill").textContent=ok+" / "+SCREENS.length+" approved";
+    document.getElementById("sumText").textContent=chg.length?("Changes requested on: "+chg.join(", ")+". Tell Claude what to change on each."):ok===SCREENS.length?"All screens approved. Ready to build from the spec.":"Mark each screen as approved or request changes. Your marks stay in this browser only; tell Claude the result.";
+  }
+  var start=(location.hash||"#popover").slice(1);
+  show(SCREENS.some(function(s){return s[0]===start})?start:"popover");paint();
+
+  var root=document.documentElement,btn=document.getElementById("themeBtn");
+  btn.addEventListener("click",function(){
+    var dark=root.getAttribute("data-theme")==="dark"||(!root.getAttribute("data-theme")&&matchMedia("(prefers-color-scheme: dark)").matches);
+    root.setAttribute("data-theme",dark?"light":"dark");});
+})();
+</script>
