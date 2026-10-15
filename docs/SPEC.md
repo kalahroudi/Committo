@@ -28,11 +28,11 @@ Status: **draft for approval**. The clickable mockup is `docs/mockup/index.html`
 
 **Counters.** The "Most active" list ranks repos by recent commits, PR and issue events, and shows two live counters per row: open PRs (accent when one awaits your review, red when CI is failing, faint at zero) and open issues. A 6-point sparkline shows recent activity. Header shows totals across listed repos. Clicking a counter opens that repo's PR or issue list. Counters come from provider APIs (cached, refreshed every 5 min and on popover open) and are exposed as `repo_list` fields over MCP.
 
-### 3.3 First run, Guided mode and ⌘K (mock 13)
-First run: five steps (connect account, find repos, pick agent, install MCP, set up signing), each skippable and re-runnable from Settings. **Guided mode** (on by default for new users) uses plain labels ("save your work" for commit, "send" for push) and confirms risky actions; off shows standard git names. **⌘K** accepts plain language, maps it to registry actions, and always shows the exact git command before running. Anything it cannot map falls back to "Ask Claude" (read-only suggestion).
-
 ### 3.2 Main window
 Sidebar groups: Work (Changes, History, Branches), Collaborate (Pull requests, Issues), Agents (Lens), Quality (Security, CI Runners), Explore (Insights, Time Machine). Toolbar: ⌘K, Undo, Fetch, Pull, Push. Multiple windows per repo supported.
+
+### 3.3 First run, Guided mode and ⌘K (mock 13)
+First run: five steps (connect account, find repos, pick agent, install MCP, set up signing), each skippable and re-runnable from Settings. **Guided mode** (on by default for new users) uses plain labels ("save your work" for commit, "send" for push) and confirms risky actions; off shows standard git names. **⌘K** accepts plain language, maps it to registry actions, and always shows the exact git command before running. Anything it cannot map falls back to "Ask Claude" (read-only suggestion).
 
 ## 4. Git feature set
 
@@ -44,8 +44,8 @@ Target: a complete desktop git client on macOS. Advanced workflow items (stacked
 4.4 **History:** lane-routed graph, search by message/author/hash/path, file history, blame, browse revision files, cherry-pick, revert, reset (soft/mixed/hard with preview), export ZIP/patch.
 4.5 **Stash:** save (incl. untracked), partial apply, inspect diff, drop.
 4.6 **Safety:** Undo (reflog-based, with a plain-language confirm), Reflog "Time Machine" restore to branch, automatic stash on pull/checkout.
-4.8 **Visualization and insights (mock 9, 11):** commit graph with agent and signature badges; activity heatmap; authorship split (human vs each agent); churn hotspots; review health (PR cycle time, first-try merge rate, stale PRs, CI pass rate); security summary. Stacked-branch ladder with PR state (mock 10).
 4.7 **Flows:** git-flow naming option, LFS auto-detect and track, pull-rebase default option, default branch name setting.
+4.8 **Visualization and insights (mock 9, 11):** commit graph with agent and signature badges; activity heatmap; authorship split (human vs each agent); churn hotspots; review health (PR cycle time, first-try merge rate, stale PRs, CI pass rate); security summary. Stacked-branch ladder with PR state (mock 10).
 
 ## 5. Diff and merge tool (mock 3)
 
