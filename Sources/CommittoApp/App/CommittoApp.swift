@@ -25,6 +25,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         Task { await model.bootstrap() }
         if !UserDefaults.standard.bool(forKey: "menuBarOnly") { windowController?.show() }
     }
+    func applicationWillTerminate(_ notification: Notification) { statusController?.tearDown() }
     func applicationShouldHandleReopen(_ sender: NSApplication, hasVisibleWindows flag: Bool) -> Bool { windowController?.show(); return true }
     func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool { false }
 }
@@ -103,6 +104,13 @@ final class StatusItemController: NSObject {
         img.isTemplate = true
         img.accessibilityDescription = "Committo"
         return img
+    }
+
+    /// Stops the badge timer and removes the status item; called on quit.
+    func tearDown() {
+        badgeTimer?.invalidate(); badgeTimer = nil
+        popover.performClose(nil)
+        NSStatusBar.system.removeStatusItem(item)
     }
 
     func updateBadge() {

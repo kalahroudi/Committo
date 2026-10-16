@@ -6,11 +6,16 @@ jobs:
     container: swift:6.0
     steps:
       - uses: actions/checkout@v4
-      - run: swift build --target CommittoCore
+      - run: swift build --target CommittoCore -Xswiftc -strict-concurrency=complete -Xswiftc -warnings-as-errors
       - run: swift test
+      - run: swift test --sanitize=address
+      - run: swift test --sanitize=thread
+      - run: swift test --sanitize=undefined
   app-macos:
     runs-on: macos-15
     steps:
       - uses: actions/checkout@v4
       - run: swift build -c release
       - run: swift test
+      - run: swift test --sanitize=address
+      - run: swift test --sanitize=thread

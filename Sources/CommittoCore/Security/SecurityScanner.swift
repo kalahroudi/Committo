@@ -41,7 +41,8 @@ struct Rule {
 public struct SecurityScanner: Sendable {
     public init() {}
 
-    static let rules: [Rule] = [
+    // NSRegularExpression is immutable and documented thread-safe; the array is never mutated after init.
+    nonisolated(unsafe) static let rules: [Rule] = [
         Rule("secret.aws-key", "AWS access key", .critical, #"\b(AKIA|ASIA)[0-9A-Z]{16}\b"#, advice: "Rotate the key immediately and load it from the environment or a secret manager.", redact: true),
         Rule("secret.github-token", "GitHub token", .critical, #"\b(gh[pousr]_[A-Za-z0-9]{36,}|github_pat_[A-Za-z0-9_]{50,})\b"#, advice: "Revoke the token on GitHub and purge it from history.", redact: true),
         Rule("secret.private-key", "Private key material", .critical, #"-----BEGIN (RSA |EC |OPENSSH |DSA |PGP )?PRIVATE KEY-----"#, advice: "Remove the key, rotate it, and rewrite history if it was pushed.", redact: true),
