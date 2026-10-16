@@ -25,7 +25,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         Task { await model.bootstrap() }
         if !UserDefaults.standard.bool(forKey: "menuBarOnly") { windowController?.show() }
     }
-    func applicationWillTerminate(_ notification: Notification) { statusController?.tearDown() }
+    func applicationWillTerminate(_ notification: Notification) { statusController?.tearDown(); ProcessSupervisor.shared.terminateAll() }
     func applicationShouldHandleReopen(_ sender: NSApplication, hasVisibleWindows flag: Bool) -> Bool { windowController?.show(); return true }
     func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool { false }
 }

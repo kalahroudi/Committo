@@ -16,29 +16,50 @@ public struct ShellError: Error, LocalizedError, Sendable {
     }
 }
 
-private final class Buffer: @unchecked Sendable {
+/// Collects stdout/stderr up to a combined byte cap; `append` returns false once the cap is exceeded.
+private final class Capture: @unchecked Sendable {
     private let lock = NSLock()
-    private var data = Data()
-    func append(_ d: Data) { lock.lock(); data.append(d); lock.unlock() }
-    var string: String { lock.lock(); defer { lock.unlock() }; return String(decoding: data, as: UTF8.self) }
+    private var out = Data(), err = Data()
+    private let limit: Int
+    init(limit: Int) { self.limit = limit }
+    func append(_ d: Data, stderr: Bool) -> Bool {
+        lock.lock(); defer { lock.unlock() }
+        if out.count + err.count + d.count > limit { return false }
+        if stderr { err.append(d) } else { out.append(d) }
+        return true
+    }
+    var strings: (String, String) { lock.lock(); defer { lock.unlock() }; return (String(decoding: out, as: UTF8.self), String(decoding: err, as: UTF8.self)) }
 }
 
+/// Splits a byte stream into lines. Lines longer than `maxLine` are cut and marked, never buffered whole.
 private final class LineSplitter: @unchecked Sendable {
     private let lock = NSLock()
     private var pending = Data()
+    private var truncated = false
+    private let maxLine: Int
     private let emit: @Sendable (String) -> Void
-    init(_ emit: @escaping @Sendable (String) -> Void) { self.emit = emit }
+    init(maxLine: Int = 1 << 20, _ emit: @escaping @Sendable (String) -> Void) { self.maxLine = maxLine; self.emit = emit }
+
     func feed(_ d: Data) {
         lock.lock(); defer { lock.unlock() }
-        pending.append(d)
-        while let nl = pending.firstIndex(of: 0x0A) {
-            emit(String(decoding: pending[pending.startIndex..<nl], as: UTF8.self))
-            pending = Data(pending[pending.index(after: nl)...])
+        var start = d.startIndex
+        while let nl = d[start...].firstIndex(of: 0x0A) {
+            add(d[start..<nl]); flush(); start = d.index(after: nl)
         }
+        add(d[start...])
     }
     func finish() {
         lock.lock(); defer { lock.unlock() }
-        if !pending.isEmpty { emit(String(decoding: pending, as: UTF8.self)); pending = Data() }
+        if !pending.isEmpty || truncated { flush() }
+    }
+    private func add(_ piece: Data) {
+        if truncated { return }
+        if pending.count + piece.count > maxLine { pending.append(piece.prefix(maxLine - pending.count)); truncated = true }
+        else { pending.append(piece) }
+    }
+    private func flush() {
+        emit(String(decoding: pending, as: UTF8.self) + (truncated ? " …[line truncated]" : ""))
+        pending = Data(); truncated = false
     }
 }
 
@@ -62,84 +83,70 @@ public enum Shell {
         return nil
     }
 
-    static func makeProcess(_ exe: String, _ args: [String], cwd: URL?, env: [String: String]) throws -> Process {
+    static func resolve(_ exe: String) throws -> String {
         guard let path = which(exe) else { throw CocoaError(.fileNoSuchFile, userInfo: [NSLocalizedDescriptionKey: "`\(exe)` not found in PATH"]) }
-        let p = Process()
-        p.executableURL = URL(fileURLWithPath: path)
-        p.arguments = args
-        p.currentDirectoryURL = cwd
+        return path
+    }
+
+    static func environment(_ extra: [String: String]) -> [String: String] {
         var e = ProcessInfo.processInfo.environment
         e["PATH"] = searchPath.joined(separator: ":")
         e["GIT_TERMINAL_PROMPT"] = "0"
         e["LC_ALL"] = "en_US.UTF-8"
-        for (k, v) in env { e[k] = v }
-        p.environment = e
-        return p
+        for (k, v) in extra { e[k] = v }
+        return e
     }
 
+    /// Runs a command to completion under the process supervisor.
+    /// Cancelling the calling task, exceeding `timeout`, or producing more than `maxOutput` bytes kills the whole process tree.
     @discardableResult
     public static func run(_ exe: String, _ args: [String], cwd: URL? = nil,
-                           env: [String: String] = [:], stdin: String? = nil) async throws -> ShellResult {
-        let p = try makeProcess(exe, args, cwd: cwd, env: env)
-        let out = Pipe(), err = Pipe(), inp = Pipe()
-        p.standardOutput = out; p.standardError = err
-        p.standardInput = stdin == nil ? FileHandle.nullDevice : inp
-        let ob = Buffer(), eb = Buffer()
-        out.fileHandleForReading.readabilityHandler = { ob.append($0.availableData) }
-        err.fileHandleForReading.readabilityHandler = { eb.append($0.availableData) }
-        return try await withCheckedThrowingContinuation { cont in
-            p.terminationHandler = { proc in
-                out.fileHandleForReading.readabilityHandler = nil
-                err.fileHandleForReading.readabilityHandler = nil
-                ob.append(out.fileHandleForReading.readDataToEndOfFile())
-                eb.append(err.fileHandleForReading.readDataToEndOfFile())
-                cont.resume(returning: ShellResult(status: proc.terminationStatus, stdout: ob.string, stderr: eb.string))
-            }
-            do {
-                try p.run()
-                if let s = stdin {
-                    inp.fileHandleForWriting.write(Data(s.utf8))
-                    try? inp.fileHandleForWriting.close()
-                }
-            } catch { cont.resume(throwing: error) }
+                           env: [String: String] = [:], stdin: String? = nil,
+                           timeout: TimeInterval? = nil, maxOutput: Int = 64 << 20) async throws -> ShellResult {
+        let path = try resolve(exe)
+        let cap = Capture(limit: maxOutput)
+        let exit = try await ProcessSupervisor.shared.execute(
+            path: path, args: args, cwd: cwd, env: environment(env), stdin: stdin.map { Data($0.utf8) },
+            mergeStderr: false, timeout: timeout) { cap.append($0, stderr: $1) }
+        let command = ([exe] + args).joined(separator: " ")
+        switch exit.reason {
+        case .cancelled: throw CancellationError()
+        case .timedOut: throw ShellFailure.timedOut(command: command, seconds: timeout ?? 0)
+        case .outputLimit: throw ShellFailure.outputLimit(command: command, bytes: maxOutput)
+        case .none:
+            let (o, e) = cap.strings
+            return ShellResult(status: exit.status, stdout: o, stderr: e)
         }
     }
 
     /// Like `run` but throws `ShellError` on non-zero exit.
     public static func check(_ exe: String, _ args: [String], cwd: URL? = nil,
-                             env: [String: String] = [:], stdin: String? = nil) async throws -> String {
-        let r = try await run(exe, args, cwd: cwd, env: env, stdin: stdin)
+                             env: [String: String] = [:], stdin: String? = nil,
+                             timeout: TimeInterval? = nil, maxOutput: Int = 64 << 20) async throws -> String {
+        let r = try await run(exe, args, cwd: cwd, env: env, stdin: stdin, timeout: timeout, maxOutput: maxOutput)
         guard r.ok else { throw ShellError(command: ([exe] + args).joined(separator: " "), result: r) }
         return r.stdout
     }
 
-    /// Streams stdout line by line (stderr merged). Cancelling the consumer terminates the process.
+    /// Streams stdout and stderr (merged) line by line without buffering the output.
+    /// Ending the consumer (break, cancel, deinit) kills the whole process tree.
     public static func stream(_ exe: String, _ args: [String], cwd: URL? = nil,
                               env: [String: String] = [:], stdin: String? = nil) -> AsyncThrowingStream<String, Error> {
         AsyncThrowingStream { cont in
-            do {
-                let p = try makeProcess(exe, args, cwd: cwd, env: env)
-                let pipe = Pipe(), inp = Pipe()
-                p.standardOutput = pipe; p.standardError = pipe
-                p.standardInput = stdin == nil ? FileHandle.nullDevice : inp
-                let splitter = LineSplitter { cont.yield($0) }
-                pipe.fileHandleForReading.readabilityHandler = { h in
-                    let d = h.availableData
-                    guard !d.isEmpty else { return }
-                    splitter.feed(d)
-                }
-                p.terminationHandler = { proc in
-                    pipe.fileHandleForReading.readabilityHandler = nil
-                    splitter.feed(pipe.fileHandleForReading.readDataToEndOfFile())
+            let splitter = LineSplitter { cont.yield($0) }
+            let task = Task {
+                do {
+                    let path = try resolve(exe)
+                    let exit = try await ProcessSupervisor.shared.execute(
+                        path: path, args: args, cwd: cwd, env: environment(env), stdin: stdin.map { Data($0.utf8) },
+                        mergeStderr: true, timeout: nil) { d, _ in splitter.feed(d); return true }
                     splitter.finish()
-                    if proc.terminationStatus == 0 { cont.finish() }
+                    if exit.reason == .cancelled || exit.status == 0 { cont.finish() }
                     else { cont.finish(throwing: ShellError(command: ([exe] + args).joined(separator: " "),
-                                                            result: ShellResult(status: proc.terminationStatus, stdout: "", stderr: "exit \(proc.terminationStatus)"))) }
-                }
-                cont.onTermination = { _ in if p.isRunning { p.terminate() } }
-                try p.run()
-                if let s = stdin { inp.fileHandleForWriting.write(Data(s.utf8)); try? inp.fileHandleForWriting.close() }
-            } catch { cont.finish(throwing: error) }
+                                                            result: ShellResult(status: exit.status, stdout: "", stderr: "exit \(exit.status)"))) }
+                } catch { cont.finish(throwing: error) }
+            }
+            cont.onTermination = { _ in task.cancel() }
         }
     }
 }
