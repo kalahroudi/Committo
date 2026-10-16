@@ -2,14 +2,17 @@
 
 Every git operation Committo will support, where it lives, how risky it is, how to undo it, and its MCP tool. Tiers: **R** read, **W** write, **D** destructive (agents blocked by default, always confirmed). *Mock* = shown in the clickable mockup. *Engine* = a working wrapper exists in `CommittoCore` today (Linux-tested), where "partial" means a basic form only.
 
-**64 operations.** Mock: 34 shown, 8 partly, 22 not yet. Engine: 15 done, 20 basic, 29 not started.
+**69 operations.** Mock: 34 shown, 8 partly, 27 not yet. Engine: 15 done, 20 basic, 34 not started.
 
 | Area | Operation | Where | Tier | Undo | MCP tool | Mock | Engine |
 |---|---|---|---|---|---|---|---|
 | Repository | Init, with main branch | New repo | W | delete folder | `repo_create` | yes | yes |
-| Repository | Clone (shallow, partial, sparse, submodules) | Clone sheet | W | delete folder | `repo_clone` | partial | partial |
+| Repository | Clone: URL or provider picker, shallow, partial, sparse | Clone sheet | W | delete folder | `repo_clone` | partial | partial |
+| Repository | Clone with LFS: detect, install git-lfs, download now, on demand or chosen paths, size shown first | Clone sheet | W | delete folder | `repo_clone` (lfs) | no | no |
+| Repository | Clone with submodules: init and update recursively, parallel, shallow, HTTPS rewrite, retry failed | Clone sheet | W | delete folder | `repo_clone` (submodules) | no | no |
 | Repository | Import existing | New repo | W | none needed | `repo_import` | yes | no |
-| Repository | Fork, add upstream remote | PR screen | W | remove remote | `repo_fork` | no | no |
+| Repository | Fork on the provider, clone it, add `upstream` | Clone sheet / PR screen | W | delete fork on provider | `repo_fork` | no | no |
+| Repository | Sync fork with upstream (fast-forward, or rebase/merge with preview) | Branches | W / D | Undo | `fork_sync` | no | no |
 | Working copy | Stage and unstage file | Changes | W | unstage | `stage / unstage` | yes | yes |
 | Working copy | Stage hunk or single lines | Changes | W | unstage | `stage_lines` | yes | yes |
 | Working copy | Discard changes (file, hunk, all) | Changes | D | snapshot restore | `discard` | partial | yes |
@@ -60,8 +63,10 @@ Every git operation Committo will support, where it lives, how risky it is, how 
 | Tags | Create: lightweight, annotated, signed | Releases | W | delete | `tag_create` | yes | partial |
 | Tags | Push, delete, move | Releases | D | restore 30 days | `tag_push / tag_delete / tag_move` | yes | no |
 | Extras | Submodules: add, update, sync, remove | Branches | W | reverse | `submodule_*` | partial | partial |
+| Extras | Initialise submodules in an existing clone; keep them in step on pull and switch | Branches | W | deinit | `submodule_init` | no | no |
 | Extras | Worktrees: add, remove, lock, prune | Branches | W | re-add | `worktree_*` | yes | partial |
 | Extras | LFS: track, pull, lock | Settings | W | untrack | `lfs_*` | partial | no |
+| Extras | LFS in an existing repo: fetch missing files, prune old ones, list locks | Settings | W | refetch | `lfs_fetch` / `lfs_prune` | no | no |
 | Extras | Sparse checkout, partial clone | Clone sheet | W | reset sparse set | `sparse_*` | no | no |
 | Extras | Hooks: view, enable, skip once | Settings | W | revert | `hooks_*` | no | no |
 | Extras | Config: identity, profiles, aliases | Settings | W | revert | `config_*` | partial | no |

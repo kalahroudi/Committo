@@ -30,7 +30,7 @@ Found by reading the code. Each becomes a test first, then a fix.
 |---|---|---|
 | Unit | Parsers, graph layout, scanner rules, JSON-RPC, version logic. Includes malformed and hostile input (fuzzing). | every push, Linux and macOS |
 | Property tests | Graph: every edge links two real rows, parents follow children, lanes stay bounded. Undo: **snapshot, operation, undo gives back identical HEAD, index and working tree hashes**. | every push |
-| Real-git integration | Each catalog operation against scripted repos: conflicts, rebase, cherry-pick, reset, stash, submodules, worktrees, LFS, signed commits, 100k-commit and 10k-file repos built with `fast-import`. | every push (small), nightly (large) |
+| Real-git integration | Each catalog operation against scripted repos: conflicts, rebase, cherry-pick, reset, stash, submodules, worktrees, LFS, signed commits, 100k-commit and 10k-file repos built with `fast-import`. Clone matrix: plain, shallow, partial, sparse; LFS (now, on demand, chosen paths, git-lfs missing, quota error); nested and private submodules (one failing, then retry); fork then sync (fast-forward and diverged). | every push (small), nightly (large) |
 | Preview equals reality | The merge/squash/rebase preview is compared with what git actually produces in a throwaway clone. | every push |
 | Differential | Our parsed status/log/diff compared with git plumbing on random repos. | nightly |
 | Safety | Hostile file, branch and commit names (spaces, quotes, leading `-`, newlines, ANSI escapes) never reach a shell; secrets never appear in logs; PR code is always scanned as untrusted; destructive tools are blocked for agents by default. A test fails if any action lacks a tier or schema. | every push |

@@ -37,7 +37,7 @@ Every request made so far, mapped to where it appears. Legend: **M** = in the mo
 | 32 | **Tailscale: local machines/servers connect as CI runners; setup automated in-app** | 15, 16, 12 | §7.11 | – (mock and spec only; untested against a real tailnet) |
 | 33 | **Managing branches whose PRs are merged** | 10 | §7.12 | – (spec and mock only) |
 | 34 | **GitHub Pages so the mockup and screenshots can be shared** | – | README | site built in `docs/`; **needs one-time Pages setting** (Settings → Pages → branch `main`, `/docs`) |
-| 35 | **All git operations: cherry-pick, interactive rebase, reset, force push and the rest** | 6, 7 (new) | §4.9, GIT-OPERATIONS.md | catalog of 64 operations; engine has 15 done and 20 basic; interactive rebase, continue/skip, force-lease flow not built |
+| 35 | **All git operations: cherry-pick, interactive rebase, reset, force push and the rest** | 6, 7 (new) | §4.9, GIT-OPERATIONS.md | catalog of 69 operations; engine has 15 done and 20 basic; interactive rebase, continue/skip, force-lease flow not built |
 | 36 | **Everything tested; memory management** | – | §16, QUALITY.md | plan written; 16 Core tests today; app untested; 9 code risks listed and scheduled in the roadmap (SPEC §14) |
 | 37 | **Apache 2.0 license; no pricing yet** | – | §15 | LICENSE present; decision recorded |
 | 25 | main branch, protected; Apache 2.0; README with agent prompt, logo, screenshots | – | – | main + README + LICENSE done; protection **pending** (needs `Scripts/protect-main.sh`) |
@@ -48,14 +48,14 @@ Every request made so far, mapped to where it appears. Legend: **M** = in the mo
 
 ## Remaining mock screens
 
-Grouped from `GIT-OPERATIONS.md` (22 operations not shown, 8 partly). Priority order:
+Grouped from `GIT-OPERATIONS.md` (27 operations not shown, 8 partly). Priority order:
 
 1. **Pull request: create and review.** Create form, inline review comments, suggested changes, approve or request changes.
 2. **Issue: detail and create.** Labels, linked PRs, start an agent on it.
 3. **Working-copy extras.** Clean untracked with a dry-run list, rename/move/delete a file, restore a file from a commit, create/apply patch, stash to branch, discard confirmation.
 4. **Recover.** Reflog restore, restore deleted branches, remove a file or secret from all history, reuse recorded conflict resolutions.
 5. **Blame, file history and search.** Blame view, file history, content search (pickaxe, grep), range-diff.
-6. **Clone and fork.** Provider repo picker, shallow, partial and sparse options, fork and upstream remote.
+6. **Clone and fork.** Provider repo picker; shallow, partial and sparse options; **LFS choices** (now, on demand, chosen paths, size shown first); **initialise submodules** with per-submodule progress and retry; fork, upstream remote and sync fork.
 7. **Remotes and branch settings.** Add, rename, remove, change URL; set upstream; rename and orphan branch; delete remote branch; pull options (fast-forward, rebase, merge).
 8. **Bisect.** Guided good/bad, optionally with an agent test as the oracle.
 9. **Repo settings.** Hooks, identity profiles and aliases, LFS, submodules, git-flow, maintenance (gc, fsck), notes, mailmap, attributes, export (ZIP, bundle, patch).
