@@ -173,4 +173,5 @@ Light, fast and a delight is a requirement, not a polish pass.
 - **How:** never block the main thread; stream `git log` and parse incrementally; virtualized lists and a lane-layout cache keyed by commit ranges; rely on `core.fsmonitor`, `feature.manyFiles` and the commit-graph file; cache provider data (stale-while-revalidate) so counters render instantly and refresh behind; cancel superseded git processes; coalesce file-system events.
 - **Feel:** keyboard-first (⌘K, 1/2/3, ↩ to confirm), optimistic UI for local actions, skeletons instead of spinners after 200 ms, every long operation cancellable and resumable, animations under 250 ms and disabled by Reduce Motion, native controls and system fonts, no web views.
 - **Footprint:** single signed app, no background daemon unless MCP/CI server is switched on, idle CPU ~0.
+- **Quality:** see `design/QUALITY.md` for the test layers, memory plan, soak tests and release gates.
 - **Measure:** a benchmark target in CI (synthetic 100k-commit repo) fails the build on regression beyond 15%.

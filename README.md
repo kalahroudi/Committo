@@ -15,6 +15,7 @@
   <a href="design/mockup/index.html">Mockup</a> ·
   <a href="design/COVERAGE.md">Coverage</a> ·
   <a href="design/GIT-OPERATIONS.md">Git operations</a> ·
+  <a href="design/QUALITY.md">Quality plan</a> ·
   <a href="LICENSE">Apache 2.0</a>
 </p>
 
