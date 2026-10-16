@@ -61,6 +61,19 @@ final class ProcessSupervisorTests: XCTestCase {
         try await waitUntil("grandchild gone") { !self.isAlive(grandchild) }
     }
 
+    /// SIGTERM must actually reach the child: if the signal mask or dispositions leak through spawn, cancel only
+    /// finishes after the SIGKILL grace period.
+    func testCancelIsPromptNotDelayedUntilSigkill() async throws {
+        sup.killGrace = 10
+        defer { sup.killGrace = 1 }
+        let task = Task { try await Shell.run("sh", ["-c", "sleep 60"]) }
+        try await Task.sleep(nanoseconds: 300_000_000)
+        let start = Date()
+        task.cancel()
+        _ = try? await task.value
+        XCTAssertLessThan(Date().timeIntervalSince(start), 2, "cancel waited for SIGKILL: SIGTERM is not reaching the child")
+    }
+
     func testTimeoutKillsTreeAndThrows() async throws {
         let (script, pidFile) = treeScript
         let started = Date()

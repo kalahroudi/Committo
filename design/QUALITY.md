@@ -14,15 +14,15 @@ Found by reading the code. Each becomes a test first, then a fix.
 
 | Risk | Where | Fix | By |
 |---|---|---|---|
-| Whole output of `git log/diff/blame` is buffered in memory | `Shell.run` (unbounded buffer) | Stream and parse incrementally; hard cap with "truncated" result | M1 |
-| Process cancel kills only the direct child; agents and `act` spawn trees | `Shell.stream`, `MCPClient.stop` | One `ProcessSupervisor` owns every child, uses process groups, kills the tree on cancel, timeout and app quit | M1 |
-| CI log and agent console lines grow forever | `CIModel.log`, `AgentRunModel.lines` | Ring buffer (about 5,000 lines) with a "saved to file" link | M1 |
-| Filesystem scan runs on the main actor at launch | `AppModel.bootstrap` → `RepoStore.discover` | Move off the main actor, cancellable, incremental results | M0 |
+| Whole output of `git log/diff/blame` is buffered in memory | `Shell.run` (unbounded buffer) | Stream and parse incrementally; hard cap with "truncated" result | M1 — **done**: `Shell.records`, `StatusParser`/`DiffParser`, 64 MB run cap, 20k-line file cap, 32 MB diff cap |
+| Process cancel kills only the direct child; agents and `act` spawn trees | `Shell.stream`, `MCPClient.stop` | One `ProcessSupervisor` owns every child, uses process groups, kills the tree on cancel, timeout and app quit | M1 — **done**: `ProcessSupervisor` (`Shell` and `MCPClient`) |
+| CI log and agent console lines grow forever | `CIModel.log`, `AgentRunModel.lines` | Ring buffer (about 5,000 lines) with a "saved to file" link | M1 — ring buffers **done** (`RingBuffer`: CI 5,000, console 2,000); "saved to file" link still open |
+| Filesystem scan runs on the main actor at launch | `AppModel.bootstrap` → `RepoStore.discover` | Move off the main actor, cancellable, incremental results | M0 — **done** (off-main; not yet incremental) |
 | Graph layout holds per-row lane arrays for every commit | `CommitGraph.layout` | Page by range, cache by commit range, release off-screen rows | M1 |
 | Lens scan spawns many git processes per refresh | `AgentLens.scan` | Batch with one `for-each-ref`/`log` call; bounded concurrency | M1 |
 | Parallel writes to one repo can collide on `index.lock` | all write ops | Per-repo serial queue for write operations | M1 |
 | 8 `@unchecked Sendable` escape hatches | `Shell`, `RepoStore`, others | Replace with actors or document and test each | M1 |
-| Timers and handlers never torn down | `StatusItemController` | Invalidate in `deinit`; weak-reference tests | M0 |
+| Timers and handlers never torn down | `StatusItemController` | Invalidate in `deinit`; weak-reference tests | M0 — **done**: `tearDown()` on quit plus deinit canaries |
 
 ## Test layers
 

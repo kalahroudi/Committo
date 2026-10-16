@@ -71,6 +71,8 @@ public struct FileDiff: Identifiable, Hashable, Sendable {
     public let hunks: [DiffHunk]
     public let isBinary: Bool
     public let header: String
+    /// True when the file's diff was cut at the size limit; the hunks shown are a prefix.
+    public var isTruncated = false
     public var additions: Int { hunks.flatMap(\.lines).filter { $0.kind == .added }.count }
     public var deletions: Int { hunks.flatMap(\.lines).filter { $0.kind == .removed }.count }
 }

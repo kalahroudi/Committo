@@ -5,7 +5,8 @@ import CommittoCore
 @MainActor @Observable
 final class CIModel {
     var workflows: [Workflow] = []
-    var log: [String] = []
+    /// Last 5,000 lines of the run; older lines are dropped (a long `act` run can print millions).
+    var log = RingBuffer<String>(capacity: 5_000)
     var running = false
     var lastResult: Bool?
     var servers: [CIServerConfig] = CIServerStore.load()
@@ -24,11 +25,11 @@ final class CIModel {
     }
     func run(_ w: Workflow?, repo: GitRepository, dry: Bool) {
         guard let runner else { return }
-        log = []; running = true; lastResult = nil
+        log.removeAll(); running = true; lastResult = nil
         var req = CIRunRequest(repoPath: repo.url.path, workflowFile: w?.file, job: w?.job, dryRun: dry)
         req.event = w?.events.split(separator: ",").first.map(String.init) ?? "push"
         task = Task {
-            do { for try await e in runner.run(req) { switch e { case .log(let l): log.append(l); case .finished(let ok): lastResult = ok } } }
+            do { for try await e in runner.run(req) { switch e { case .log(let l): log.append(String(l.prefix(4_000))); case .finished(let ok): lastResult = ok } } }
             catch { log.append("✗ \(error.localizedDescription)"); lastResult = false }
             running = false
         }
@@ -74,9 +75,11 @@ struct CIView: View {
                     if ci.running { Button("Stop") { ci.stop() } } }.padding(12)
                 Divider()
                 ScrollViewReader { p in
-                    ScrollView { LazyVStack(alignment: .leading, spacing: 1) { ForEach(Array(ci.log.enumerated()), id: \.offset) { i, l in
-                        Text(l).font(.system(size: 11, design: .monospaced)).textSelection(.enabled).id(i) } }.padding(10).frame(maxWidth: .infinity, alignment: .leading) }
-                        .onChange(of: ci.log.count) { _, c in p.scrollTo(c - 1, anchor: .bottom) }
+                    ScrollView { LazyVStack(alignment: .leading, spacing: 1) {
+                        if ci.log.dropped > 0 { Text("… \(ci.log.dropped) earlier lines dropped").font(.system(size: 11, design: .monospaced)).foregroundStyle(.secondary) }
+                        ForEach(ci.log.indexed(), id: \.id) { i, l in
+                            Text(l).font(.system(size: 11, design: .monospaced)).textSelection(.enabled).id(i) } }.padding(10).frame(maxWidth: .infinity, alignment: .leading) }
+                        .onChange(of: ci.log.totalAppended) { _, c in p.scrollTo(c - 1, anchor: .bottom) }
                 }.background(Color.black.opacity(0.25))
             }.frame(minWidth: 320)
         }
