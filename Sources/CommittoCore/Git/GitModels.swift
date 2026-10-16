@@ -52,7 +52,6 @@ public struct Branch: Identifiable, Hashable, Sendable {
 public struct Stash: Identifiable, Hashable, Sendable { public var id: String { ref }; public let ref: String; public let message: String }
 public struct Tag: Identifiable, Hashable, Sendable { public var id: String { name }; public let name: String; public let hash: String; public let date: Date }
 public struct Worktree: Identifiable, Hashable, Sendable { public var id: String { path }; public let path: String; public let head: String; public let branch: String?; public let isMain: Bool }
-public struct Submodule: Identifiable, Hashable, Sendable { public var id: String { path }; public let path: String; public let hash: String; public let state: String }
 public struct ReflogEntry: Identifiable, Hashable, Sendable { public var id: String { selector }; public let selector: String; public let hash: String; public let message: String; public let date: Date }
 public struct BlameLine: Identifiable, Sendable { public var id: Int { line }; public let line: Int; public let hash: String; public let author: String; public let text: String }
 

@@ -127,11 +127,23 @@ final class AppModel {
             if GitRepository.isRepository(u) { Task { await open(u, show: true) } } else { error = "\(u.lastPathComponent) is not a git repository" }
         }
     }
-    func clone(_ remote: String, to parent: URL) {
+    func clone(_ remote: String, to parent: URL, options: CloneOptions = CloneOptions()) {
         let name = remote.split(separator: "/").last.map { String($0).replacingOccurrences(of: ".git", with: "") } ?? "repo"
         let dest = parent.appendingPathComponent(name)
         Task { busy = true; busyLabel = "Cloning \(name)"
-            do { for try await _ in GitRepository.clone(remote, into: dest) {}; await open(dest, show: true) } catch { self.error = error.localizedDescription }
+            var notes: [String] = []
+            do {
+                for try await event in Clone.run(remote, into: dest, options: options) {
+                    switch event {
+                    case .progress(let line): busyLabel = "Cloning \(name): \(line.prefix(60))"
+                    case .lfsDetected(let installed): if !installed && options.lfs != .onDemand { notes.append("This repository uses Git LFS but git-lfs isn't installed, so large files stay as small pointer files. Install it with `brew install git-lfs`.") }
+                    case .submodule(let r): if let e = r.error { notes.append("Submodule \(r.path) failed: \(e)") }
+                    case .finished: break
+                    }
+                }
+                await open(dest, show: true)
+                if !notes.isEmpty { self.error = notes.joined(separator: "\n") }
+            } catch { self.error = error.localizedDescription }
             busy = false }
     }
 

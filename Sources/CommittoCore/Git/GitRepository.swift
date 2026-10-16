@@ -140,13 +140,6 @@ public struct GitRepository: Identifiable, Hashable, Codable, Sendable {
         }
         return result
     }
-    public func submodules() async throws -> [Submodule] {
-        try await git(["submodule", "status"]).split(separator: "\n").compactMap { l in
-            let s = String(l); guard let st = s.first else { return nil }
-            let rest = s.dropFirst().split(separator: " ")
-            guard rest.count >= 2 else { return nil }
-            return Submodule(path: String(rest[1]), hash: String(rest[0]), state: st == "-" ? "uninitialized" : st == "+" ? "modified" : st == "U" ? "conflict" : "clean") }
-    }
     public func reflog(limit: Int = 100) async throws -> [ReflogEntry] {
         try await git(["reflog", "-n", "\(limit)", "--format=%gd%x1f%H%x1f%gs%x1f%ct"]).split(separator: "\n").compactMap {
             let f = $0.components(separatedBy: GitParse.us)
