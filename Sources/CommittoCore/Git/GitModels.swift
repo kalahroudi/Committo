@@ -33,6 +33,7 @@ public struct RepoStatus: Sendable {
     public var staged: [FileChange] { changes.filter(\.staged) }
     public var unstaged: [FileChange] { changes.filter { !$0.staged } }
     public var isClean: Bool { changes.isEmpty }
+    public init() {}
 }
 
 public struct Branch: Identifiable, Hashable, Sendable {

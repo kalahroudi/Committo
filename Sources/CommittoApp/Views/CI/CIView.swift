@@ -90,7 +90,9 @@ struct CIView: View {
         }.font(.callout) }
     }
 
-    @State private var name = "", url = "", token = ""
+    @State private var name = ""
+    @State private var url = ""
+    @State private var token = ""
     var lanSection: some View {
         Card { VStack(alignment: .leading, spacing: 8) {
             Label("LAN runners", systemImage: "network").font(.headline)

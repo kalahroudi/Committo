@@ -101,7 +101,7 @@ final class AppModel {
 
     // External tools
     func reveal(_ url: URL) { NSWorkspace.shared.activateFileViewerSelecting([url]) }
-    func openTerminal(_ url: URL) { NSWorkspace.shared.open([url], withApplicationAt: URL(fileURLWithPath: "/System/Applications/Utilities/Terminal.app"), configuration: .init()) }
+    func openTerminal(_ url: URL) { NSWorkspace.shared.open([url], withApplicationAt: URL(fileURLWithPath: "/System/Applications/Utilities/Terminal.app"), configuration: NSWorkspace.OpenConfiguration()) }
     func openEditor(_ url: URL) {
         Task { if let code = Shell.which("code") ?? Shell.which("cursor") { _ = try? await Shell.run(code, [url.path]) } else { NSWorkspace.shared.open(url) } }
     }

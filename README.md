@@ -129,7 +129,7 @@ Scripts/bundle.sh      # macOS: universal Committo.app in ./dist (generates the 
 |---|---|
 | CommittoCore, `committo` CLI, MCP server, tests | **Compiled and tested** (Swift 6.0.3, Linux): 16/16 pass |
 | SecurityCage installer (pin, verify, self-test, update, rollback), scan, MCP tools | **Compiled and tested live** against github.com/kalahroudi/securitycage; UI is mock only |
-| SwiftUI app, status item, icon script, `CIServer` (Network.framework) | **Written and syntax-checked only — never compiled or run.** Expect compile fixes and layout polish on first `swift build` on a Mac |
+| SwiftUI app, status item, icon script, `CIServer` (Network.framework) | **Compiles and launches on macOS (M0 build fixes done).** Layout and behaviour not yet verified; `CIServer` untested |
 | Tailscale CI runners | Mock and spec only; not tested against a real tailnet |
 | Bitbucket / Azure DevOps / Gitea | Auth + clone only; PR API not implemented |
 | Interactive rebase, conflict wizard, LFS, git-flow, SSH/GPG UI, submodule UI, file history/blame UI, branch comparison, patch export UI | Engine has some (blame, submodules, patch export, worktrees); UI not built |
