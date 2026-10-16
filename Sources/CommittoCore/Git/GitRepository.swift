@@ -8,6 +8,11 @@ public struct GitRepository: Identifiable, Hashable, Codable, Sendable {
     public var name: String { url.lastPathComponent }
     public init(url: URL) { self.url = url }
 
+    /// Streams `git` output split on `separator` (see `Shell.records`); ending iteration early kills git.
+    func gitRecords(_ args: [String], separator: UInt8) -> AsyncThrowingStream<Data, Error> {
+        Shell.records("git", ["-c", "core.quotepath=off"] + args, cwd: url, separator: separator)
+    }
+
     @discardableResult
     func git(_ args: [String], stdin: String? = nil) async throws -> String {
         try await Shell.check("git", ["-c", "core.quotepath=off"] + args, cwd: url, stdin: stdin)
@@ -26,7 +31,14 @@ public struct GitRepository: Identifiable, Hashable, Codable, Sendable {
     }
 
     // MARK: Reading
-    public func status() async throws -> RepoStatus { GitParse.status(try await git(["status", "--porcelain=v1", "-z", "--branch", "--untracked-files=all"])) }
+    public func status() async throws -> RepoStatus {
+        var parser = StatusParser()
+        for try await entry in gitRecords(["status", "--porcelain=v1", "-z", "--branch", "--untracked-files=all"], separator: 0) {
+            parser.feed(String(decoding: entry, as: UTF8.self))
+        }
+        parser.finishPending()
+        return parser.result
+    }
 
     public func log(limit: Int = 500, all: Bool = true, path: String? = nil, ref: String? = nil, search: String? = nil, author: String? = nil) async throws -> [Commit] {
         var a = ["log", "--topo-order", "-n", "\(limit)", "--format=" + GitParse.logFormat, "--decorate=short"]
@@ -35,7 +47,14 @@ public struct GitRepository: Identifiable, Hashable, Codable, Sendable {
         if let search { a += ["-i", "--grep=" + search] }
         if let author { a.append("--author=" + author) }
         if let path { a += ["--follow", "--", path] }
-        do { return GitParse.commits(try await git(a)) } catch let e as ShellError where e.result.stderr.contains("does not have any commits") { return [] }
+        var out: [Commit] = []
+        do {
+            for try await rec in gitRecords(a, separator: 0x1E) {
+                if let c = GitParse.commit(record: String(decoding: rec, as: UTF8.self)) { out.append(c) }
+                if out.count >= limit { break }       // stops git; nothing past the page is read or buffered
+            }
+        } catch let e as ShellError where e.result.stderr.contains("does not have any commits") { return [] }
+        return out
     }
 
     public func branches() async throws -> [Branch] {
@@ -68,15 +87,35 @@ public struct GitRepository: Identifiable, Hashable, Codable, Sendable {
         if staged { a.append("--cached") }
         if let base, let head { a.append("\(base)...\(head)") } else if let base { a.append(base) }
         if let path { a += ["--", path] }
-        return GitParse.diff(try await git(a))
+        return try await parseDiff(a)
+    }
+
+    /// Streams a diff through `DiffParser`. Per-file line cap and a total byte cap keep huge diffs from exhausting memory.
+    func parseDiff(_ args: [String], maxBytes: Int = 32 << 20) async throws -> [FileDiff] {
+        var parser = DiffParser()
+        var total = 0
+        for try await line in gitRecords(args, separator: 0x0A) {
+            total += line.count + 1
+            if total > maxBytes { break }
+            parser.feed(String(decoding: line, as: UTF8.self))
+        }
+        var files = parser.finish()
+        if total > maxBytes, let last = files.popLast() {
+            files.append(FileDiff(path: last.path, hunks: last.hunks, isBinary: last.isBinary, header: last.header, isTruncated: true))
+        }
+        return files
     }
     public func rawDiff(base: String, head: String) async throws -> String { try await git(["diff", "--no-color", "\(base)...\(head)"]) }
-    public func show(_ hash: String) async throws -> [FileDiff] { GitParse.diff(try await git(["show", "--no-color", "--format=", hash])) }
-    public func untrackedContent(_ path: String) -> FileDiff? {
-        guard let s = try? String(contentsOf: url.appendingPathComponent(path), encoding: .utf8) else { return nil }
+    public func show(_ hash: String) async throws -> [FileDiff] { try await parseDiff(["show", "--no-color", "--format=", hash]) }
+    public func untrackedContent(_ path: String, maxBytes: Int = 1 << 20) -> FileDiff? {
+        guard let h = try? FileHandle(forReadingFrom: url.appendingPathComponent(path)) else { return nil }
+        defer { try? h.close() }
+        guard let data = try? h.read(upToCount: maxBytes + 1) else { return nil }
+        let cut = data.count > maxBytes
+        let s = String(decoding: cut ? data.prefix(maxBytes) : data, as: UTF8.self)
         let lines = s.components(separatedBy: "\n")
         let dl = lines.enumerated().map { DiffLine(id: $0.offset, kind: .added, text: $0.element, oldLine: nil, newLine: $0.offset + 1) }
-        return FileDiff(path: path, hunks: [DiffHunk(id: 0, header: "@@ new file @@", lines: dl, patch: "")], isBinary: false, header: "")
+        return FileDiff(path: path, hunks: [DiffHunk(id: 0, header: "@@ new file @@", lines: dl, patch: "")], isBinary: false, header: "", isTruncated: cut)
     }
 
     public func stashes() async throws -> [Stash] {

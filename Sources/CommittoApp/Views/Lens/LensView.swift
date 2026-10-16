@@ -2,17 +2,22 @@ import SwiftUI
 import Charts
 import CommittoCore
 
-struct ConsoleLine: Identifiable { let id = UUID(); enum Kind { case text, tool, result, done }; let kind: Kind; let text: String }
+struct ConsoleLine: Identifiable {
+    let id = UUID(); enum Kind { case text, tool, result, done }; let kind: Kind; let text: String
+    /// Text is capped so one huge tool result cannot dominate memory.
+    init(kind: Kind, text: String) { self.kind = kind; self.text = String(text.prefix(8_000)) }
+}
 
 @MainActor @Observable
 final class AgentRunModel {
-    var lines: [ConsoleLine] = []
+    /// Most recent 2,000 console entries; older ones are dropped.
+    var lines = RingBuffer<ConsoleLine>(capacity: 2_000)
     var running = false
     var cost: Double?
     private var task: Task<Void, Never>?
 
     func start(agent: AgentBackend, prompt: String, repo: GitRepository, isolate: Bool, readOnly: Bool, onDone: @escaping () -> Void) {
-        lines = []; running = true; cost = nil
+        lines.removeAll(); running = true; cost = nil
         task = Task {
             var dir = repo.url
             do {
@@ -107,12 +112,12 @@ struct LensView: View {
     var console: some View {
         VStack(spacing: 0) {
             HStack { if runModel.running { ProgressView().controlSize(.small) }; Text(runModel.running ? "Running…" : "Done").font(.headline); Spacer()
-                Button("Clear") { runModel.lines = [] }.buttonStyle(.link).disabled(runModel.running) }.padding(12)
+                Button("Clear") { runModel.lines.removeAll() }.buttonStyle(.link).disabled(runModel.running) }.padding(12)
             Divider()
             ScrollViewReader { proxy in
                 ScrollView {
                     LazyVStack(alignment: .leading, spacing: 6) {
-                        ForEach(runModel.lines) { l in
+                        ForEach(runModel.lines.elements) { l in
                             switch l.kind {
                             case .text: Text(l.text).textSelection(.enabled).font(.system(size: 13))
                             case .tool: Label(l.text, systemImage: "wrench.and.screwdriver").font(.system(size: 11, design: .monospaced)).foregroundStyle(Theme.accent2).lineLimit(2)
@@ -121,7 +126,7 @@ struct LensView: View {
                             }
                         }.id("end")
                     }.padding(12)
-                }.onChange(of: runModel.lines.count) { _, _ in proxy.scrollTo("end", anchor: .bottom) }
+                }.onChange(of: runModel.lines.totalAppended) { _, _ in proxy.scrollTo("end", anchor: .bottom) }
             }
         }
     }

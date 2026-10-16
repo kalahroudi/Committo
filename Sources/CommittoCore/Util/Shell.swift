@@ -31,38 +31,6 @@ private final class Capture: @unchecked Sendable {
     var strings: (String, String) { lock.lock(); defer { lock.unlock() }; return (String(decoding: out, as: UTF8.self), String(decoding: err, as: UTF8.self)) }
 }
 
-/// Splits a byte stream into lines. Lines longer than `maxLine` are cut and marked, never buffered whole.
-private final class LineSplitter: @unchecked Sendable {
-    private let lock = NSLock()
-    private var pending = Data()
-    private var truncated = false
-    private let maxLine: Int
-    private let emit: @Sendable (String) -> Void
-    init(maxLine: Int = 1 << 20, _ emit: @escaping @Sendable (String) -> Void) { self.maxLine = maxLine; self.emit = emit }
-
-    func feed(_ d: Data) {
-        lock.lock(); defer { lock.unlock() }
-        var start = d.startIndex
-        while let nl = d[start...].firstIndex(of: 0x0A) {
-            add(d[start..<nl]); flush(); start = d.index(after: nl)
-        }
-        add(d[start...])
-    }
-    func finish() {
-        lock.lock(); defer { lock.unlock() }
-        if !pending.isEmpty || truncated { flush() }
-    }
-    private func add(_ piece: Data) {
-        if truncated { return }
-        if pending.count + piece.count > maxLine { pending.append(piece.prefix(maxLine - pending.count)); truncated = true }
-        else { pending.append(piece) }
-    }
-    private func flush() {
-        emit(String(decoding: pending, as: UTF8.self) + (truncated ? " …[line truncated]" : ""))
-        pending = Data(); truncated = false
-    }
-}
-
 public enum Shell {
     /// GUI apps inherit a minimal PATH; add the usual tool locations.
     public static var searchPath: [String] {
@@ -133,7 +101,7 @@ public enum Shell {
     public static func stream(_ exe: String, _ args: [String], cwd: URL? = nil,
                               env: [String: String] = [:], stdin: String? = nil) -> AsyncThrowingStream<String, Error> {
         AsyncThrowingStream { cont in
-            let splitter = LineSplitter { cont.yield($0) }
+            let splitter = RecordSplitter { data, truncated in cont.yield(String(decoding: data, as: UTF8.self) + (truncated ? " …[line truncated]" : "")) }
             let task = Task {
                 do {
                     let path = try resolve(exe)
@@ -144,6 +112,33 @@ public enum Shell {
                     if exit.reason == .cancelled || exit.status == 0 { cont.finish() }
                     else { cont.finish(throwing: ShellError(command: ([exe] + args).joined(separator: " "),
                                                             result: ShellResult(status: exit.status, stdout: "", stderr: "exit \(exit.status)"))) }
+                } catch { cont.finish(throwing: error) }
+            }
+            cont.onTermination = { _ in task.cancel() }
+        }
+    }
+
+    /// Streams stdout split on `separator` (stderr is kept aside for the error). Records are bounded by `maxRecord`.
+    /// Ending the consumer kills the whole process tree, so a caller that has enough can just stop iterating.
+    public static func records(_ exe: String, _ args: [String], cwd: URL? = nil, env: [String: String] = [:],
+                               separator: UInt8 = 0x0A, maxRecord: Int = 1 << 20) -> AsyncThrowingStream<Data, Error> {
+        AsyncThrowingStream { cont in
+            let splitter = RecordSplitter(separator: separator, maxRecord: maxRecord) { data, _ in cont.yield(data) }
+            let errTail = Capture(limit: 64 << 10)
+            let task = Task {
+                do {
+                    let path = try resolve(exe)
+                    let exit = try await ProcessSupervisor.shared.execute(
+                        path: path, args: args, cwd: cwd, env: environment(env), stdin: nil, mergeStderr: false, timeout: nil) { d, isErr in
+                        if isErr { _ = errTail.append(d, stderr: true) } else { splitter.feed(d) }
+                        return true
+                    }
+                    splitter.finish()
+                    if exit.reason == .cancelled || exit.status == 0 { cont.finish() }
+                    else {
+                        cont.finish(throwing: ShellError(command: ([exe] + args).joined(separator: " "),
+                                                         result: ShellResult(status: exit.status, stdout: "", stderr: errTail.strings.1)))
+                    }
                 } catch { cont.finish(throwing: error) }
             }
             cont.onTermination = { _ in task.cancel() }

@@ -47,14 +47,36 @@ public final class ProcessSupervisor: @unchecked Sendable {
         for r in all { r.kill(.cancelled, grace: killGrace) }
     }
 
-    // MARK: Run
+    // MARK: Launch (long-lived) and execute (run to completion)
 
-    /// Runs `path` to completion. `onOutput(data, isStderr)` is called from background threads;
-    /// returning `false` stops the process (used for output caps).
-    func execute(path: String, args: [String], cwd: URL?, env: [String: String], stdin: Data?,
-                 mergeStderr: Bool, timeout: TimeInterval?,
-                 onOutput: @escaping @Sendable (Data, Bool) -> Bool) async throws -> Exit {
-        let child = try spawn(path: path, args: args, cwd: cwd, env: env, wantStdin: stdin != nil, merge: mergeStderr)
+    /// A supervised child that outlives the call that started it (an MCP server, for example).
+    public final class Managed: @unchecked Sendable {
+        let run: Run
+        private let lock = NSLock()
+        private var stdinFD: Int32?
+        private let grace: TimeInterval
+        init(run: Run, stdin: Int32?, grace: TimeInterval) { self.run = run; self.stdinFD = stdin; self.grace = grace }
+
+        /// Writes to the child's stdin. Throws if stdin is closed or the child is gone.
+        public func write(_ data: Data) throws {
+            lock.lock(); defer { lock.unlock() }
+            guard let fd = stdinFD else { throw POSIXError(.EPIPE) }
+            if !ProcessSupervisor.writeAll(fd, data) { throw POSIXError(.EPIPE) }
+        }
+        public func closeStdin() { lock.lock(); if let fd = stdinFD { close(fd); stdinFD = nil }; lock.unlock() }
+        /// Kills the whole process tree (SIGTERM, then SIGKILL after the grace period).
+        public func terminate() { run.kill(.cancelled, grace: grace) }
+        func stop(_ reason: Reason) { run.kill(reason, grace: grace) }
+        var pid: pid_t { run.pid }
+    }
+
+    /// Starts a child and returns immediately. `onOutput(data, isStderr)` runs on background threads; return `false` to
+    /// stop the process. `onExit` runs once, after the child and its group are gone and all output was delivered.
+    func launch(path: String, args: [String], cwd: URL?, env: [String: String], wantStdin: Bool, mergeStderr: Bool,
+                timeout: TimeInterval?,
+                onOutput: @escaping @Sendable (Data, Bool) -> Bool,
+                onExit: @escaping @Sendable (Exit) -> Void) throws -> Managed {
+        let child = try spawn(path: path, args: args, cwd: cwd, env: env, wantStdin: wantStdin, merge: mergeStderr)
         let run = Run(pid: child.pid)
         register(run)
         let grace = killGrace
@@ -63,9 +85,6 @@ public final class ProcessSupervisor: @unchecked Sendable {
             let item = DispatchWorkItem { run.kill(.timedOut, grace: grace) }
             run.timeoutItem = item
             DispatchQueue.global().asyncAfter(deadline: .now() + timeout, execute: item)
-        }
-        if let data = stdin, let fd = child.stdin {
-            DispatchQueue.global().async { Self.writeAll(fd, data); close(fd) }
         }
         run.readers.enter()
         DispatchQueue.global().async {
@@ -79,24 +98,39 @@ public final class ProcessSupervisor: @unchecked Sendable {
                 run.readers.leave()
             }
         }
+        DispatchQueue.global().async {
+            var st: Int32 = 0
+            while waitpid(child.pid, &st, 0) < 0 && errno == EINTR {}
+            run.leaderExited()
+            killpg(child.pid, SIGKILL)          // stragglers in the group
+            run.markFinished()
+            run.readers.wait()
+            run.timeoutItem?.cancel()
+            self.unregister(child.pid)
+            let status: Int32 = (st & 0x7f) == 0 ? (st >> 8) & 0xff : 128 + (st & 0x7f)
+            onExit(Exit(status: status, reason: run.reason))
+        }
+        return Managed(run: run, stdin: child.stdin, grace: grace)
+    }
 
-        return await withTaskCancellationHandler {
-            await withCheckedContinuation { (cont: CheckedContinuation<Exit, Never>) in
-                DispatchQueue.global().async {
-                    var st: Int32 = 0
-                    while waitpid(child.pid, &st, 0) < 0 && errno == EINTR {}
-                    run.leaderExited()
-                    killpg(child.pid, SIGKILL)          // stragglers in the group
-                    run.markFinished()
-                    run.readers.wait()
-                    run.timeoutItem?.cancel()
-                    self.unregister(child.pid)
-                    let status: Int32 = (st & 0x7f) == 0 ? (st >> 8) & 0xff : 128 + (st & 0x7f)
-                    cont.resume(returning: Exit(status: status, reason: run.reason))
-                }
+    /// Runs `path` to completion. Cancelling the task, the timeout and an `onOutput` veto all kill the tree.
+    func execute(path: String, args: [String], cwd: URL?, env: [String: String], stdin: Data?,
+                 mergeStderr: Bool, timeout: TimeInterval?,
+                 onOutput: @escaping @Sendable (Data, Bool) -> Bool) async throws -> Exit {
+        let holder = CancelHolder()
+        return try await withTaskCancellationHandler {
+            try await withCheckedThrowingContinuation { (cont: CheckedContinuation<Exit, Error>) in
+                do {
+                    let m = try launch(path: path, args: args, cwd: cwd, env: env, wantStdin: stdin != nil, mergeStderr: mergeStderr,
+                                       timeout: timeout, onOutput: onOutput, onExit: { cont.resume(returning: $0) })
+                    holder.set(m)
+                    if let data = stdin {
+                        DispatchQueue.global().async { try? m.write(data); m.closeStdin() }
+                    }
+                } catch { cont.resume(throwing: error) }
             }
         } onCancel: {
-            run.kill(.cancelled, grace: grace)
+            holder.cancel()
         }
     }
 
@@ -133,10 +167,13 @@ public final class ProcessSupervisor: @unchecked Sendable {
         posix_spawn_file_actions_adddup2(&fa, merge ? outP[1] : errP[1], 2)
         if let cwd { posix_spawn_file_actions_addchdir_np(&fa, cwd.path) }
 
-        var defaults = sigset_t(); sigemptyset(&defaults); sigaddset(&defaults, SIGPIPE)
+        // Children must not inherit our signal mask or ignored signals (a blocked or ignored SIGTERM makes cancel wait for SIGKILL).
+        var defaults = sigset_t(); sigfillset(&defaults)
         posix_spawnattr_setsigdefault(&attr, &defaults)
+        var mask = sigset_t(); sigemptyset(&mask)
+        posix_spawnattr_setsigmask(&attr, &mask)
         posix_spawnattr_setpgroup(&attr, 0)
-        posix_spawnattr_setflags(&attr, Int16(truncatingIfNeeded: Int(POSIX_SPAWN_SETPGROUP) | Int(POSIX_SPAWN_SETSIGDEF)))
+        posix_spawnattr_setflags(&attr, Int16(truncatingIfNeeded: Int(POSIX_SPAWN_SETPGROUP) | Int(POSIX_SPAWN_SETSIGDEF) | Int(POSIX_SPAWN_SETSIGMASK)))
 
         let argv: [UnsafeMutablePointer<CChar>?] = ([path] + args).map { strdup($0) } + [nil]
         let envp: [UnsafeMutablePointer<CChar>?] = env.map { strdup("\($0.key)=\($0.value)") } + [nil]
@@ -150,13 +187,15 @@ public final class ProcessSupervisor: @unchecked Sendable {
         return Spawned(pid: pid, stdin: wantStdin ? inP[1] : nil, stdout: outP[0], stderr: merge ? nil : errP[0])
     }
 
-    private static func writeAll(_ fd: Int32, _ data: Data) {
+    @discardableResult
+    static func writeAll(_ fd: Int32, _ data: Data) -> Bool {
         data.withUnsafeBytes { raw in
             var off = 0
             while off < raw.count {
                 let n = write(fd, raw.baseAddress! + off, raw.count - off)
-                if n > 0 { off += n } else if n < 0 && errno == EINTR { continue } else { break }
+                if n > 0 { off += n } else if n < 0 && errno == EINTR { continue } else { return false }
             }
+            return true
         }
     }
 
@@ -209,5 +248,20 @@ final class Run: @unchecked Sendable {
         lock.lock(); defer { lock.unlock() }
         guard let t = exitedAt else { return false }
         return Date().timeIntervalSince(t) > seconds
+    }
+}
+
+/// Bridges task cancellation to a process that may not have started yet.
+final class CancelHolder: @unchecked Sendable {
+    private let lock = NSLock()
+    private var managed: ProcessSupervisor.Managed?
+    private var cancelled = false
+    func set(_ m: ProcessSupervisor.Managed) {
+        lock.lock(); managed = m; let c = cancelled; lock.unlock()
+        if c { m.terminate() }
+    }
+    func cancel() {
+        lock.lock(); cancelled = true; let m = managed; lock.unlock()
+        m?.terminate()
     }
 }
