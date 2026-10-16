@@ -31,8 +31,9 @@ public protocol HostingProvider: Sendable {
 public struct ProviderError: LocalizedError, Sendable { public let message: String; public var errorDescription: String? { message } }
 
 enum HTTP {
-    static let iso: ISO8601DateFormatter = { let f = ISO8601DateFormatter(); f.formatOptions = [.withInternetDateTime, .withFractionalSeconds]; return f }()
-    static let iso2 = ISO8601DateFormatter()
+    // ISO8601DateFormatter is thread-safe for date(from:) and is never reconfigured after init.
+    nonisolated(unsafe) static let iso: ISO8601DateFormatter = { let f = ISO8601DateFormatter(); f.formatOptions = [.withInternetDateTime, .withFractionalSeconds]; return f }()
+    nonisolated(unsafe) static let iso2 = ISO8601DateFormatter()
     static func date(_ s: String?) -> Date { s.flatMap { iso.date(from: $0) ?? iso2.date(from: $0) } ?? Date() }
     static func json(_ req: URLRequest) async throws -> JSONValue {
         let (d, resp) = try await URLSession.shared.data(for: req)

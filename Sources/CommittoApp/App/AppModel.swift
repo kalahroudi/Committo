@@ -44,7 +44,8 @@ final class AppModel {
     var agent: AgentBackend? { registry.backend(id: selectedAgentID).flatMap { $0.isAvailable ? $0 : nil } ?? registry.preferred }
 
     func bootstrap() async {
-        _ = RepoStore.shared.discover()
+        // Directory walk is blocking file I/O; keep it off the main actor.
+        await Task.detached(priority: .utility) { _ = RepoStore.shared.discover() }.value
         await refreshRecents()
         if current == nil, let first = recents.first { await open(first.repo.url) }
     }
