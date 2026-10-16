@@ -117,12 +117,15 @@ struct DiffParser {
             return
         }
         guard let c = l.first else { return }
+        if c == "\\" {            // "\ No newline at end of file" belongs to the line before it
+            if !cur!.ls.isEmpty, !truncated { cur!.ls[cur!.ls.count - 1].noNewlineAtEnd = true; cur!.raw.append(l) }
+            return
+        }
         if lineCount >= maxLinesPerFile { truncated = true; return }
         lineCount += 1; lid += 1
         switch c {
         case "+": cur!.ls.append(.init(id: lid, kind: .added, text: String(l.dropFirst()), oldLine: nil, newLine: newN)); newN += 1
         case "-": cur!.ls.append(.init(id: lid, kind: .removed, text: String(l.dropFirst()), oldLine: oldN, newLine: nil)); oldN += 1
-        case "\\": break
         default: cur!.ls.append(.init(id: lid, kind: .context, text: String(l.dropFirst()), oldLine: oldN, newLine: newN)); oldN += 1; newN += 1
         }
         cur!.raw.append(l)

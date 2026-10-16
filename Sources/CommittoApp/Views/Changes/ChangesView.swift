@@ -98,6 +98,9 @@ struct ChangesView: View {
 struct DiffView: View {
     @Environment(AppModel.self) var model
     let diff: FileDiff, staged: Bool, onChange: () -> Void
+    /// Changed lines ticked for line-level staging, by `DiffLine.id` (unique within one file's diff).
+    @State private var selection = Set<Int>()
+    @State private var discardHunk: DiffHunk?
 
     var body: some View {
         ScrollView([.vertical, .horizontal]) {
@@ -105,26 +108,76 @@ struct DiffView: View {
                 HStack { Text(diff.path).font(.system(.headline, design: .monospaced)); Spacer()
                     Text("+\(diff.additions)").foregroundStyle(.green); Text("−\(diff.deletions)").foregroundStyle(.red) }
                 if diff.isBinary { Text("Binary file").foregroundStyle(.secondary) }
-                ForEach(diff.hunks) { h in
-                    VStack(alignment: .leading, spacing: 0) {
-                        HStack { Text(h.header).font(.system(size: 11, design: .monospaced)).foregroundStyle(.secondary); Spacer()
-                            if !h.patch.isEmpty { Button(staged ? "Unstage hunk" : "Stage hunk") { apply(h) }.buttonStyle(.link).font(.caption) } }
-                            .padding(.horizontal, 8).padding(.vertical, 4).background(Color.blue.opacity(0.1))
-                        ForEach(h.lines) { l in
-                            HStack(spacing: 0) {
-                                Text(l.oldLine.map(String.init) ?? "").frame(width: 38, alignment: .trailing).foregroundStyle(.tertiary)
-                                Text(l.newLine.map(String.init) ?? "").frame(width: 38, alignment: .trailing).foregroundStyle(.tertiary)
-                                Text(prefix(l.kind) + l.text).padding(.leading, 8).frame(maxWidth: .infinity, alignment: .leading)
-                            }.font(.system(size: 12, design: .monospaced)).background(bg(l.kind))
-                        }
-                    }.clipShape(RoundedRectangle(cornerRadius: 8)).overlay(RoundedRectangle(cornerRadius: 8).strokeBorder(.white.opacity(0.07)))
-                }
+                if diff.isTruncated { Label("Large diff: showing the first \(FileDiff.maxLinesPerFile) lines", systemImage: "scissors").font(.caption).foregroundStyle(.orange) }
+                ForEach(diff.hunks) { h in hunkView(h) }
             }.padding(16).frame(minWidth: 600, alignment: .leading)
         }
+        .onChange(of: diff.id) { _, _ in selection = [] }
+        .confirmationDialog("Discard the selected lines from the working copy?", isPresented: Binding(get: { discardHunk != nil }, set: { if !$0 { discardHunk = nil } }), titleVisibility: .visible) {
+            Button("Discard \(discardHunk.map(selectedCount) ?? 0) lines", role: .destructive) { if let h = discardHunk { run(h, .discard) } }
+        } message: { Text("This changes the file on disk and cannot be undone from Committo.") }
     }
+
+    @ViewBuilder func hunkView(_ h: DiffHunk) -> some View {
+        let selectable = !h.patch.isEmpty
+        let count = selectedCount(h)
+        VStack(alignment: .leading, spacing: 0) {
+            HStack(spacing: 10) {
+                Text(h.header).font(.system(size: 11, design: .monospaced)).foregroundStyle(.secondary); Spacer()
+                if selectable {
+                    if count > 0 {
+                        Button("\(staged ? "Unstage" : "Stage") \(count) line\(count == 1 ? "" : "s")") { run(h, staged ? .unstage : .stage) }.buttonStyle(.borderedProminent).controlSize(.small)
+                        if !staged { Button("Discard \(count)", role: .destructive) { discardHunk = h }.controlSize(.small) }
+                        Button("Clear") { clear(h) }.buttonStyle(.link).font(.caption)
+                    } else {
+                        Button("Select all") { selectAll(h) }.buttonStyle(.link).font(.caption)
+                        Button(staged ? "Unstage hunk" : "Stage hunk") { applyWhole(h) }.buttonStyle(.link).font(.caption)
+                    }
+                }
+            }.padding(.horizontal, 8).padding(.vertical, 4).background(Color.blue.opacity(0.1))
+            ForEach(h.lines) { l in
+                let changed = l.kind == .added || l.kind == .removed
+                HStack(spacing: 0) {
+                    if selectable {
+                        Image(systemName: changed ? (selection.contains(l.id) ? "checkmark.square.fill" : "square") : "square")
+                            .foregroundStyle(selection.contains(l.id) ? Theme.accent : .secondary.opacity(changed ? 0.7 : 0))
+                            .font(.system(size: 11)).frame(width: 22)
+                    }
+                    Text(l.oldLine.map(String.init) ?? "").frame(width: 38, alignment: .trailing).foregroundStyle(.tertiary)
+                    Text(l.newLine.map(String.init) ?? "").frame(width: 38, alignment: .trailing).foregroundStyle(.tertiary)
+                    Text(prefix(l.kind) + l.text).padding(.leading, 8).frame(maxWidth: .infinity, alignment: .leading)
+                }.font(.system(size: 12, design: .monospaced))
+                .background(selection.contains(l.id) ? Theme.accent.opacity(0.22) : bg(l.kind))
+                .contentShape(Rectangle())
+                .onTapGesture { if selectable && changed { toggle(l.id) } }
+            }
+        }.clipShape(RoundedRectangle(cornerRadius: 8)).overlay(RoundedRectangle(cornerRadius: 8).strokeBorder(.white.opacity(0.07)))
+    }
+
+    enum Action { case stage, unstage, discard }
+
+    func selectedCount(_ h: DiffHunk) -> Int { h.lines.filter { selection.contains($0.id) }.count }
+    func toggle(_ id: Int) { if selection.contains(id) { selection.remove(id) } else { selection.insert(id) } }
+    func ids(_ h: DiffHunk) -> [Int] { h.lines.filter { $0.kind == .added || $0.kind == .removed }.map(\.id) }
+    func selectAll(_ h: DiffHunk) { selection.formUnion(ids(h)) }
+    func clear(_ h: DiffHunk) { selection.subtract(ids(h)) }
     func prefix(_ k: DiffLine.Kind) -> String { k == .added ? "+" : k == .removed ? "-" : " " }
     func bg(_ k: DiffLine.Kind) -> Color { k == .added ? .green.opacity(0.14) : k == .removed ? .red.opacity(0.14) : .clear }
-    func apply(_ h: DiffHunk) {
+
+    func run(_ h: DiffHunk, _ action: Action) {
+        let chosen = Set(ids(h)).intersection(selection), file = diff
+        let label = action == .stage ? "Staging lines" : action == .unstage ? "Unstaging lines" : "Discarding lines"
+        model.perform(label) { repo in
+            switch action {
+            case .stage: try await repo.stageLines(file, hunk: h, lines: chosen)
+            case .unstage: try await repo.unstageLines(file, hunk: h, lines: chosen)
+            case .discard: try await repo.discardLines(file, hunk: h, lines: chosen)
+            }
+        }
+        selection = []; discardHunk = nil
+        onChange()
+    }
+    func applyWhole(_ h: DiffHunk) {
         let patch = diff.header + "\n" + h.patch
         model.perform(staged ? "Unstaging hunk" : "Staging hunk") { try await $0.applyPatch(patch, reverse: staged) }
         onChange()

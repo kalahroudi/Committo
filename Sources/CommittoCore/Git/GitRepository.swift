@@ -172,12 +172,27 @@ public struct GitRepository: Identifiable, Hashable, Codable, Sendable {
     public func discard(_ paths: [String], untracked: Bool = false) async throws {
         if untracked { try await git(["clean", "-f", "--"] + paths) } else { try await git(["restore", "--"] + paths) }
     }
-    /// Line/hunk staging: apply a patch to the index (or reverse-apply to unstage).
-    public func applyPatch(_ patch: String, reverse: Bool = false, toWorkTree: Bool = false) async throws {
-        var a = ["apply", "--recount", "--unidiff-zero"]
+    /// Applies a patch to the index (or the work tree), or reverse-applies it to unstage or discard.
+    /// Context lines are verified, so a patch never lands in the wrong place; `zeroContext` is only for `-U0` diffs.
+    public func applyPatch(_ patch: String, reverse: Bool = false, toWorkTree: Bool = false, zeroContext: Bool = false) async throws {
+        var a = ["apply", "--recount"]
+        if zeroContext { a.append("--unidiff-zero") }
         if !toWorkTree { a.append("--cached") }
         if reverse { a.append("-R") }
         try await git(a, stdin: patch)
+    }
+
+    /// Stages only the chosen added/removed lines of one hunk of an unstaged diff.
+    public func stageLines(_ file: FileDiff, hunk: DiffHunk, lines: Set<Int>) async throws {
+        try await applyPatch(try PatchBuilder.patch(file: file, hunk: hunk, selected: lines, reverse: false))
+    }
+    /// Unstages only the chosen lines of one hunk of a staged (`--cached`) diff.
+    public func unstageLines(_ file: FileDiff, hunk: DiffHunk, lines: Set<Int>) async throws {
+        try await applyPatch(try PatchBuilder.patch(file: file, hunk: hunk, selected: lines, reverse: true), reverse: true)
+    }
+    /// Throws away only the chosen lines of one hunk of an unstaged diff (destructive: the work tree changes).
+    public func discardLines(_ file: FileDiff, hunk: DiffHunk, lines: Set<Int>) async throws {
+        try await applyPatch(try PatchBuilder.patch(file: file, hunk: hunk, selected: lines, reverse: true), reverse: true, toWorkTree: true)
     }
     public func commit(_ message: String, amend: Bool = false, signoff: Bool = false) async throws {
         var a = ["commit", "-m", message]
