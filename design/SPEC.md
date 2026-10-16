@@ -1,6 +1,6 @@
 # Committo — Product & Technical Spec (v0, for approval)
 
-Status: **draft for approval**. The clickable mockup is `docs/mockup/index.html` (also published as an artifact). Nothing here is built beyond what `README.md` lists as done.
+Status: **draft for approval**. The clickable mockup is `design/mockup/index.html` (also published as an artifact). Nothing here is built beyond what `README.md` lists as done.
 
 ## 1. Goals and non-goals
 
@@ -48,7 +48,7 @@ Target: a complete desktop git client on macOS (clone, status and staging, histo
 4.4 **History:** lane-routed graph, search by message/author/hash/path, file history, blame, browse revision files, cherry-pick, revert, reset (soft/mixed/hard with preview), export ZIP/patch.
 4.5 **Stash:** save (incl. untracked), partial apply, inspect diff, drop.
 4.6 **Safety:** Undo (reflog-based, with a plain-language confirm), Reflog "Time Machine" restore to branch, automatic stash on pull/checkout.
-4.9 **History rewriting, force operations and recovery (mocks 6, 7):** the complete operation list, tiers, undo paths and MCP names are in `docs/GIT-OPERATIONS.md`. Safety model: preview, snapshot first, force push only with lease, name what is lost, one banner for any operation in progress (Continue, Skip, Abort), agents blocked from destructive tools by default. Interactive rebase is a plan list (pick, reword, edit, squash, fixup, drop, drag to reorder, autosquash) next to the resulting graph, with a backup saved before start and a force-with-lease prompt afterwards if the branch was pushed. Detached HEAD shows a banner to save to a branch. Switching with uncommitted changes offers Carry over, Stash or Discard (with snapshot).
+4.9 **History rewriting, force operations and recovery (mocks 6, 7):** the complete operation list, tiers, undo paths and MCP names are in `design/GIT-OPERATIONS.md`. Safety model: preview, snapshot first, force push only with lease, name what is lost, one banner for any operation in progress (Continue, Skip, Abort), agents blocked from destructive tools by default. Interactive rebase is a plan list (pick, reword, edit, squash, fixup, drop, drag to reorder, autosquash) next to the resulting graph, with a backup saved before start and a force-with-lease prompt afterwards if the branch was pushed. Detached HEAD shows a banner to save to a branch. Switching with uncommitted changes offers Carry over, Stash or Discard (with snapshot).
 4.7 **Flows:** git-flow naming option, LFS auto-detect and track, pull-rebase default option, default branch name setting.
 4.8 **Visualization and insights (mock 9, 11):** commit graph with agent and signature badges; activity heatmap; authorship split (human vs each agent); churn hotspots; review health (PR cycle time, first-try merge rate, stale PRs, CI pass rate); security summary. Stacked-branch ladder with PR state (mock 10).
 

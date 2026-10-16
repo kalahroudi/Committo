@@ -11,10 +11,10 @@
 
 <p align="center">
   <a href="https://kalahroudi.github.io/Committo/">Live preview</a> ·
-  <a href="docs/SPEC.md">Spec</a> ·
-  <a href="docs/mockup/index.html">Mockup</a> ·
-  <a href="docs/COVERAGE.md">Coverage</a> ·
-  <a href="docs/GIT-OPERATIONS.md">Git operations</a> ·
+  <a href="design/SPEC.md">Spec</a> ·
+  <a href="design/mockup/index.html">Mockup</a> ·
+  <a href="design/COVERAGE.md">Coverage</a> ·
+  <a href="design/GIT-OPERATIONS.md">Git operations</a> ·
   <a href="LICENSE">Apache 2.0</a>
 </p>
 
@@ -25,8 +25,8 @@ Paste this into Claude Code, Codex, Cursor or any agent that has access to this 
 ```text
 You are continuing development of Committo, a native macOS git client (Swift 5.9+, SwiftUI, macOS 14+).
 
-Read first, in order: README.md (status table), docs/SPEC.md (product + technical spec),
-docs/mockup/index.html (approved screens; open in a browser), Package.swift.
+Read first, in order: README.md (status table), design/SPEC.md (product + technical spec),
+design/mockup/index.html (approved screens; open in a browser), Package.swift.
 
 Ground rules
 - Modules: CommittoCore (Foundation-only; must build and test on Linux and macOS), Committo (SwiftUI app,
@@ -45,12 +45,12 @@ menu-bar item, the LAN CI server and the icon script were written but never comp
 (SPEC section 14): build on a Mac, fix compile errors, launch the app, verify the popover and main window.
 
 Then proceed M1 to M6 in order. After each milestone update the status table in README.md and add tests for any
-logic that does not need a UI. Ask before changing anything under docs/SPEC.md sections 1 and 11.
+logic that does not need a UI. Ask before changing anything under design/SPEC.md sections 1 and 11.
 ```
 
 ## Screenshots
 
-These are mockups of the intended UI (see [docs/mockup](docs/mockup/index.html)); the app is not shipped yet.
+These are mockups of the intended UI (see [design/mockup](design/mockup/index.html)); the app is not shipped yet.
 
 <table>
   <tr>
@@ -148,7 +148,7 @@ The site lives in `docs/`: a landing page with all screenshots (`docs/index.html
 1. GitHub: **Settings → Pages → Build and deployment → Source: Deploy from a branch**, branch `main`, folder `/docs`.
 2. After a minute it is live at **https://kalahroudi.github.io/Committo/** (mockup at `/demo/`).
 
-After editing `docs/mockup/index.html`, run `python3 Scripts/build-pages.py` to refresh `docs/demo/index.html` before committing.
+After editing `design/mockup/index.html`, run `python3 Scripts/build-pages.py` to refresh `docs/demo/index.html` before committing.
 
 ## License
 
