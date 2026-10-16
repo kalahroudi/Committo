@@ -46,12 +46,17 @@ Every request made so far, mapped to where it appears. Legend: **M** = in the mo
 
 1 Menu bar · 2 Changes · 3 Diff & merge · 4 PRs & issues · 5 New repo · 6 Agent Lens · 7 MCP surface · 8 Updates & signing · 9 History & graph · 10 Branches & stacks · 11 Insights & security · 12 Accounts, agents & CI · 13 First run & ⌘K · 14 Merge preview · 15 CI live · 16 Tailscale runners · 17 SecurityCage · 18 Tags & releases · 19 Logo
 
-## Known gaps (not yet in the mock)
+## Remaining mock screens
 
-- Interactive rebase editor and the rename/delete conflict card (named in the spec only).
-- PR creation form and inline review comments (PR screen shows the gates, not the diff review).
-- Issue detail and create form.
-- Clone-from-provider browser (the wizard has a Clone tab but no repo picker).
-- Blame and file-history views (buttons exist, no screen).
-- Image diff, patch import/export dialogs, git-flow and LFS settings beyond toggles.
-- Multiple-window layout and repo groups/tags.
+Grouped from `GIT-OPERATIONS.md` (22 operations not shown, 8 partly). Priority order:
+
+1. **Pull request: create and review.** Create form, inline review comments, suggested changes, approve or request changes.
+2. **Issue: detail and create.** Labels, linked PRs, start an agent on it.
+3. **Working-copy extras.** Clean untracked with a dry-run list, rename/move/delete a file, restore a file from a commit, create/apply patch, stash to branch, discard confirmation.
+4. **Recover.** Reflog restore, restore deleted branches, remove a file or secret from all history, reuse recorded conflict resolutions.
+5. **Blame, file history and search.** Blame view, file history, content search (pickaxe, grep), range-diff.
+6. **Clone and fork.** Provider repo picker, shallow, partial and sparse options, fork and upstream remote.
+7. **Remotes and branch settings.** Add, rename, remove, change URL; set upstream; rename and orphan branch; delete remote branch; pull options (fast-forward, rebase, merge).
+8. **Bisect.** Guided good/bad, optionally with an agent test as the oracle.
+9. **Repo settings.** Hooks, identity profiles and aliases, LFS, submodules, git-flow, maintenance (gc, fsck), notes, mailmap, attributes, export (ZIP, bundle, patch).
+10. **Smaller pieces.** Rename/delete conflict card, image diff, multiple windows, repo groups and tags.
