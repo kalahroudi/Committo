@@ -31,7 +31,7 @@ public actor MCPClient {
     }
 
     public func start() async throws {
-        stdout.fileHandleForReading.readabilityHandler = { [weak self] h in
+        stdout.fileHandleForReading.readabilityHandler = { @Sendable [weak self] h in
             let d = h.availableData
             guard !d.isEmpty, let self else { return }
             Task { await self.ingest(d) }

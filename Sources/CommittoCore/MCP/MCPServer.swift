@@ -14,7 +14,7 @@ public final class MCPServer: @unchecked Sendable {
     public func serveStdio() async {
         while let line = readLine(strippingNewline: true) {
             guard !line.isEmpty, let msg = JSONValue.parse(line) else { continue }
-            if let reply = await handle(msg) { print(reply.serialized()); fflush(stdout) }
+            if let reply = await handle(msg) { FileHandle.standardOutput.write(Data((reply.serialized() + "\n").utf8)) }
         }
     }
 
