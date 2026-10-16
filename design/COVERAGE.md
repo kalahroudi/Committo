@@ -39,6 +39,7 @@ Every request made so far, mapped to where it appears. Legend: **M** = in the mo
 | 34 | **GitHub Pages so the mockup and screenshots can be shared** | – | README | site built in `docs/`; **needs one-time Pages setting** (Settings → Pages → branch `main`, `/docs`) |
 | 35 | **All git operations: cherry-pick, interactive rebase, reset, force push and the rest** | 6, 7 (new) | §4.9, GIT-OPERATIONS.md | catalog of 64 operations; engine has 15 done and 20 basic; interactive rebase, continue/skip, force-lease flow not built |
 | 36 | **Everything tested; memory management** | – | §16, QUALITY.md | plan written; 16 Core tests today; app untested; 9 code risks listed and scheduled in the roadmap (SPEC §14) |
+| 37 | **Apache 2.0 license; no pricing yet** | – | §15 | LICENSE present; decision recorded |
 | 25 | main branch, protected; Apache 2.0; README with agent prompt, logo, screenshots | – | – | main + README + LICENSE done; protection **pending** (needs `Scripts/protect-main.sh`) |
 
 ## Screens in the mockup (21)
