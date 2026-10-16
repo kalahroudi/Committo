@@ -12,7 +12,9 @@ jobs:
       - run: swift test --sanitize=address
         env:
           ASAN_OPTIONS: detect_leaks=0
+      # act (ACT=true) runs this job in an arm64 Linux VM where TSan cannot start; GitHub's x86_64 runner is the reference.
       - run: swift test --sanitize=thread
+        if: ${{ !env.ACT }}
   app-macos:
     runs-on: macos-15
     steps:
