@@ -14,6 +14,7 @@
   <a href="docs/SPEC.md">Spec</a> ·
   <a href="docs/mockup/index.html">Mockup</a> ·
   <a href="docs/COVERAGE.md">Coverage</a> ·
+  <a href="docs/GIT-OPERATIONS.md">Git operations</a> ·
   <a href="LICENSE">Apache 2.0</a>
 </p>
 
@@ -87,6 +88,10 @@ These are mockups of the intended UI (see [docs/mockup](docs/mockup/index.html))
   <tr>
     <td><img src="docs/screenshots/ci.png" alt="CI live board"><br><sub><b>CI live</b>: every run on every runner, in one place</sub></td>
     <td><img src="docs/screenshots/securitycage.png" alt="SecurityCage setup"><br><sub><b>SecurityCage</b>: one-click pinned install, updates, auto PR scans</sub></td>
+  </tr>
+  <tr>
+    <td><img src="docs/screenshots/rebase.png" alt="Interactive rebase"><br><sub><b>Interactive rebase</b>: plan on the left, result on the right</sub></td>
+    <td><img src="docs/screenshots/rewrite.png" alt="Reset and force push"><br><sub><b>Reset and force push</b>: backups, leases, recovery</sub></td>
   </tr>
   <tr>
     <td><img src="docs/screenshots/tailscale.png" alt="Tailscale runners"><br><sub><b>Tailscale</b>: turn any of your machines into a CI runner, set up by the app</sub></td>

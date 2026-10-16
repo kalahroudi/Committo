@@ -37,9 +37,10 @@ Every request made so far, mapped to where it appears. Legend: **M** = in the mo
 | 32 | **Tailscale: local machines/servers connect as CI runners; setup automated in-app** | 15, 16, 12 | §7.11 | – (mock and spec only; untested against a real tailnet) |
 | 33 | **Managing branches whose PRs are merged** | 10 | §7.12 | – (spec and mock only) |
 | 34 | **GitHub Pages so the mockup and screenshots can be shared** | – | README | site built in `docs/`; **needs one-time Pages setting** (Settings → Pages → branch `main`, `/docs`) |
+| 35 | **All git operations: cherry-pick, interactive rebase, reset, force push and the rest** | 6, 7 (new) | §4.9, GIT-OPERATIONS.md | catalog of 64 operations; engine has 15 done and 20 basic; interactive rebase, continue/skip, force-lease flow not built |
 | 25 | main branch, protected; Apache 2.0; README with agent prompt, logo, screenshots | – | – | main + README + LICENSE done; protection **pending** (needs `Scripts/protect-main.sh`) |
 
-## Screens in the mockup (19)
+## Screens in the mockup (21)
 
 1 Menu bar · 2 Changes · 3 Diff & merge · 4 PRs & issues · 5 New repo · 6 Agent Lens · 7 MCP surface · 8 Updates & signing · 9 History & graph · 10 Branches & stacks · 11 Insights & security · 12 Accounts, agents & CI · 13 First run & ⌘K · 14 Merge preview · 15 CI live · 16 Tailscale runners · 17 SecurityCage · 18 Tags & releases · 19 Logo
 

@@ -22,7 +22,7 @@ pre = f"""<!doctype html>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="description" content="Interactive mockup of Committo, a native Mac git client for people who build with AI agents.">
 <meta property="og:title" content="Committo mockup">
-<meta property="og:description" content="19 clickable screens: menu-bar popover, merge preview, CI live board, SecurityCage, Tailscale runners and more.">
+<meta property="og:description" content="21 clickable screens: menu-bar popover, merge preview, CI live board, SecurityCage, Tailscale runners and more.">
 <meta property="og:image" content="{SITE}/screenshots/popover.png">
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary_large_image">
