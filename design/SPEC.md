@@ -164,7 +164,7 @@ Every milestone also carries its quality work from `design/QUALITY.md`. A milest
 - **Agent CLI flags drift.** Keep adapters as editable templates; add a "test agent" button.
 - **act fidelity** (macOS/Windows runners, secrets). Document unsupported workflows. The LAN runner is plain HTTP + token; recommend the Tailscale path (§7.11) for anything beyond a trusted network.
 - **Tailscale automation limits:** key creation and ACL changes need admin rights; background `serve` syntax, `status --json` fields and OAuth scopes must be verified on a real tailnet. Tagged devices get no identity headers, hence the controller-dials-runner design.
-- **SecurityCage supply chain:** installs from a commit pin without scripts and self-tests, but the tarball checksum is recorded on first download (trust on first use); add signed releases upstream so Committo can verify a publisher signature. The upstream `install.sh` and README install the wrong npm package.
+- **SecurityCage supply chain:** installs from a commit pin without scripts and self-tests, but the tarball checksum is recorded on first download (trust on first use); add signed releases upstream so Committo can verify a publisher signature. The upstream installer fix (branch `fix/install-from-github`) is pending merge.
 - **Decided:** licensed under Apache License 2.0 (source and binaries). No pricing for now; revisit after the public beta.
 - **Open:** whether to bundle Tree-sitter grammars or load on demand; Sparkle vs. a custom updater if distributed via the Mac App Store (Sparkle is not allowed there, so v1 is Developer ID only).
 
