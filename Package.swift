@@ -16,6 +16,7 @@ var targets: [Target] = [
 // SwiftUI menu-bar + window app.
 products.append(.executable(name: "CommittoApp", targets: ["CommittoApp"]))
 targets.append(.executableTarget(name: "CommittoApp", dependencies: ["CommittoCore"]))
+targets.append(.testTarget(name: "CommittoAppTests", dependencies: ["CommittoApp"]))
 #endif
 
 let package = Package(name: "Committo", platforms: [.macOS(.v14)], products: products, targets: targets)
