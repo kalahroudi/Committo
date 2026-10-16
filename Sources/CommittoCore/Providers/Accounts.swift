@@ -36,6 +36,9 @@ public struct Account: Codable, Identifiable, Hashable, Sendable {
     public var method: AuthMethod
     public var avatarURL: String?
     public var keychainKey: String { id }
+    public init(provider: ProviderKind, host: String, username: String, method: AuthMethod, avatarURL: String? = nil) {
+        self.provider = provider; self.host = host; self.username = username; self.method = method; self.avatarURL = avatarURL
+    }
 }
 
 public final class AccountStore: @unchecked Sendable {

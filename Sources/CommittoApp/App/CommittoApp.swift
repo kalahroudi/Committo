@@ -79,10 +79,29 @@ final class StatusItemController: NSObject {
         badgeTimer = Timer.scheduledTimer(withTimeInterval: 20, repeats: true) { [weak self] _ in Task { @MainActor in self?.updateBadge() } }
     }
 
+    /// The approved Committo glyph (docs/assets/menubar.svg, 24-unit grid, y down) drawn as a template image.
+    /// `badge` adds a dot at the top left to show live agent or dirty-repo activity.
     static func icon(badge: Bool) -> NSImage {
-        let cfg = NSImage.SymbolConfiguration(pointSize: 15, weight: .semibold)
-        let img = NSImage(systemSymbolName: badge ? "point.3.filled.connected.trianglepath.dotted" : "point.3.connected.trianglepath.dotted", accessibilityDescription: "Committo")?.withSymbolConfiguration(cfg) ?? NSImage()
+        let side: CGFloat = 18
+        let img = NSImage(size: NSSize(width: side, height: side), flipped: true) { rect in
+            let u = rect.width / 24
+            func P(_ x: CGFloat, _ y: CGFloat) -> NSPoint { NSPoint(x: x * u, y: y * u) }
+            func disc(_ x: CGFloat, _ y: CGFloat, _ r: CGFloat) -> NSBezierPath {
+                NSBezierPath(ovalIn: NSRect(x: (x - r) * u, y: (y - r) * u, width: 2 * r * u, height: 2 * r * u))
+            }
+            NSColor.black.set()
+            let lane = NSBezierPath(); lane.move(to: P(15.5, 21)); lane.line(to: P(15.5, 6.5))
+            let branch = NSBezierPath(); branch.move(to: P(8.5, 20.5))
+            branch.curve(to: P(15.5, 12.5), controlPoint1: P(8.5, 15.5), controlPoint2: P(15.5, 17))
+            let head = disc(15.5, 4.2, 2.5)
+            for path in [lane, branch, head] { path.lineWidth = 2.3 * u; path.lineCapStyle = .round; path.stroke() }
+            disc(15.5, 12.8, 2.1).fill()
+            disc(8.5, 20.2, 1.9).fill()
+            if badge { disc(4.5, 4.5, 3).fill() }
+            return true
+        }
         img.isTemplate = true
+        img.accessibilityDescription = "Committo"
         return img
     }
 

@@ -36,7 +36,7 @@ struct PopoverView: View {
 
     var header: some View {
         HStack(spacing: 10) {
-            ZStack { RoundedRectangle(cornerRadius: 8).fill(Theme.gradient); Image(systemName: "point.3.connected.trianglepath.dotted").foregroundStyle(.white).font(.system(size: 13, weight: .bold)) }.frame(width: 28, height: 28)
+            CommittoLogo().frame(width: 30, height: 30)
             HStack {
                 Image(systemName: "magnifyingglass").foregroundStyle(.secondary)
                 TextField("Jump to repo or branch", text: $query).textFieldStyle(.plain)

@@ -57,7 +57,7 @@ struct LensView: View {
                     if model.lens.isEmpty {
                         EmptyState(symbol: "eye.circle", title: "No agent work yet", message: "Branches and worktrees created by Claude, Codex, Cursor, Copilot, Aider and friends show up here, with live status.")
                     }
-                    ForEach(model.lens) { WorkCard(item: $0, selected: selected?.id == $0.id).onTapGesture { selected = $0 } }
+                    ForEach(model.lens) { item in WorkCard(item: item, selected: selected?.id == item.id).onTapGesture { selected = item } }
                 }.padding(16)
             }.frame(minWidth: 460)
             Group {

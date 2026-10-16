@@ -34,7 +34,7 @@ final class GitIntegrationTests: XCTestCase {
         XCTAssertEqual(rows.count, 4)
         XCTAssertEqual(rows.map(\.laneCount).max(), 2)
         let branches = try await repo.branches()
-        XCTAssertTrue(branches.contains { $0.name == "main" && $0.isCurrent })
+        XCTAssertTrue(branches.contains { $0.name == "main" && $0.isCurrent }, "branches: \(branches.map { ($0.name, $0.fullName, $0.isCurrent) })")
     }
 
     func testHunkStaging() async throws {

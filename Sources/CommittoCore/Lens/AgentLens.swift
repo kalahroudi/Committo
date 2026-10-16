@@ -79,7 +79,7 @@ public enum AgentLens {
         return items.sorted { ($0.isLive ? 1 : 0, $0.lastActivity) > ($1.isLive ? 1 : 0, $1.lastActivity) }
     }
 
-    static func defaultBase(_ repo: GitRepository) async -> String {
+    public static func defaultBase(_ repo: GitRepository) async -> String {
         if let s = try? await Shell.check("git", ["symbolic-ref", "--short", "refs/remotes/origin/HEAD"], cwd: repo.url) {
             return s.trimmingCharacters(in: .whitespacesAndNewlines)
         }
