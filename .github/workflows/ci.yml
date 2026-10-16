@@ -8,7 +8,10 @@ jobs:
       - uses: actions/checkout@v4
       - run: swift build --target CommittoCore -Xswiftc -strict-concurrency=complete -Xswiftc -warnings-as-errors
       - run: swift test
+      # LeakSanitizer is off on Linux: it reports one-time Foundation/libdispatch allocations (~0.5 MB) that are not ours.
       - run: swift test --sanitize=address
+        env:
+          ASAN_OPTIONS: detect_leaks=0
       - run: swift test --sanitize=thread
       - run: swift test --sanitize=undefined
   app-macos:
