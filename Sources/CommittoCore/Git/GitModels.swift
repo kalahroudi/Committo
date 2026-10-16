@@ -63,6 +63,8 @@ public struct DiffLine: Identifiable, Hashable, Sendable {
     public let text: String
     public let oldLine: Int?
     public let newLine: Int?
+    /// Followed by git's `\ No newline at end of file` marker.
+    public var noNewlineAtEnd = false
 }
 public struct DiffHunk: Identifiable, Hashable, Sendable { public var id: Int; public let header: String; public let lines: [DiffLine]; public let patch: String }
 public struct FileDiff: Identifiable, Hashable, Sendable {
@@ -75,4 +77,9 @@ public struct FileDiff: Identifiable, Hashable, Sendable {
     public var isTruncated = false
     public var additions: Int { hunks.flatMap(\.lines).filter { $0.kind == .added }.count }
     public var deletions: Int { hunks.flatMap(\.lines).filter { $0.kind == .removed }.count }
+}
+
+extension FileDiff {
+    /// Diff lines kept per file before the rest is dropped and `isTruncated` is set.
+    public static let maxLinesPerFile = DiffParser.defaultMaxLinesPerFile
 }
