@@ -26,6 +26,14 @@ public protocol HostingProvider: Sendable {
     func comment(repo: String, number: Int, body: String) async throws
     func createPullRequest(repo: String, title: String, body: String, head: String, base: String, draft: Bool) async throws -> PullRequest
     func merge(repo: String, number: Int, method: String) async throws
+    /// Registers an SSH public key as a *signing* key (not an authentication key) so commits show as verified.
+    func uploadSigningKey(title: String, publicKey: String) async throws
+}
+
+extension HostingProvider {
+    public func uploadSigningKey(title: String, publicKey: String) async throws {
+        throw ProviderError(message: "Uploading signing keys is not supported for \(kind.rawValue) yet. Add the key in the provider's web settings.")
+    }
 }
 
 public struct ProviderError: LocalizedError, Sendable { public let message: String; public var errorDescription: String? { message } }
@@ -77,6 +85,10 @@ public struct GitHubProvider: HostingProvider {
                     comments: (j["comments"]?.int ?? 0) + (j["review_comments"]?.int ?? 0), state: j["merged"]?.bool == true ? "merged" : (j["state"]?.string ?? "open"))
     }
     public func currentUser() async throws -> String { try await HTTP.json(request("/user"))["login"]?.string ?? "" }
+    func signingKeyRequest(title: String, publicKey: String) -> URLRequest {
+        request("/user/ssh_signing_keys", method: "POST", body: ["title": .string(title), "key": .string(publicKey)])
+    }
+    public func uploadSigningKey(title: String, publicKey: String) async throws { _ = try await HTTP.json(signingKeyRequest(title: title, publicKey: publicKey)) }
     public func repositories(limit: Int) async throws -> [RemoteRepo] {
         try await HTTP.json(request("/user/repos?sort=pushed&per_page=\(min(limit, 100))")).array?.map {
             RemoteRepo(fullName: $0["full_name"]?.string ?? "", cloneURL: $0["clone_url"]?.string ?? "", htmlURL: $0["html_url"]?.string ?? "", description: $0["description"]?.string,
@@ -124,6 +136,10 @@ public struct GitLabProvider: HostingProvider {
                     changedFiles: Int(j["changes_count"]?.string ?? "") ?? 0, comments: j["user_notes_count"]?.int ?? 0, state: j["state"]?.string == "opened" ? "open" : (j["state"]?.string ?? "open"))
     }
     public func currentUser() async throws -> String { try await HTTP.json(request("/user"))["username"]?.string ?? "" }
+    func signingKeyRequest(title: String, publicKey: String) -> URLRequest {
+        request("/user/keys", method: "POST", body: ["title": .string(title), "key": .string(publicKey), "usage_type": "signing"])
+    }
+    public func uploadSigningKey(title: String, publicKey: String) async throws { _ = try await HTTP.json(signingKeyRequest(title: title, publicKey: publicKey)) }
     public func repositories(limit: Int) async throws -> [RemoteRepo] {
         try await HTTP.json(request("/projects?membership=true&order_by=last_activity_at&per_page=\(min(limit, 100))")).array?.map {
             RemoteRepo(fullName: $0["path_with_namespace"]?.string ?? "", cloneURL: $0["http_url_to_repo"]?.string ?? "", htmlURL: $0["web_url"]?.string ?? "", description: $0["description"]?.string,
