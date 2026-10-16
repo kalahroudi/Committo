@@ -13,7 +13,6 @@ jobs:
         env:
           ASAN_OPTIONS: detect_leaks=0
       - run: swift test --sanitize=thread
-      - run: swift test --sanitize=undefined
   app-macos:
     runs-on: macos-15
     steps:
@@ -22,3 +21,4 @@ jobs:
       - run: swift test
       - run: swift test --sanitize=address
       - run: swift test --sanitize=thread
+      - run: swift test --sanitize=undefined
