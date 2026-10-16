@@ -6,6 +6,10 @@ struct PopoverView: View {
     @State private var query = ""
     @State private var showClone = false
     @State private var cloneURL = ""
+    @State private var cloneBranch = ""
+    @State private var cloneSubmodules = true
+    @State private var cloneSSHToHTTPS = false
+    @State private var cloneLFS = 0
 
     var filtered: [RepoSummary] {
         query.isEmpty ? model.recents : model.recents.filter { $0.repo.name.localizedCaseInsensitiveContains(query) || $0.branch.localizedCaseInsensitiveContains(query) }
@@ -90,11 +94,21 @@ struct PopoverView: View {
         VStack(alignment: .leading, spacing: 12) {
             Text("Clone repository").font(.headline)
             TextField("https://github.com/owner/repo.git", text: $cloneURL).textFieldStyle(.roundedBorder)
+            TextField("Branch (optional)", text: $cloneBranch).textFieldStyle(.roundedBorder)
+            Toggle("Initialise submodules", isOn: $cloneSubmodules)
+            Toggle("Use HTTPS for SSH submodule URLs", isOn: $cloneSSHToHTTPS).disabled(!cloneSubmodules)
+            Picker("Git LFS files", selection: $cloneLFS) {
+                Text("Download now").tag(0); Text("On demand").tag(1)
+            }
             HStack { Spacer(); Button("Cancel") { showClone = false }
                 Button("Clone to ~/Developer") {
                     let dir = FileManager.default.homeDirectoryForCurrentUser.appendingPathComponent("Developer")
                     try? FileManager.default.createDirectory(at: dir, withIntermediateDirectories: true)
-                    model.clone(cloneURL, to: dir); showClone = false
+                    var o = CloneOptions()
+                    o.branch = cloneBranch.isEmpty ? nil : cloneBranch
+                    o.submodules = cloneSubmodules; o.sshToHTTPS = cloneSSHToHTTPS
+                    o.lfs = cloneLFS == 0 ? .now : .onDemand
+                    model.clone(cloneURL, to: dir, options: o); showClone = false
                 }.keyboardShortcut(.defaultAction).disabled(cloneURL.isEmpty) }
         }.padding(20).frame(width: 360)
     }
