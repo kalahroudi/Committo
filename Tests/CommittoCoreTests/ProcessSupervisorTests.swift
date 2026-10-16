@@ -26,7 +26,13 @@ final class ProcessSupervisorTests: XCTestCase {
         let end = Date().addingTimeInterval(timeout)
         while !cond() { if Date() > end { XCTFail("timed out waiting for: \(what)"); return }; try await Task.sleep(nanoseconds: 50_000_000) }
     }
-    func isAlive(_ pid: pid_t) -> Bool { kill(pid, 0) == 0 || errno == EPERM }
+    /// Alive means running. A killed orphan can linger as a zombie where PID 1 is not an init (CI containers); that is dead.
+    func isAlive(_ pid: pid_t) -> Bool {
+        guard kill(pid, 0) == 0 || errno == EPERM else { return false }
+        if let stat = try? String(contentsOfFile: "/proc/\(pid)/stat", encoding: .utf8),
+           let close = stat.lastIndex(of: ")"), stat[stat.index(close, offsetBy: 2)...].first == "Z" { return false }
+        return true
+    }
     /// `sh` that starts a grandchild sleeper, records its pid in a file, then sleeps itself.
     var treeScript: (script: String, pidFile: URL) {
         let f = dir.appendingPathComponent("grandchild.pid")
