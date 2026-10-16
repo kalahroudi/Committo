@@ -28,15 +28,33 @@ public protocol HostingProvider: Sendable {
     func merge(repo: String, number: Int, method: String) async throws
     /// Registers an SSH public key as a *signing* key (not an authentication key) so commits show as verified.
     func uploadSigningKey(title: String, publicKey: String) async throws
+    /// Starts a fork of `repo`. The provider finishes it asynchronously; poll `isForkReady` before cloning.
+    func fork(repo: String, options: ForkOptions) async throws -> RemoteRepo
+    func isForkReady(fullName: String) async throws -> Bool
+}
+
+public struct ForkOptions: Sendable, Equatable {
+    public var owner: String?           // organisation / namespace; nil = the signed-in user
+    public var name: String?
+    public var defaultBranchOnly = false
+    public init(owner: String? = nil, name: String? = nil, defaultBranchOnly: Bool = false) { self.owner = owner; self.name = name; self.defaultBranchOnly = defaultBranchOnly }
 }
 
 extension HostingProvider {
     public func uploadSigningKey(title: String, publicKey: String) async throws {
         throw ProviderError(message: "Uploading signing keys is not supported for \(kind.rawValue) yet. Add the key in the provider's web settings.")
     }
+    public func fork(repo: String, options: ForkOptions) async throws -> RemoteRepo {
+        throw ProviderError(message: "Forking is not supported for \(kind.rawValue) yet. Fork in the provider's web UI, then clone your fork.")
+    }
+    public func isForkReady(fullName: String) async throws -> Bool { true }
 }
 
-public struct ProviderError: LocalizedError, Sendable { public let message: String; public var errorDescription: String? { message } }
+public struct ProviderError: LocalizedError, Sendable {
+    public let message: String
+    public var status: Int? = nil
+    public var errorDescription: String? { message }
+}
 
 enum HTTP {
     // ISO8601DateFormatter is thread-safe for date(from:) and is never reconfigured after init.
@@ -47,7 +65,7 @@ enum HTTP {
         let (d, resp) = try await URLSession.shared.data(for: req)
         if let h = resp as? HTTPURLResponse, !(200..<300).contains(h.statusCode) {
             let msg = (try? JSONDecoder().decode(JSONValue.self, from: d))?["message"]?.string ?? "HTTP \(h.statusCode)"
-            throw ProviderError(message: msg)
+            throw ProviderError(message: msg, status: h.statusCode)
         }
         return d.isEmpty ? .null : try JSONDecoder().decode(JSONValue.self, from: d)
     }
@@ -89,6 +107,22 @@ public struct GitHubProvider: HostingProvider {
         request("/user/ssh_signing_keys", method: "POST", body: ["title": .string(title), "key": .string(publicKey)])
     }
     public func uploadSigningKey(title: String, publicKey: String) async throws { _ = try await HTTP.json(signingKeyRequest(title: title, publicKey: publicKey)) }
+    func remoteRepo(_ j: JSONValue) -> RemoteRepo {
+        RemoteRepo(fullName: j["full_name"]?.string ?? "", cloneURL: j["clone_url"]?.string ?? "", htmlURL: j["html_url"]?.string ?? "", description: j["description"]?.string,
+                   isPrivate: j["private"]?.bool ?? false, updatedAt: HTTP.date(j["pushed_at"]?.string), language: j["language"]?.string, stars: j["stargazers_count"]?.int ?? 0)
+    }
+    func forkRequest(repo: String, options: ForkOptions) -> URLRequest {
+        var b: [String: JSONValue] = [:]
+        if let o = options.owner { b["organization"] = .string(o) }
+        if let n = options.name { b["name"] = .string(n) }
+        if options.defaultBranchOnly { b["default_branch_only"] = .bool(true) }
+        return request("/repos/\(repo)/forks", method: "POST", body: .object(b))
+    }
+    public func fork(repo: String, options: ForkOptions) async throws -> RemoteRepo { remoteRepo(try await HTTP.json(forkRequest(repo: repo, options: options))) }
+    /// GitHub answers 404 for a fork until it exists.
+    public func isForkReady(fullName: String) async throws -> Bool {
+        do { _ = try await HTTP.json(request("/repos/\(fullName)")); return true } catch let e as ProviderError where e.status == 404 { return false }
+    }
     public func repositories(limit: Int) async throws -> [RemoteRepo] {
         try await HTTP.json(request("/user/repos?sort=pushed&per_page=\(min(limit, 100))")).array?.map {
             RemoteRepo(fullName: $0["full_name"]?.string ?? "", cloneURL: $0["clone_url"]?.string ?? "", htmlURL: $0["html_url"]?.string ?? "", description: $0["description"]?.string,
@@ -140,6 +174,28 @@ public struct GitLabProvider: HostingProvider {
         request("/user/keys", method: "POST", body: ["title": .string(title), "key": .string(publicKey), "usage_type": "signing"])
     }
     public func uploadSigningKey(title: String, publicKey: String) async throws { _ = try await HTTP.json(signingKeyRequest(title: title, publicKey: publicKey)) }
+    func remoteRepo(_ j: JSONValue) -> RemoteRepo {
+        RemoteRepo(fullName: j["path_with_namespace"]?.string ?? "", cloneURL: j["http_url_to_repo"]?.string ?? "", htmlURL: j["web_url"]?.string ?? "", description: j["description"]?.string,
+                   isPrivate: j["visibility"]?.string != "public", updatedAt: HTTP.date(j["last_activity_at"]?.string), language: nil, stars: j["star_count"]?.int ?? 0)
+    }
+    func forkRequest(repo: String, options: ForkOptions, branches: String? = nil) -> URLRequest {
+        var b: [String: JSONValue] = [:]
+        if let o = options.owner { b["namespace_path"] = .string(o) }
+        if let n = options.name { b["name"] = .string(n); b["path"] = .string(n) }
+        if let branches { b["branches"] = .string(branches) }
+        return request("/projects/\(enc(repo))/fork", method: "POST", body: .object(b))
+    }
+    public func fork(repo: String, options: ForkOptions) async throws -> RemoteRepo {
+        var branches: String?
+        if options.defaultBranchOnly { branches = try await HTTP.json(request("/projects/\(enc(repo))"))["default_branch"]?.string }
+        return remoteRepo(try await HTTP.json(forkRequest(repo: repo, options: options, branches: branches)))
+    }
+    /// A GitLab fork is an import; it is usable once `import_status` is finished (or absent).
+    public func isForkReady(fullName: String) async throws -> Bool {
+        let st = try await HTTP.json(request("/projects/\(enc(fullName))"))["import_status"]?.string
+        if st == "failed" { throw ProviderError(message: "GitLab could not finish creating the fork.") }
+        return st == nil || st == "none" || st == "finished"
+    }
     public func repositories(limit: Int) async throws -> [RemoteRepo] {
         try await HTTP.json(request("/projects?membership=true&order_by=last_activity_at&per_page=\(min(limit, 100))")).array?.map {
             RemoteRepo(fullName: $0["path_with_namespace"]?.string ?? "", cloneURL: $0["http_url_to_repo"]?.string ?? "", htmlURL: $0["web_url"]?.string ?? "", description: $0["description"]?.string,
