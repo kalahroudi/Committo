@@ -140,7 +140,7 @@ Scripts/bundle.sh      # macOS: universal Committo.app in ./dist (generates the 
 ## Git feature coverage
 
 Done/partial: clone & accounts (clone options: branch, depth, sparse, LFS modes, submodules with per-item results), status w/ diffs, hunk and line-level staging, SSH commit signing with verified badges, commit/amend, AI commit messages, discard, ignore, stash, branches/tags/remotes, merge/rebase/cherry-pick/revert, force-with-lease, history search, undo, reflog, worktrees, submodules (engine), dark mode, command-line tool, PRs (GitHub/GitLab).
-Missing: conflict wizard, interactive rebase, git-flow, LFS size prompt and install offer, fork and sync, profiles, external diff, GPG and 1Password signing (SSH signing is done),  groups/tags for repos, multiple windows, git-svn.
+Missing: conflict wizard, interactive rebase, git-flow, LFS size prompt and install offer, fork and sync UI (engine done), profiles, external diff, GPG and 1Password signing (SSH signing is done),  groups/tags for repos, multiple windows, git-svn.
 
 ## Share the mockup (GitHub Pages)
 
