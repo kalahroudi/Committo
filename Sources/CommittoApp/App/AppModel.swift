@@ -29,6 +29,8 @@ final class AppModel {
     var worktrees: [Worktree] = []
     var lens: [AgentWorkItem] = []
     var reflog: [ReflogEntry] = []
+    /// Verification results for the newest commits of the current repo (signed commits cost a verifier process each).
+    var signatures: [String: SignatureInfo] = [:]
     var pane: Pane = .changes
     var busy = false
     var busyLabel = ""
@@ -59,6 +61,7 @@ final class AppModel {
     func open(_ url: URL, show: Bool = false) async {
         RepoStore.shared.touch(url)
         current = GitRepository(url: url)
+        signatures = [:]
         await refresh()
         if show { openMainWindow?(); closePopover?() }
     }
@@ -76,6 +79,13 @@ final class AppModel {
         rows = CommitGraph.layout(await log ?? [])
         branches = await br ?? []; stashes = await sh ?? []; tags = await tg ?? []; worktrees = await wt ?? []; reflog = await rl ?? []
         lens = await AgentLens.scan(r)
+        await loadSignatures(r)
+    }
+
+    func loadSignatures(_ r: GitRepository) async {
+        let todo = rows.prefix(100).map(\.commit.hash).filter { signatures[$0] == nil }
+        guard !todo.isEmpty, let got = try? await r.signatures(for: todo), current?.url == r.url else { return }
+        signatures.merge(got) { _, new in new }
     }
 
     /// Runs a git action with busy/error handling, then refreshes.

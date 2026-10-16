@@ -21,7 +21,7 @@ struct HistoryView: View {
                         ForEach(rows) { row in
                             HStack(spacing: 0) {
                                 GraphLane(row: row).frame(width: laneWidth, height: 30)
-                                CommitLine(row: row)
+                                CommitLine(row: row, signature: model.signatures[row.commit.hash])
                             }.frame(height: 30)
                             .background(selected?.id == row.id ? Theme.accent.opacity(0.18) : .clear)
                             .contentShape(Rectangle()).onTapGesture { selected = row; Task { files = (try? await model.current?.show(row.commit.hash)) ?? [] } }
@@ -73,6 +73,7 @@ struct DiffMini: View {
 
 struct CommitLine: View {
     let row: GraphRow
+    var signature: SignatureInfo?
     var body: some View {
         HStack(spacing: 8) {
             ForEach(row.commit.refs.prefix(3), id: \.self) { r in
@@ -82,6 +83,11 @@ struct CommitLine: View {
             let kind = AgentKind.detect(author: row.commit.author, email: row.commit.email, coAuthors: row.commit.coAuthors)
             if kind != .human { Image(systemName: kind.symbol).font(.system(size: 10)).foregroundStyle(Theme.accent2).help(kind.displayName) }
             Text(row.commit.subject).font(.system(size: 13)).lineLimit(1)
+            if let sig = signature, sig.status.isSigned {
+                Image(systemName: sig.status.isVerified ? "checkmark.seal.fill" : "exclamationmark.seal")
+                    .font(.system(size: 11)).foregroundStyle(sig.status.isVerified ? .green : .orange)
+                    .help(sig.status.isVerified ? "Verified signature\(sig.signer.map { " from \($0)" } ?? "")" : "Signed, but not verified (\(sig.status))")
+            }
             Spacer(minLength: 8)
             Text(row.commit.author).font(.caption).foregroundStyle(.secondary).lineLimit(1)
             Text(row.commit.date.relative).font(.caption).foregroundStyle(.tertiary).frame(width: 90, alignment: .trailing)

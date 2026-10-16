@@ -6,6 +6,7 @@ struct SettingsView: View {
     var body: some View {
         TabView {
             AccountsTab().tabItem { Label("Accounts", systemImage: "person.crop.circle") }
+            SigningTab().tabItem { Label("Signing", systemImage: "checkmark.seal") }
             AgentsTab().tabItem { Label("Agents", systemImage: "sparkles") }
             MCPTab().tabItem { Label("MCP", systemImage: "point.3.connected.trianglepath.dotted") }
             GeneralTab().tabItem { Label("General", systemImage: "gearshape") }
