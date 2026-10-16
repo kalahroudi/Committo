@@ -79,6 +79,8 @@ Crash and hang reporting is opt-in and local first (MetricKit diagnostics). Any 
 
 ## Milestone exits
 
+The same items are tracked in the roadmap table in `SPEC.md` §14.
+
 - **M0:** app compiles; sanitizers wired in CI; deinit canaries for controllers; main-thread scan fixed.
 - **M1:** process supervisor, streaming parsers, ring buffers, per-repo write queue; undo-equality property tests for every working-copy and history operation.
 - **M2:** merge tool tests, including "result never contains conflict markers" and undo.

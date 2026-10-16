@@ -145,15 +145,17 @@ Stacked branches and a stack-aware PR flow, automatic branch cleanup, PR-based m
 
 ## 14. Milestones
 
-| M | Scope | Exit criteria |
-|---|---|---|
-| M0 | Build the existing scaffold on a Mac; fix compile errors; icon + bundle | App launches, popover and window usable |
-| M1 | Core git parity (§4), line staging, signing | Daily-drive on own repos |
-| M2 | Diff/merge tool (§5) with AI link | Resolve real conflicts without leaving app |
-| M3 | PRs/issues + gates (§7), CI runners | Review a PR end to end locally |
-| M4 | Repo wizard + rulesets (§6) | New repo to first green CI in one screen |
-| M5 | Action registry + MCP tiers + audit (§11) | Registry test enforces coverage |
-| M6 | Sparkle updates, notarization, public beta (§12) | Update from 0.1 to 0.2 on a clean Mac |
+Every milestone also carries its quality work from `design/QUALITY.md`. A milestone is not done until its quality items pass in CI.
+
+| M | Scope | Exit criteria | Quality and known-risk fixes (from QUALITY.md) |
+|---|---|---|---|
+| M0 | Build the existing scaffold on a Mac; fix compile errors; icon + bundle | App launches, popover and window usable | Sanitizers (address, thread, undefined) and strict concurrency in CI; deinit canaries for window and popover controllers; move the launch-time repo scan off the main thread; tear down the menu-bar timer |
+| M1 | Core git parity (§4, `GIT-OPERATIONS.md`), line staging, signing, interactive rebase, reset and force-with-lease flows | Daily-drive on own repos | Streaming parsers with output caps (no unbounded buffers); one process supervisor that kills whole process trees on cancel, timeout and quit; ring buffers for CI and agent logs; paged graph layout with cache; batched Lens scan; per-repo write queue; replace or test the 8 `@unchecked Sendable` spots; undo-equality property tests for every working-copy and history operation; every catalog row has a test |
+| M2 | Diff/merge tool (§5) with AI link | Resolve real conflicts without leaving app | Result never contains conflict markers; undo restores the pre-resolution state; preview-equals-reality test for merge, squash and rebase |
+| M3 | PRs/issues + gates (§7), CI runners | Review a PR end to end locally | Provider contract tests; CI and agent cancellation tests (no orphan processes); weekly 24-hour soak starts; memory-pressure response test |
+| M4 | Repo wizard + rulesets (§6) | New repo to first green CI in one screen | Wizard and ruleset tests against a throwaway GitHub repo; failure-injection tests (disk full, network drop, killed git) |
+| M5 | Action registry + MCP tiers + audit (§11) | Registry test enforces coverage | Registry test enforces tier, schema and catalog traceability; MCP protocol conformance and fuzz tests |
+| M6 | Sparkle updates, notarization, public beta (§12) | Update from 0.1 to 0.2 on a clean Mac | Updater tests (tampered archive, downgrade, rollback); 72-hour soak and Instruments pass; two-week beta with at least 99.5% crash-free sessions and no open data-loss bug |
 
 ## 15. Risks and open questions
 
